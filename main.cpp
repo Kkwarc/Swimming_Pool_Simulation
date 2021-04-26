@@ -5,5 +5,7 @@ using namespace std;
 
 int main()
 {
+    Test q;
+    q.test();
     return 0;
 }
