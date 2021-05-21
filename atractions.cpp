@@ -82,11 +82,6 @@ const std::vector<Client> Atraction::get_people() const
     return people;
 }
 
-void Atraction::operator<<(Client& person)
-{
-    people.push_back(person);
-}
-
 Atraction Atraction::operator=(Atraction& atraction2)
 {
     atraction_nr=atraction2.get_atraction_nr();

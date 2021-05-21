@@ -1,11 +1,20 @@
 #ifndef lifeguard_h
 #define lifeguard_h
+
 #include <iostream>
 #include <vector>
 #include <sstream>
+
 using namespace std;
 
-class Lifeguard{
+// operatory porownania
+// godziny pracy
+// atrakcja ktorej pilnuja
+// j###c zw###ki za####we => pracujemy caly czas
+// poziom umiejetnosci chyba na int?
+
+class Lifeguard
+{
     protected:
     string name, surname;
     int work_id;
@@ -24,6 +33,5 @@ class Lifeguard{
     void change_experience(string new_experience);
     void show_worker_info();
 
-    friend class Testing;
 };
 #endif

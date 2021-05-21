@@ -6,6 +6,11 @@
 #include <string>
 #include <algorithm>
 
+// dodac ile czasu jeszcze siedzi na basenie
+// wersja ulgowa?
+// gdzie teraz plywa
+// # 2 rozne id
+
 class Client
 {
 public:
@@ -16,6 +21,7 @@ public:
         card_id = 0;
         carnet_id = 0;
         attractions = {};
+        // bool ulga = false;
     }
 
     Client(std::string name,

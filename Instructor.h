@@ -1,13 +1,22 @@
 #ifndef instructor_h
 #define instructor_h
+
 #include <iostream>
 #include <vector>
 #include <sstream>
 #include "client.h"
 #include "Lifeguard.h"
+
 using namespace std;
 
-class Instructor :public Lifeguard{
+// operatory porownania
+// gdzie teraz plywa
+// godziny pracy
+// j###c zw###ki za####we => pracujemy caly czas
+// poziom umiejetnosci chyba na int?
+
+class Instructor :public Lifeguard
+{
     private:
     vector <string> skills;
     vector <Client> group;
@@ -22,6 +31,5 @@ class Instructor :public Lifeguard{
     void add_skill(string new_skill);
     void remove_skill(string old_skill);
 
-    friend class Testing;
 };
 #endif

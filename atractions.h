@@ -14,7 +14,7 @@ class Atraction
     int atraction_nr;
     int people_limit;
     std::vector<Client> people;
-    Lifeguard lifeguard;
+    Lifeguard lifeguard; // wsadzic do wektora - moze
 public:
     Atraction();
     Atraction(std::string nam, int atraction_nr, int people_limit, std::vector<Client> people, Lifeguard lifeguard);
@@ -27,7 +27,6 @@ public:
     Lifeguard get_lifeguard() const;
     std::string set_people(std::vector<Client> new_people);
     const std::vector<Client> get_people() const;
-    void operator<<(Client& person);
     Atraction operator=(Atraction& atraction2);
     int search_list(int card_id);
     std::string remove_person(int card_id);
@@ -48,14 +47,12 @@ public:
     bool is_reserved();
     int current_ppl();
     void reserve_track(Instructor inst, std::vector<Client> group);
-
 };
 
 class Swimming_Pool: public Atraction
 {
     int tr_nr;
     int length;
-    std::vector<Lifeguard> lifeguards;
     std::vector<Track> tracks;
 public:
     Swimming_Pool();
@@ -67,33 +64,13 @@ public:
     void exit_pool(Client& clnt);
 };
 
+// wsadzic to w sensowne miejsce
+////////////
 struct Time
 {
     int hour;
     int minutes;
 };
-
-class Da_Pool
-{
-    std::vector<Atraction> atractions;
-    int max_ppl;
-    int attr_nr;
-    std::vector<Lifeguard> staff_available;
-    std::vector<Client> clients;
-    Time start_time;
-    Time closing_time;
-    Time* reservations;
-    int reservations_nr;
-public:
-    Da_Pool();
-    Da_Pool(Time st_time, Time cl_time, int max_ppl, int attr_nr, std::vector<Atraction> atractions);
-    void add_client(Client& client, Atraction& atr, int time);
-    void change_atr(Client& client, Atraction& atr1, Atraction& atr2);
-    void exit_da_pool(Client& client);
-    void staff_come(Lifeguard& staff);
-    void staff_exit(Lifeguard& staff);
-    void assign_lifeguard(Lifeguard& lif, Atraction& atr);
-    void reservation(std::string difficulty, Time start, Time stop, Instructor& inst);
-};
+////////////
 
 #endif
