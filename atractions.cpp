@@ -6,14 +6,16 @@ using namespace std;
 
 Atraction::Atraction()
 {
+    name = "";
     atraction_nr=0;
     people_limit=0;
     people={};
     lifeguard=Lifeguard();
 }
 
-Atraction::Atraction(int atr_nr, int ppl_limit, std::vector<Client> ppl, Lifeguard lfguard)
+Atraction::Atraction(string nam, int atr_nr, int ppl_limit, std::vector<Client> ppl, Lifeguard lfguard)
 {
+    name = nam;
     atraction_nr=atr_nr;
     people_limit=ppl_limit;
     people=ppl;
@@ -78,24 +80,6 @@ string Atraction::set_people(std::vector<Client> new_people)
 const std::vector<Client> Atraction::get_people() const
 {
     return people;
-}
-
-bool Atraction::operator==(Atraction atraction2)
-{
-    if (lifeguard==atraction2.get_lifeguard() and people == atraction2.get_people() and atraction_nr == atraction2.get_atraction_nr() and people_limit == atraction2.get_people_limit())
-    {
-        return true;
-    }
-    return false;
-}
-
-bool Atraction::operator!=(Atraction atraction2)
-{
-    if (lifeguard==atraction2.get_lifeguard() and people == atraction2.get_people() and atraction_nr == atraction2.get_atraction_nr() and people_limit == atraction2.get_people_limit())
-    {
-        return false;
-    }
-    return true;
 }
 
 void Atraction::operator<<(Client& person)
