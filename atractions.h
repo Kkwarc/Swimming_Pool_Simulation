@@ -33,7 +33,6 @@ public:
     std::string remove_person(int card_id);
     std::string add_person(Client person);
 };
-#endif
 
 class Track: public Atraction
 {
@@ -96,3 +95,5 @@ public:
     void assign_lifeguard(Lifeguard& lif, Atraction& atr);
     void reservation(std::string difficulty, Time start, Time stop, Instructor& inst);
 };
+
+#endif

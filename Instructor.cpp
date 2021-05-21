@@ -13,14 +13,14 @@ Instructor::Instructor(string na, string sur, int wid, string ex, vector <string
     group = gr;
 }
 
-//tutaj by sie podawalo sam id karty ludka i sie go dodaje wtedy git nie 
+//tutaj by sie podawalo sam id karty ludka i sie go dodaje wtedy git nie
 void Instructor::add_persongroup(Client new_person){
         group.push_back(new_person);
 }
 
 void Instructor::remove_persongroup(int old_client_card_id){
     bool t = false;
-    for(int i = 0; i < group.size(); i++){
+    for(long long unsigned int i = 0; i < group.size(); i++){
         if(group[i].card_id == old_client_card_id){
             group.erase(group.begin() + i);
             t = true;
@@ -40,7 +40,7 @@ void Instructor::add_skill(string new_skill){
 
 void Instructor::remove_skill(string old_skill){
     bool t = false;
-    for(int i = 0; i < skills.size(); i++){
+    for(long long unsigned int i = 0; i < skills.size(); i++){
         if(skills[i] == old_skill){
             skills.erase(skills.begin() + i);
             t = true;
@@ -63,7 +63,7 @@ void Instructor::show_worker_info(){
             cout << "None" << endl;
         }
         else{
-            for ( int i = 0; i < skills.size(); i++){
+            for (long long unsigned int i = 0; i < skills.size(); i++){
                 if (i==skills.size()-1){
                     cout << skills[i];
                 }
@@ -78,7 +78,7 @@ void Instructor::show_worker_info(){
             cout << "None" << endl;
         }
         else{
-            for ( int i = 0; i < group.size(); i++){
+            for (long long unsigned int i = 0; i < group.size(); i++){
                 if (i==group.size()-1){
                     cout << group[i].name <<": "<<group[i].card_id;
                 }

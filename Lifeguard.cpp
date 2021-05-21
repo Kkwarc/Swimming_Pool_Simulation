@@ -15,10 +15,9 @@ int Lifeguard::get_int(){
     int digit;
     while(true)
     {
-        cin;
         string line;
         char rest;
-        if (!getline(cin, line)) 
+        if (!getline(cin, line))
         {
             cout<<"Recevied no input, try again: "<<endl;
         }
@@ -62,8 +61,8 @@ void Lifeguard::change_experience(){
     int action;
     bool choosing=true;
     while (choosing==true){
-        cout << "Experience has to be chosen from the following levels:" << endl;        
-        cout << "1-beginner \n2-intermediate \n3-advanced" << endl; 
+        cout << "Experience has to be chosen from the following levels:" << endl;
+        cout << "1-beginner \n2-intermediate \n3-advanced" << endl;
         cout << "Select level: ";
         action = get_int();
         if(!cin){

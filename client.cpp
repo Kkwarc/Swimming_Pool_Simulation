@@ -94,7 +94,7 @@ void Client::get_attractions() const
     else
     {
         cout << "Available attractions: " << endl;
-        for (int i = 0; i < attractions.size(); i++)
+        for (long long unsigned int i = 0; i < attractions.size(); i++)
         {
             cout << attractions[i] << endl;
         }
