@@ -21,7 +21,7 @@ class Lifeguard{
     void change_name(string new_name);
     void change_surname(string new_surname);
     void change_work_id(int new_work_id);
-    void change_experience();
+    void change_experience(string new_experience);
     void show_worker_info();
 
     friend class Testing;
