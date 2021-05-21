@@ -1,3 +1,4 @@
+// wstepne przemyslenia nad wygladem
 // przeglad dnia, i am a creeper minecraft's grim reaper blowing up blocks like al-qaeda
 {
     8 {
