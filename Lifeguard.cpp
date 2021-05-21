@@ -57,42 +57,12 @@ void Lifeguard::change_work_id(int new_work_id){
     work_id=new_work_id;
 }
 
-void Lifeguard::change_experience(){
-    enum exp_types{beginner=1,intermediate,advanced};
-    int action;
-    bool choosing=true;
-    while (choosing==true){
-        cout << "Experience has to be chosen from the following levels:" << endl;        
-        cout << "1-beginner \n2-intermediate \n3-advanced" << endl; 
-        cout << "Select level: ";
-        action = get_int();
-        if(!cin){
-            cout << "ERROR: There is no such action" << endl;
-            cin.clear();
-            break;
-        }
-        else{
-            switch (action){
-            case beginner:
-                experience = "beginner";
-                cout<< "Experience set as beginner" <<endl;
-                choosing = false;
-                break;
-            case intermediate:
-                experience = "intermediate";
-                cout<< "Experience set as intermediate" <<endl;
-                choosing = false;
-                break;
-            case advanced:
-                experience = "advanced";
-                cout<< "Experience set as advanced" <<endl;
-                choosing = false;
-                break;
-            default:
-                cout << "ERROR: There is no such level to choose" << endl;
-                continue;
-            }
-        }
+void Lifeguard::change_experience(string new_experience){
+    if ((new_experience!="beginner") || (new_experience!="intermediate") || (new_experience!="advanced")){
+        experience = new_experience;
+    }
+    else{
+        cout << "ERROR: There is no such experience level" << endl;
     }
 }
 void Lifeguard::show_worker_info(){
