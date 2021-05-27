@@ -1,4 +1,4 @@
-// przeglad dnia, i am a creeper minecraft's grim reaper blowing up blocks like al-qaeda
+// przeglad dnia, i am a creeper minecraft's grim reaper blowing up blocks like al-qaeda, cycu kurwa czemu nie dziala
 {
     8 {
         0-10 [min]

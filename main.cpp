@@ -4,6 +4,9 @@
 #include "Instructor.h"
 #include "atractions.h"
 
+// klienci siedza na basenie tyle ile wczesniej wykupili lub mniej
+// cykl 10 minutowy
+
 int main()
 {
     std::cout << "Hello World!\n";

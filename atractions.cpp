@@ -10,24 +10,18 @@ Atraction::Atraction()
     atraction_nr=0;
     people_limit=0;
     people={};
-    lifeguard=Lifeguard();
+    Lifeguard t;
+    lifeguard=t;
 }
 
-Atraction::Atraction(string nam, int atr_nr, int ppl_limit, std::vector<Client> ppl, Lifeguard lfguard)
+Atraction::Atraction(
+        string nam,
+        int atr_nr,
+        int ppl_limit)
 {
     name = nam;
     atraction_nr=atr_nr;
     people_limit=ppl_limit;
-    people=ppl;
-    lifeguard=lfguard;
-}
-
-Atraction::Atraction(Atraction& other_atracction)
-{
-    atraction_nr=other_atracction.get_atraction_nr();
-    people_limit=other_atracction.get_people_limit();
-    people=other_atracction.get_people();
-    lifeguard=other_atracction.get_lifeguard();
 }
 
 string Atraction::set_atraction_nr(int new_atraction_nr)
@@ -40,10 +34,6 @@ string Atraction::set_atraction_nr(int new_atraction_nr)
     return "nr atrakcji nie moze być ujemny";
 }
 
-int Atraction::get_atraction_nr() const
-{
-    return atraction_nr;
-}
 
 string Atraction::set_people_limit(int new_people_limit)
 {
@@ -55,10 +45,6 @@ string Atraction::set_people_limit(int new_people_limit)
     return "limit ludzi nie moze być ujemny";
 }
 
-int Atraction::get_people_limit() const
-{
-    return people_limit;
-}
 
 string Atraction::set_lifeguard(Lifeguard new_lifeguard)
 {
@@ -66,10 +52,6 @@ string Atraction::set_lifeguard(Lifeguard new_lifeguard)
     return "ustawiono ratownika";
 }
 
-Lifeguard Atraction::get_lifeguard() const
-{
-    return lifeguard;
-}
 
 string Atraction::set_people(std::vector<Client> new_people)
 {
@@ -77,17 +59,13 @@ string Atraction::set_people(std::vector<Client> new_people)
     return "ustawiono klientow";
 }
 
-const std::vector<Client> Atraction::get_people() const
-{
-    return people;
-}
 
-Atraction Atraction::operator=(Atraction& atraction2)
+Atraction Atraction::operator=(Atraction atraction2)
 {
-    atraction_nr=atraction2.get_atraction_nr();
-    people_limit=atraction2.get_people_limit();
-    people=atraction2.get_people();
-    lifeguard=atraction2.get_lifeguard();
+    atraction_nr=atraction2.atraction_nr;
+    people_limit=atraction2.people_limit;
+    people=atraction2.people;
+    lifeguard=atraction2.lifeguard;
     return *this;
 }
 
@@ -96,7 +74,7 @@ int Atraction::search_list(int card_id)
     int index;
         for (long long unsigned int i = 0; i < people.size(); ++i)
         {
-            if(people[i].get_card_id() == card_id)
+            if(people[i].get_carnet_id() == card_id)
             {
                 index = i;
                 return index;

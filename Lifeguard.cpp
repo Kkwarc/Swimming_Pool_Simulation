@@ -1,37 +1,28 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include "time.h"
 #include "Lifeguard.h"
 using namespace std;
 
-Lifeguard::Lifeguard(string na, string sur, int wid, string ex)
+Lifeguard::Lifeguard()
+{
+    name = "";
+    surname = "";
+    work_id = 0;
+    experience = 1;
+    start = { -1,-1 };
+    finish = { -1,-1 };
+}
+
+Lifeguard::Lifeguard(string na, string sur, int wid, int ex, Time s, Time f)
 {
     name = na;
     surname = sur;
     work_id = wid;
     experience = ex;
-}
-
-int Lifeguard::get_int()
-{
-    int digit;
-    while(true)
-    {
-        string line;
-        char rest;
-        if (!getline(cin, line))
-        {
-            cout<<"Recevied no input, try again: "<<endl;
-        }
-        istringstream user_input(line);
-        if (user_input >> digit && !(user_input >> rest) && digit>=0)
-        {
-            break;
-        }
-        else
-            cout<<"Enter a positive integer:"<<endl;
-    }
-    return digit;
+    start = s;
+    finish = f;
 }
 
 string Lifeguard::get_name()
@@ -49,33 +40,60 @@ int Lifeguard::get_work_id()
     return work_id;
 }
 
-void Lifeguard::change_name(string new_name)
+Time Lifeguard::get_starting_time()
 {
-    name=new_name;
+    return start;
 }
 
-void Lifeguard::change_surname(string new_surname)
+Time Lifeguard::get_finish_time()
 {
-    surname=new_surname;
+    return finish;
 }
 
-void Lifeguard::change_work_id(int new_work_id)
+ostream& operator << (ostream& output, Lifeguard& l)
 {
-    work_id=new_work_id;
+    cout << "Name: " << l.name << endl;
+    cout << "Surname: " << l.surname << endl;
+    cout << "Worker id: " << l.work_id << endl;
+    cout << "Experience level " << l.experience << endl;
+    return output;
 }
 
-void Lifeguard::change_experience(string new_experience)
+bool Lifeguard::operator == (Lifeguard& l1)
 {
-    if ((new_experience!="beginner") || (new_experience!="intermediate") || (new_experience!="advanced")){
-        experience = new_experience;
+    if (l1.work_id == work_id)
+    {
+        return true;
     }
-    else{
-        cout << "ERROR: There is no such experience level" << endl;
+    else
+    {
+        return false;
     }
 }
-void Lifeguard::show_worker_info()
+
+bool Lifeguard::operator!= (Lifeguard& l1)
 {
-    cout<<"Name: "<< get_name();
-    cout<<"; Surname: "<< get_surname();
-    cout<<"; Worker Id: "<< get_work_id()<<endl;
+    if ((l1.name == name) &&
+        (l1.surname == surname) &&
+        (l1.work_id == work_id))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+Lifeguard Lifeguard::operator=(Lifeguard l)
+{
+
+    name = l.name;
+    surname = l.surname;
+    work_id = l.work_id;
+    experience = l.experience;
+    start = l.start;
+    finish = l.finish;
+
+    return*this;
 }

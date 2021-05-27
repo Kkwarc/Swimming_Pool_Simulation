@@ -4,34 +4,41 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
-
-using namespace std;
-
-// operatory porownania
-// godziny pracy
-// atrakcja ktorej pilnuja
-// j###c zw###ki za####we => pracujemy caly czas
-// poziom umiejetnosci chyba na int?
+#include "time.h"
 
 class Lifeguard
 {
-    protected:
-    string name, surname;
-    int work_id;
-    string experience;
+protected:
+    std::string name, surname;
+    int work_id, experience;
+    Time start, finish;
 
-    public:
-    Lifeguard(string na="", string sur="", int wid=0, string ex="");
-    int get_int();
-    string get_name();
-    string get_surname();
+public:
+
+    friend class Atraction;
+
+    Lifeguard();
+
+    Lifeguard(
+        std::string na,
+        std::string sur,
+        int wid,
+        int ex,
+        Time start,
+        Time finish);
+    std::string get_name();
+    std::string get_surname();
     int get_work_id();
-    string get_experience();
-    void change_name(string new_name);
-    void change_surname(string new_surname);
-    void change_work_id(int new_work_id);
-    void change_experience(string new_experience);
-    void show_worker_info();
+    int get_experience();
+    Time get_starting_time();
+    Time get_finish_time();
 
+    friend std::ostream& operator << (std::ostream& output, Lifeguard& l);
+
+    bool operator == (Lifeguard& l1);
+
+    bool operator != (Lifeguard& l1);
+
+    Lifeguard operator=(Lifeguard l);
 };
 #endif
