@@ -14,7 +14,6 @@ Instructor::Instructor(
         int ex,
         Time s,
         Time f,
-        vector <string> sk,
         vector <Client> gr
         ): Lifeguard(na,sur,wid,ex,s,f)
 {
@@ -24,7 +23,6 @@ Instructor::Instructor(
     experience = ex;
     start=s;
     finish=f;
-    skills = sk;
     group = gr;
 }
 
@@ -100,7 +98,6 @@ Instructor Instructor::operator=(Instructor& i)
     experience = i.experience;
     start = i.start;
     finish = i.finish;
-    skills = i.skills;
     group = i.group;
     return*this;
 }

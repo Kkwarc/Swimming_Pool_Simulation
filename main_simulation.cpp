@@ -1,8 +1,5 @@
 #include <iostream>
-#include "client.h"
-#include "Lifeguard.h"
-#include "Instructor.h"
-#include "atractions.h"
+#include "simulation.h"
 
 // klienci siedza na basenie tyle ile wczesniej wykupili lub mniej
 // cykl 10 minutowy

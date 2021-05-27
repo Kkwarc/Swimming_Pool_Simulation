@@ -18,7 +18,6 @@
 class Instructor :public Lifeguard
 {
     private:
-    std::vector <std::string> skills;
     std::vector <Client> group;
 
     public:
@@ -29,17 +28,18 @@ class Instructor :public Lifeguard
         int ex=1,
         Time start={-1,-1},
         Time finish={-1,-1},
-        std::vector <std::string> sk = {},
         std::vector <Client> gr = {}
         );
+
     Instructor (const Instructor& I): Lifeguard(I)
     {
-        skills = I.skills;
         group = I.group;
     }
-    std::vector<std::string> get_skills();
+
     std::vector<Client> get_group();
+
     void add_persongroup(Client& new_person);
+
     void remove_persongroup(int old_client_card_id);
 
     friend std::ostream& operator << (std::ostream& output, Instructor& i);
