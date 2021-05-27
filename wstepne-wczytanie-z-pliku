@@ -1,0 +1,34 @@
+void Pytanie::wczytaj()
+{
+   fstream plik;
+   plik.open("text.txt",ios::in);
+
+   if(plik.good()==false)
+   {
+      cout<<"Nie udalo sie otworzyc pliku!";
+      exit(0);
+   }
+
+   int nr_linii=(nr_pytania-1)*6+1;
+   int aktualny_nr=1;
+   vector<string> v;
+   string linia;
+   string delimiter = ",";
+
+   while(getline(plik,linia))
+   {
+
+    size_t pos = 0;
+    string token;
+    while ((pos = linia.find(delimiter)) != std::string::npos)
+    {
+        token = linia.substr(0, pos);
+        cout<<token<<endl;
+        //robisz cos z tokenem
+        linia.erase(0, pos + delimiter.length());
+    }
+    }
+    
+   plik.close();
+
+}
