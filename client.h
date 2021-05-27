@@ -1,4 +1,4 @@
-﻿#ifndef client_h
+#ifndef client_h
 #define client_h
 
 #include <iostream>
