@@ -1,0 +1,73 @@
+Client c1();
+Client c2();
+Client c3();
+Client c4();
+Client c5();
+Client c6();
+Client c7();
+Client c8();
+Client c9();
+Client c10();
+Client c11();
+Client c12();
+Client c13();
+Client c14();
+Client c15();
+Client c16();
+Client c17();
+Client c18();
+Client c19();
+Client c20();
+
+vector < Client > clients;
+
+Lifeguard l1();
+Lifeguard l2();
+Lifeguard l3();
+Lifeguard l4();
+Lifeguard l5();
+Lifeguard l6();
+Lifeguard l7();
+Lifeguard l8();
+Lifeguard l9();
+Lifeguard l10();
+
+vector < Lifeguard > lifegards;
+
+Instructor i1();
+Instructor i2();
+Instructor i3();
+Instructor i4();
+Instructor i5();
+Instructor i6();
+Instructor i7();
+Instructor i8();
+Instructor i9();
+Instructor i10();
+
+vector < Instructor > instructors;
+
+Track t1();
+Track t1();
+Track t1();
+Track t1();
+Track t1();
+Track t1();
+Track t1();
+Track t1();
+
+vector < Track > tracks;
+
+// parametry basenu
+int tr_nr = 8;
+int length = 25; // długość toru
+int tr_limit = 4; // limit ludzi na traku
+int begginer_tr=2;
+int intermeddiate_tr=4;
+int advanced_tr=2;
+
+// parametry da_pool
+string name = "XYZ"; // nazwa
+int max_ppl;
+Time start_time = 8;
+Time closing_time = 20;

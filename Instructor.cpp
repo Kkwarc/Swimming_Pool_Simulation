@@ -5,6 +5,8 @@
 
 using namespace std;
 
+// czas, bool zajety
+
 Instructor::Instructor(
         string na,
         string sur,

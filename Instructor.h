@@ -32,6 +32,11 @@ class Instructor :public Lifeguard
         std::vector <std::string> sk = {},
         std::vector <Client> gr = {}
         );
+    Instructor (const Instructor& I): Lifeguard(I)
+    {
+        skills = I.skills;
+        group = I.group;
+    }
     std::vector<std::string> get_skills();
     std::vector<Client> get_group();
     void add_persongroup(Client& new_person);

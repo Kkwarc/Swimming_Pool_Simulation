@@ -1,0 +1,3 @@
+klient,Michal,Kopec,1,1
+klient,Michal,Kwarc,2,1
+klient,Maciek,Mark,3,1

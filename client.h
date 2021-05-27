@@ -1,4 +1,4 @@
-#ifndef client_h
+﻿#ifndef client_h
 #define client_h
 
 #include <iostream>
@@ -46,6 +46,8 @@ public:
     std::string get_surname() const;
 
     int get_carnet_id() const;
+
+    void set_time(int time);
 
     std::string name;
 

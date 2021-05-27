@@ -8,6 +8,12 @@
 #include "Instructor.h"
 #include "client.h"
 
+
+// poziom
+
+
+
+
 class Atraction
 {
 protected:
@@ -17,7 +23,7 @@ protected:
     std::vector<Client> people;
     Lifeguard lifeguard; // wsadzic do wektora - moze
 public:
-
+    friend class Da_Pool;
 
     Atraction();
     Atraction(
@@ -35,16 +41,17 @@ public:
     }
     std::string set_atraction_nr(int new_atraction_nr);
     std::string set_people_limit(int new_people_limit);
-    std::string set_lifeguard(Lifeguard new_lifeguard);
+    std::string set_lifeguard(Lifeguard& new_lifeguard);
     std::string set_people(std::vector<Client> new_people);
     Atraction operator=(Atraction atraction2);
     int search_list(int card_id);
     std::string remove_person(int card_id);
-    std::string add_person(Client person);
+    std::string add_person(Client& person);
 };
 
 class Track: public Atraction
 {
+protected:
     int depth;
     int length;
     int track_nr;
@@ -52,8 +59,12 @@ class Track: public Atraction
     bool reserved;
     int reservation_time;
 public:
+
+    friend class Swimming_Pool;
+
     Track();
     Track(int dpth, int lng, int tr_nr, int ppl_lim, int atraction_nr);
+
     Track(Track& another_track)
     {
         depth = another_track.depth;
@@ -80,7 +91,7 @@ class Swimming_Pool: public Atraction
 public:
     Swimming_Pool();
     Swimming_Pool(
-            int tr_nr,
+            int atraction_nr,
             int length,
             int tr_limit,
             int begginer_tr=0,
@@ -89,8 +100,7 @@ public:
             );
     void reserve_track(int track_nr, Instructor& inst, std::vector<Client> group, int res_time);
     void change_track(Client& cl, int tr1_nr, int tr2_nr);
-    int min_ppl_tr();
-    void add_to_track(int tr_nr, Client clnt);
+    void add_to_track(int tr_nr, Client& clnt);
     void exit_pool(int car_id);
 };
 #endif

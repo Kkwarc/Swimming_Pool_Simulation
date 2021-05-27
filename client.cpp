@@ -38,6 +38,11 @@ int Client::get_carnet_id() const
     return carnet_id;
 }
 
+void Client::set_time(int time)
+{
+    remaining_time = time;
+}
+
 ostream& operator << (ostream& output, const Client& c)
 {
     cout << "Name: " << c.name << endl;

@@ -14,10 +14,12 @@ Atraction::Atraction()
     lifeguard=t;
 }
 
-Atraction::Atraction(
+Atraction::Atraction
+    (
         string nam,
         int atr_nr,
-        int ppl_limit)
+        int ppl_limit
+    )
 {
     name = nam;
     atraction_nr=atr_nr;
@@ -46,7 +48,7 @@ string Atraction::set_people_limit(int new_people_limit)
 }
 
 
-string Atraction::set_lifeguard(Lifeguard new_lifeguard)
+string Atraction::set_lifeguard(Lifeguard& new_lifeguard)
 {
     lifeguard = new_lifeguard;
     return "ustawiono ratownika";
@@ -95,7 +97,7 @@ string Atraction::remove_person(int card_id)
     return "Usunieto osobe";
 }
 
-string Atraction::add_person(Client person)
+string Atraction::add_person(Client& person)
 {
     people.push_back(person);
     return "dodano osobe";
