@@ -4,26 +4,26 @@
 #include "Instructor.h"
 #include "Lifeguard.h"
 
-Track::Track(): Atraction()
+Track::Track() : Atraction()
 {
-    depth=0;
-    length=0;
-    track_nr=-1;
-    reserved=false;
+    depth = 0;
+    length = 0;
+    track_nr = -1;
+    reserved = false;
 }
 
 Track::Track(
-        int dpth,
-        int lng,
-        int tr_nr,
-        int ppl_lim,
-        int atraction_nr
-        ) :Atraction("track", atraction_nr, ppl_lim)
+    int dpth,
+    int lng,
+    int tr_nr,
+    int ppl_lim,
+    int atraction_nr
+) :Atraction("track", atraction_nr, ppl_lim)
 {
-    depth=dpth;
-    length=lng;
-    track_nr=tr_nr;
-    reserved=false;
+    depth = dpth;
+    length = lng;
+    track_nr = tr_nr;
+    reserved = false;
 }
 
 bool Track::is_reserved()
