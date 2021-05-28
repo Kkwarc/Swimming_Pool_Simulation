@@ -1,4 +1,4 @@
-﻿#ifndef client_h
+#ifndef client_h
 #define client_h
 
 #include <iostream>
@@ -22,7 +22,7 @@ public:
         int carnet_id,
         bool discount,
         int remaining_time
-        );
+    );
 
     Client(const Client& client)
     {
