@@ -27,17 +27,17 @@ public:
 
     Atraction();
     Atraction(
-                std::string nam,
-                int atraction_nr,
-                int people_limit
-            );
+        std::string nam,
+        int atraction_nr,
+        int people_limit
+    );
     Atraction(const Atraction& other_atracction)
     {
         name = other_atracction.name;
-        atraction_nr=other_atracction.atraction_nr;
-        people_limit=other_atracction.people_limit;
-        people=other_atracction.people;
-        lifeguard=other_atracction.lifeguard;
+        atraction_nr = other_atracction.atraction_nr;
+        people_limit = other_atracction.people_limit;
+        people = other_atracction.people;
+        lifeguard = other_atracction.lifeguard;
     }
     std::string set_atraction_nr(int new_atraction_nr);
     std::string set_people_limit(int new_people_limit);
@@ -49,7 +49,7 @@ public:
     std::string add_person(Client& person);
 };
 
-class Track: public Atraction
+class Track : public Atraction
 {
 protected:
     int depth;
@@ -73,17 +73,17 @@ public:
         instructor = another_track.instructor;
         reserved = another_track.reserved;
         name = another_track.name;
-        atraction_nr=another_track.atraction_nr;
-        people_limit=another_track.people_limit;
-        people=another_track.people;
-        lifeguard=another_track.lifeguard;
+        atraction_nr = another_track.atraction_nr;
+        people_limit = another_track.people_limit;
+        people = another_track.people;
+        lifeguard = another_track.lifeguard;
     }
     bool is_reserved();
     int current_ppl();
     void reserve_track(Instructor& inst, std::vector<Client> group, int res_time);
 };
 
-class Swimming_Pool: public Atraction
+class Swimming_Pool : public Atraction
 {
     int tr_nr;
     int length;
@@ -91,13 +91,13 @@ class Swimming_Pool: public Atraction
 public:
     Swimming_Pool();
     Swimming_Pool(
-            int atraction_nr,
-            int length,
-            int tr_limit,
-            int begginer_tr=0,
-            int intermeddiate_tr=0,
-            int advanced_tr=0
-            );
+        int atraction_nr,
+        int length,
+        int tr_limit,
+        int begginer_tr = 0,
+        int intermeddiate_tr = 0,
+        int advanced_tr = 0
+    );
     void reserve_track(int track_nr, Instructor& inst, std::vector<Client> group, int res_time);
     void change_track(Client& cl, int tr1_nr, int tr2_nr);
     void add_to_track(int tr_nr, Client& clnt);
