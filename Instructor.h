@@ -17,21 +17,21 @@
 
 class Instructor :public Lifeguard
 {
-    private:
+private:
     std::vector <Client> group;
 
-    public:
+public:
     Instructor(
-        std::string na="",
-        std::string sur="",
-        int wid=0,
-        int ex=1,
-        Time start={-1,-1},
-        Time finish={-1,-1},
+        std::string na = "",
+        std::string sur = "",
+        int wid = 0,
+        int ex = 1,
+        Time start = { -1,-1 },
+        Time finish = { -1,-1 },
         std::vector <Client> gr = {}
-        );
+    );
 
-    Instructor (const Instructor& I): Lifeguard(I)
+    Instructor(const Instructor& I) : Lifeguard(I)
     {
         group = I.group;
     }
