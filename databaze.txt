@@ -1,73 +1,41 @@
-Client c1();
-Client c2();
-Client c3();
-Client c4();
-Client c5();
-Client c6();
-Client c7();
-Client c8();
-Client c9();
-Client c10();
-Client c11();
-Client c12();
-Client c13();
-Client c14();
-Client c15();
-Client c16();
-Client c17();
-Client c18();
-Client c19();
-Client c20();
+klient,Michal,Nowak,1,0,
+klient,Michal,Kowalski,2,0,
+klient,Maciek,Wismiewski,3,0,
+klient,Karol,Wojcik,4,1,
+klient,Agata,Kowalczyk,5,0,
+klient,Karolina,Nowak,6,0,
+klient,Malgorzata,Kaminska,7,0,
+klient,Ewa,Kowalska,8,1,
+klient,Julia,Kowalska,9,0,
+klient,Marcin,Kaminski,10,1,
+klient,Michal,Nowak,11,0,
+klient,Klara,Nowak,12,0,
+klient,Maciek,Nowak,13,1,
+klient,Karol,Wismiewski,14,1,
+klient,Agata,Kowalska,15,0,
+klient,Karolina,Wojcik,16,1,
+klient,Malgorzata,Kowalczyk,17,0,
+klient,Ewa,Wojcik,18,1,
+klient,Julia,Wisniewska,19,0,
+klient,Marcin,kowalski,10,1,
 
-vector < Client > clients;
+Lifeguard,Andrzej,Kowalski,1,1,8,14,
+Lifeguard,Agata,Kowalska,2,3,8,14,
+Lifeguard,Maciek,Kaminski,3,2,14,20,
+Lifeguard,Maciek,Wismiewski,4,1,14,20,
+Lifeguard,Ewa,Nowak,5,2,40,20,
+Lifeguard,Malgorzata,Wojcik,6,2,8,14,
+Lifeguard,Jakub,Wojcik,7,3,8,14,
+Lifeguard,Katarzyna,Kowalska,8,2,14,20,
+Lifeguard,Michal,Kowalski,9,3,14,20,
+Lifeguard,Marek,Wisniewski,10,2,8,14,
 
-Lifeguard l1();
-Lifeguard l2();
-Lifeguard l3();
-Lifeguard l4();
-Lifeguard l5();
-Lifeguard l6();
-Lifeguard l7();
-Lifeguard l8();
-Lifeguard l9();
-Lifeguard l10();
+Instructor,Malgorzata,Wojcik,11,3,8,14,
+Instructor,Michal,Wojcik,12,2,8,14,
+Instructor,Adam,Wisniewski,13,3,8,14,
+Instructor,Dominika,Kowalska,14,2,14,20,
+Instructor,Robert,Kaminski,15,3,14,20,
 
-vector < Lifeguard > lifegards;
+pool,8,25,4,2,2,1,
 
-Instructor i1();
-Instructor i2();
-Instructor i3();
-Instructor i4();
-Instructor i5();
-Instructor i6();
-Instructor i7();
-Instructor i8();
-Instructor i9();
-Instructor i10();
-
-vector < Instructor > instructors;
-
-Track t1();
-Track t1();
-Track t1();
-Track t1();
-Track t1();
-Track t1();
-Track t1();
-Track t1();
-
-vector < Track > tracks;
-
-// parametry basenu
-int tr_nr = 8;
-int length = 25; // długość toru
-int tr_limit = 4; // limit ludzi na traku
-int begginer_tr=2;
-int intermeddiate_tr=4;
-int advanced_tr=2;
-
-// parametry da_pool
-string name = "XYZ"; // nazwa
-int max_ppl;
-Time start_time = 8;
-Time closing_time = 20;
+da_pool,XYZ,9,20,
