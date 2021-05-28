@@ -15,8 +15,8 @@ Da_Pool::Da_Pool()
     atractions = {};
     staff_available = {};
     clients = {};
-    start_time = {0, 0};
-    closing_time = {0,0};
+    start_time = { 0, 0 };
+    closing_time = { 0,0 };
 }
 
 Da_Pool::Da_Pool(
@@ -24,12 +24,13 @@ Da_Pool::Da_Pool(
     std::vector<Atraction> atractions,
     Time start_time,
     Time closing_time
-    )
+)
 {
     name = name;
     atractions = atractions;
     start_time = start_time;
     closing_time = closing_time;
+    current_time = start_time;
 }
 
 void Da_Pool::add_client(Client& client, int atraction_nr, int time)
@@ -37,11 +38,11 @@ void Da_Pool::add_client(Client& client, int atraction_nr, int time)
     int index;
     client.set_time(time);
     clients.push_back(client);
-    for(long long unsigned int i=0; i < atractions.size(); i++)
+    for (long long unsigned int i = 0; i < atractions.size(); i++)
     {
-        if(atractions[i].atraction_nr == atraction_nr)
+        if (atractions[i].atraction_nr == atraction_nr)
         {
-            index =i;
+            index = i;
             break;
         }
     }
@@ -52,19 +53,19 @@ void Da_Pool::change_atr(Client& client, int atraction_nr1, int atraction_nr2)
 {
     int index1;
     int index2;
-    for(long long unsigned int i=0; i < atractions.size(); i++)
+    for (long long unsigned int i = 0; i < atractions.size(); i++)
     {
-        if(atractions[i].atraction_nr == atraction_nr1)
+        if (atractions[i].atraction_nr == atraction_nr1)
         {
-            index1 =i;
+            index1 = i;
             break;
         }
     }
-    for(long long unsigned int i=0; i < atractions.size(); i++)
+    for (long long unsigned int i = 0; i < atractions.size(); i++)
     {
-        if(atractions[i].atraction_nr == atraction_nr2)
+        if (atractions[i].atraction_nr == atraction_nr2)
         {
-            index2 =i;
+            index2 = i;
             break;
         }
     }
@@ -85,25 +86,25 @@ void Da_Pool::staff_come(Lifeguard& staff)
 void Da_Pool::staff_exit(Lifeguard& staff)
 {
     int index;
-    for(long long unsigned int i=0; i < staff_available.size(); i++)
+    for (long long unsigned int i = 0; i < staff_available.size(); i++)
     {
-        if(staff_available[i] == staff)
+        if (staff_available[i] == staff)
         {
-            index =i;
+            index = i;
             break;
         }
     }
-    staff_available.erase(staff_available.begin()+index);
+    staff_available.erase(staff_available.begin() + index);
 }
 
 void Da_Pool::assign_lifeguard(Lifeguard& lif, int atraction_nr)
 {
     int index1;
-    for(long long unsigned int i=0; i < atractions.size(); i++)
+    for (long long unsigned int i = 0; i < atractions.size(); i++)
     {
-        if(atractions[i].atraction_nr == atraction_nr)
+        if (atractions[i].atraction_nr == atraction_nr)
         {
-            index1 =i;
+            index1 = i;
             break;
         }
     }
@@ -112,7 +113,7 @@ void Da_Pool::assign_lifeguard(Lifeguard& lif, int atraction_nr)
 
 void Da_Pool::reservation(std::string difficulty, Time start, int duration, Instructor& inst)
 {
-;
+    ;
 }
 
 void the_time_is_passing(int tick)
