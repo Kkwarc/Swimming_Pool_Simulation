@@ -8,35 +8,35 @@ using namespace std;
 // czas, bool zajety
 
 Instructor::Instructor(
-        string na,
-        string sur,
-        int wid,
-        int ex,
-        Time s,
-        Time f,
-        vector <Client> gr
-        ): Lifeguard(na,sur,wid,ex,s,f)
+    string na,
+    string sur,
+    int wid,
+    int ex,
+    Time s,
+    Time f,
+    vector <Client> gr
+) : Lifeguard(na, sur, wid, ex, s, f)
 {
     name = na;
     surname = sur;
     work_id = wid;
     experience = ex;
-    start=s;
-    finish=f;
+    start = s;
+    finish = f;
     group = gr;
 }
 
 //tutaj by sie podawalo sam id karty ludka i sie go dodaje wtedy git nie
 void Instructor::add_persongroup(Client& new_person)
 {
-        group.push_back(new_person);
+    group.push_back(new_person);
 }
 
 void Instructor::remove_persongroup(int old_client_card_id)
 {
-    for(long long unsigned int i = 0; i < group.size(); i++)
+    for (long long unsigned int i = 0; i < group.size(); i++)
     {
-        if(group[i].carnet_id == old_client_card_id)
+        if (group[i].carnet_id == old_client_card_id)
         {
             group.erase(group.begin() + i);
 
@@ -77,7 +77,7 @@ bool Instructor::operator == (Instructor& i1)
 
 bool Instructor::operator != (Instructor& i1)
 {
-    if ((i1.name ==name) &&
+    if ((i1.name == name) &&
         (i1.surname == surname) &&
         (i1.work_id == work_id))
     {
