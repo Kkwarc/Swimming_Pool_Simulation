@@ -1,7 +1,7 @@
 #ifndef Da_Pool_H
 #define Da_Pool_H
 
-
+// lista wyszukiwania ludzi na atrakcji
 #include <iostream>
 #include <list>
 #include<vector>
@@ -18,6 +18,7 @@
 
 class Da_Pool
 {
+    friend class Simulation;
     std::string name;
     int max_ppl; // to tzreba jakos przeliczyc
     int attr_nr; // ilosc atrkcji
@@ -26,14 +27,15 @@ class Da_Pool
     std::vector<Client> clients;
     Time start_time;
     Time closing_time;
+    Time current_time;
 public:
     Da_Pool();
     Da_Pool(
-            std::string name,
-            std::vector<Atraction> atractions,
-            Time start_time,
-            Time closing_timev
-            );
+        std::string name,
+        std::vector<Atraction> atractions,
+        Time start_time,
+        Time closing_timev
+    );
     void add_client(Client& client, int atraction_nr, int time);
     void change_atr(Client& client, int atraction_nr1, int atraction_nr2); //przejscie z jednego basenu do 2
     void exit_da_pool(Client& client);
