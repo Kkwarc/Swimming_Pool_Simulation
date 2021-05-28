@@ -7,23 +7,23 @@ using namespace std;
 Atraction::Atraction()
 {
     name = "";
-    atraction_nr=0;
-    people_limit=0;
-    people={};
+    atraction_nr = 0;
+    people_limit = 0;
+    people = {};
     Lifeguard t;
-    lifeguard=t;
+    lifeguard = t;
 }
 
 Atraction::Atraction
-    (
-        string nam,
-        int atr_nr,
-        int ppl_limit
-    )
+(
+    string nam,
+    int atr_nr,
+    int ppl_limit
+)
 {
     name = nam;
-    atraction_nr=atr_nr;
-    people_limit=ppl_limit;
+    atraction_nr = atr_nr;
+    people_limit = ppl_limit;
 }
 
 string Atraction::set_atraction_nr(int new_atraction_nr)
@@ -64,26 +64,26 @@ string Atraction::set_people(std::vector<Client> new_people)
 
 Atraction Atraction::operator=(Atraction atraction2)
 {
-    atraction_nr=atraction2.atraction_nr;
-    people_limit=atraction2.people_limit;
-    people=atraction2.people;
-    lifeguard=atraction2.lifeguard;
+    atraction_nr = atraction2.atraction_nr;
+    people_limit = atraction2.people_limit;
+    people = atraction2.people;
+    lifeguard = atraction2.lifeguard;
     return *this;
 }
 
 int Atraction::search_list(int card_id)
 {
     int index;
-        for (long long unsigned int i = 0; i < people.size(); ++i)
+    for (long long unsigned int i = 0; i < people.size(); ++i)
+    {
+        if (people[i].get_carnet_id() == card_id)
         {
-            if(people[i].get_carnet_id() == card_id)
-            {
-                index = i;
-                return index;
-            }
+            index = i;
+            return index;
         }
-        index = -1;
-        return index;
+    }
+    index = -1;
+    return index;
 }
 
 string Atraction::remove_person(int card_id)
@@ -93,7 +93,7 @@ string Atraction::remove_person(int card_id)
     {
         return "Nie ma takiej osoby";
     }
-    people.erase(people.begin()+index);
+    people.erase(people.begin() + index);
     return "Usunieto osobe";
 }
 
