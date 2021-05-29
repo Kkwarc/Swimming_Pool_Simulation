@@ -43,3 +43,15 @@ void Track::reserve_track(Instructor& inst, std::vector<Client> group, int res_t
     reserved = true;
     reservation_time = res_time;
 }
+
+void Track::add_person(Client& person)
+{
+    if (is_reserved() == false && (int)people.size() < people_limit)
+    {
+        people.push_back(person);
+    }
+    else
+    {
+        throw;
+    }
+}

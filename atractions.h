@@ -45,8 +45,8 @@ public:
     std::string set_people(std::vector<Client> new_people);
     Atraction operator=(Atraction atraction2);
     int search_list(int card_id);
-    std::string remove_person(int card_id);
-    std::string add_person(Client& person);
+    virtual void remove_person(int card_id);
+    virtual void add_person(Client& person);
 };
 
 class Track : public Atraction
@@ -81,6 +81,7 @@ public:
     bool is_reserved();
     int current_ppl();
     void reserve_track(Instructor& inst, std::vector<Client> group, int res_time);
+    void add_person(Client& person);
 };
 
 class Swimming_Pool : public Atraction
@@ -100,7 +101,7 @@ public:
     );
     void reserve_track(int track_nr, Instructor& inst, std::vector<Client> group, int res_time);
     void change_track(Client& cl, int tr1_nr, int tr2_nr);
-    void add_to_track(int tr_nr, Client& clnt);
-    void exit_pool(int car_id);
+    void add_person(int tr_nr, Client& clnt);
+    void remove_person(int car_id);
 };
 #endif

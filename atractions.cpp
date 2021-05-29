@@ -86,19 +86,25 @@ int Atraction::search_list(int card_id)
     return index;
 }
 
-string Atraction::remove_person(int card_id)
+void Atraction::remove_person(int card_id)
 {
     int index = search_list(card_id);
     if (index == -1)
     {
-        return "Nie ma takiej osoby";
+        return;
     }
     people.erase(people.begin() + index);
-    return "Usunieto osobe";
 }
 
-string Atraction::add_person(Client& person)
+void Atraction::add_person(Client& person)
 {
-    people.push_back(person);
-    return "dodano osobe";
+    if((int)people.size() < people_limit)
+    {
+        people.push_back(person);
+        return;
+    }
+    else
+    {
+        throw;
+    }
 }

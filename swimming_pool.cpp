@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 Swimming_Pool::Swimming_Pool()
 {
     name = "Swimming_Pool";
@@ -66,6 +67,10 @@ void Swimming_Pool::reserve_track(int track_nr, Instructor& inst, std::vector<Cl
     {
         tracks[index].reserve_track(inst, group, res_time);
     }
+    for (long long unsigned int i = 0; i < group.size(); i++)
+    {
+        people.push_back(group[i]);
+    }
 }
 void Swimming_Pool::change_track(Client& cl, int tr1_nr, int tr2_nr)
 {
@@ -91,12 +96,12 @@ void Swimming_Pool::change_track(Client& cl, int tr1_nr, int tr2_nr)
     tracks[index2].add_person(cl);
 }
 
-void Swimming_Pool::add_to_track(int tr_nr, Client& clnt)
+void Swimming_Pool::add_person(int tr1_nr, Client& clnt)
 {
     int index;
     for (int i = 0; i < tr_nr; i++)
     {
-        if (tracks[i].track_nr == tr_nr)
+        if (tracks[i].track_nr == tr1_nr)
         {
             index = i;
             break;
@@ -104,18 +109,30 @@ void Swimming_Pool::add_to_track(int tr_nr, Client& clnt)
         throw; // zrob cos z tym
     }
     tracks[index].add_person(clnt);
+    people.push_back(clnt);
 }
-void Swimming_Pool::exit_pool(int car_id)
+
+void Swimming_Pool::remove_person(int car_id)
 {
-    int index;
+    int index1;
     for (long long unsigned int i = 0; i < people.size(); i++)
     {
-        if (tracks[i].track_nr == tr_nr)
+        if (people[i].carnet_id == car_id)
         {
-            index = i;
+            index1 = i;
             break;
         }
         throw; // zrob cos z tym
     }
-    people.erase(people.begin() + index);
+    for (int i = 0; i < tr_nr; i++)
+    {
+        for (long long unsigned int j = 0; j < tracks[i].people.size(); j++)
+        {
+            if (tracks[i].people[j].carnet_id == car_id)
+            {
+                tracks[i].remove_person(car_id);
+            }
+        }
+    }
+    people.erase(people.begin() + index1);
 }

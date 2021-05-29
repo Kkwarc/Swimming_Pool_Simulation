@@ -37,12 +37,13 @@ public:
         Time closing_timev
     );
     void add_client(Client& client, int atraction_nr, int time);
+    void add_client(Client& client, int atraction_nr, int tr_number, int time);
     void change_atr(Client& client, int atraction_nr1, int atraction_nr2); //przejscie z jednego basenu do 2
     void exit_da_pool(Client& client);
     void staff_come(Lifeguard& staff);
     void staff_exit(Lifeguard& staff);
     void assign_lifeguard(Lifeguard& lif, int atraction_nr);
-    void reservation(std::string difficulty, Time start, int duration, Instructor& inst); // duration w 60 min -> czas biletu
+    void reservation(int tr_nr, Time start, int duration, Instructor& inst, std::vector<Client> group); // duration w 60 min -> czas biletu
     void the_time_is_passing(int tick);
 };
 #endif

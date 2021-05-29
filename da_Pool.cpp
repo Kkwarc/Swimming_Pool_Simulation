@@ -49,6 +49,31 @@ void Da_Pool::add_client(Client& client, int atraction_nr, int time)
     atractions[index].add_person(client);
 }
 
+void Da_Pool::add_client(Client& client, int atraction_nr, int tr_number, int time)
+{
+    int index;
+    client.set_time(time);
+    clients.push_back(client);
+    for (long long unsigned int i = 0; i < atractions.size(); i++)
+    {
+        if (atractions[i].atraction_nr == atraction_nr)
+        {
+            index = i;
+            break;
+        }
+    }
+    if (atractions[index].name == "Swimming_Pool")
+    {
+        Swimming_Pool* t = static_cast<Swimming_Pool*>(&atractions[index]);
+        t->add_person(tr_number, client);
+    }
+    else
+    {
+        atractions[index].add_person(client);
+    }
+}
+
+
 void Da_Pool::change_atr(Client& client, int atraction_nr1, int atraction_nr2)
 {
     int index1;
@@ -75,7 +100,28 @@ void Da_Pool::change_atr(Client& client, int atraction_nr1, int atraction_nr2)
 
 void Da_Pool::exit_da_pool(Client& client)
 {
-    // nie wiem
+    int id = client.carnet_id;
+    for (long long unsigned int i = 0; i < atractions.size(); i++)
+    {
+        for (long long unsigned int j = 0; j < atractions[i].people.size(); j++)
+        {
+            if (atractions[i].people[j].carnet_id == id)
+            {
+                atractions[i].remove_person(id);
+                break;
+            }
+        }
+    }
+    int index;
+    for (long long unsigned int i=0; i < clients.size(); i++)
+    {
+        if(clients[i].carnet_id == id)
+        {
+            index = i;
+        }
+    }
+    clients.erase(clients.begin() + index);
+
 }
 
 void Da_Pool::staff_come(Lifeguard& staff)
@@ -111,9 +157,19 @@ void Da_Pool::assign_lifeguard(Lifeguard& lif, int atraction_nr)
     atractions[index1].set_lifeguard(lif);
 }
 
-void Da_Pool::reservation(std::string difficulty, Time start, int duration, Instructor& inst)
+void Da_Pool::reservation(int tr_nr, Time start, int duration, Instructor& inst, vector<Client> group)
 {
-    ;
+    int index;
+    for (long long unsigned int i = 0; i < atractions.size(); i++)
+    {
+        if (atractions[i].name == "Swimming_Pool")
+        {
+            index = i;
+            break;
+        }
+    }
+    Swimming_Pool* t = static_cast<Swimming_Pool*>(&atractions[index]);
+    t->reserve_track(tr_nr, inst, group, duration);
 }
 
 void the_time_is_passing(int tick)
