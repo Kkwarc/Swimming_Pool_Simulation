@@ -76,11 +76,11 @@ void Pytanie::wczytaj()
       if (obiekt[0]=="pool")
       {
          int num = stoi(obiekt[1]);
-         int dlug = stoi(obiekt[1]);
-         int maxp = stoi(obiekt[1]);
-         int lpocz = stoi(obiekt[1]);
-         int lmed = stoi(obiekt[1]);
-         int ladv = stoi(obiekt[1]);
+         int dlug = stoi(obiekt[2]);
+         int maxp = stoi(obiekt[3]);
+         int lpocz = stoi(obiekt[4]);
+         int lmed = stoi(obiekt[5]);
+         int ladv = stoi(obiekt[6]);
          
          Pool pool(num,dlug,maxp,lpocz,lmed,ladv);
          //atrakcje.pushback(ratownik)
@@ -88,8 +88,8 @@ void Pytanie::wczytaj()
       if (obiekt[0]=="da_pool")
       {
          string name = obiekt[1];
-         int start = stoi(obiekt[1]);
-         int finish = stoi(obiekt[1]);
+         int start = stoi(obiekt[2]);
+         int finish = stoi(obiekt[3]);
 
          Da_Pool dapool(name, atrakcje, ludzie, pracownicy, start,finish);
          
