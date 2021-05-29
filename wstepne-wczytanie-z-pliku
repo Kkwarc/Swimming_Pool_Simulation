@@ -9,25 +9,101 @@ void Pytanie::wczytaj()
       exit(0);
    }
 
+
+
+
+   //do wyjebania
    int nr_linii=(nr_pytania-1)*6+1;
    int aktualny_nr=1;
-   vector<string> v;
+
+
+
+
+
    string linia;
    string delimiter = ",";
-
    while(getline(plik,linia))
    {
+      size_t pos = 0;
+      string token;
+      vector<string> obiekt;
+      while ((pos = linia.find(delimiter)) != string::npos)
+      {     
+         token = linia.substr(0, pos);
+         obiekt.push_back(token);
+         linia.erase(0, pos + delimiter.length());
+      }
+      if (obiekt[0]=="klient")
+      {
+         string name = obiekt[1];
+         string surname = obiekt[2];
+         int id = stoi(obiekt[3]);
+         int z = stoi(obiekt[4]);
+         if (z==0)
+         {
+            Client klient(name, surname,id,false,0);
+         }
+         if (z==1)
+         {
+            Client klient(name, surname,id,true,0);
+         }
+         //ludzie.pushbask(klient)
+      }
+      if (obiekt[0]=="Lifeguard")
+      {
+         string name = obiekt[1];
+         string surname = obiekt[2];
+         int id = stoi(obiekt[3]);
+         int exp = stoi(obiekt[4]);
+         int starth = stoi(obiekt[5]);
+         int finish = stoi(obiekt[6]);
 
-    size_t pos = 0;
-    string token;
-    while ((pos = linia.find(delimiter)) != std::string::npos)
-    {
-        token = linia.substr(0, pos);
-        cout<<token<<endl;
-        //robisz cos z tokenem
-        linia.erase(0, pos + delimiter.length());
-    }
-    }
+         Lifeguard ratownik(name,surname,id,exp,starth,finish);
+         //pracownicy.pushback(ratownik)
+      }
+      if (obiekt[0]=="Instructor")
+      {
+         string name = obiekt[1];
+         string surname = obiekt[2];
+         int id = stoi(obiekt[3]);
+         int exp = stoi(obiekt[4]);
+         int starth = stoi(obiekt[5]);
+         int finish = stoi(obiekt[6]);
+         
+         Instructor instr(name,surname,id,exp,starth,finish);
+         //pracownicy.pushback(ratownik)
+      }
+      if (obiekt[0]=="pool")
+      {
+         int num = stoi(obiekt[1]);
+         int dlug = stoi(obiekt[1]);
+         int maxp = stoi(obiekt[1]);
+         int lpocz = stoi(obiekt[1]);
+         int lmed = stoi(obiekt[1]);
+         int ladv = stoi(obiekt[1]);
+         
+         Pool pool(num,dlug,maxp,lpocz,lmed,ladv);
+         //atrakcje.pushback(ratownik)
+      }
+      if (obiekt[0]=="da_pool")
+      {
+         string name = obiekt[1];
+         int start = stoi(obiekt[1]);
+         int finish = stoi(obiekt[1]);
+
+         Da_Pool dapool(name, atrakcje, ludzie, pracownicy, start,finish);
+         
+      }
+      if (obiekt[0]=="rand")
+      {
+         //nwm
+      }
+      if (obiekt[0]=="tick")
+      {
+         //nwm
+      }
+
+   }
     
    plik.close();
 
