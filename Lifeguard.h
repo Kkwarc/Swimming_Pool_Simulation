@@ -11,11 +11,13 @@ class Lifeguard
 protected:
     std::string name, surname;
     int work_id, experience;
+    bool busy;
     Time start, finish;
 
 public:
 
     friend class Atraction;
+    friend class Simulation;
 
     Lifeguard();
 
@@ -38,7 +40,6 @@ public:
     std::string get_name();
     std::string get_surname();
     int get_work_id();
-    int get_experience();
     Time get_starting_time();
     Time get_finish_time();
 
