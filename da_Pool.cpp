@@ -215,7 +215,8 @@ bool Da_Pool::the_time_is_passing(int tick)
                     if(t->tracks[j].reservation_time == 0)
                     {
                         t->tracks[j].reserved = false;
-                        t->tracks[j].instructor = Instructor();
+                        Instructor f;
+                        t->tracks[j].instructor = f;
                         for(long long unsigned int k=0; k<t->tracks[j].people.size(); k++)
                         {
                             t->tracks[j].people[k].did_reserve = false;
