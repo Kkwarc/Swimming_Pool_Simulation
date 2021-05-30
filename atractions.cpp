@@ -26,41 +26,31 @@ Atraction::Atraction
     people_limit = ppl_limit;
 }
 
-string Atraction::set_atraction_nr(int new_atraction_nr)
+void Atraction::set_atraction_nr(int new_atraction_nr)
 {
     if (new_atraction_nr >= 0)
     {
         atraction_nr = new_atraction_nr;
-        return "ustawiono nr atrakcji";
     }
-    return "nr atrakcji nie moze być ujemny";
 }
 
-
-string Atraction::set_people_limit(int new_people_limit)
+void Atraction::set_people_limit(int new_people_limit)
 {
     if (new_people_limit >= 0)
     {
         people_limit = new_people_limit;
-        return "ustawiono limit ludzi";
     }
-    return "limit ludzi nie moze być ujemny";
 }
 
-
-string Atraction::set_lifeguard(Lifeguard& new_lifeguard)
+void Atraction::set_lifeguard(Lifeguard& new_lifeguard)
 {
     lifeguard = new_lifeguard;
-    return "ustawiono ratownika";
 }
 
-
-string Atraction::set_people(std::vector<Client> new_people)
+void Atraction::set_people(std::vector<Client> new_people)
 {
     people = new_people;
-    return "ustawiono klientow";
 }
-
 
 Atraction Atraction::operator=(Atraction atraction2)
 {
@@ -98,9 +88,10 @@ void Atraction::remove_person(int card_id)
 
 void Atraction::add_person(Client& person)
 {
-    if((int)people.size() < people_limit)
+    if ((int)people.size() < people_limit)
     {
         people.push_back(person);
+        person.curent_atr_nr = atraction_nr;
         return;
     }
     else
