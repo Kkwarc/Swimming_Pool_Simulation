@@ -1,27 +1,47 @@
-#ifndef instructor_h
-#define instructor_h
+#ifndef Instructor_h
+#define Instructor_h
+
 #include <iostream>
 #include <vector>
 #include <sstream>
 #include "client.h"
 #include "Lifeguard.h"
-using namespace std;
+#include "time.h"
 
-class Instructor :public Lifeguard {
+class Instructor :public Lifeguard
+{
 private:
-    vector <string> skills;
-    vector <Client> group;
+    std::vector <Client> group;
 
 public:
-    Instructor(string na = "", string sur = "", int wid = 0, string ex = "", vector < string > sk = {}, vector < Client > gr = {});
-    vector <string> get_skills();
-    vector <Client> get_group();
-    void show_worker_info();
-    void add_persongroup(Client new_person);
-    void remove_persongroup(int old_client_card_id);
-    void add_skill(string new_skill);
-    void remove_skill(string old_skill);
+    Instructor(
+        std::string na = "",
+        std::string sur = "",
+        int wid = 0,
+        int ex = 1,
+        Time start = { -1,-1 },
+        Time finish = { -1,-1 },
+        std::vector <Client> gr = {}
+    );
 
-    friend class Testing;
+    Instructor(const Instructor& I) : Lifeguard(I)
+    {
+        group = I.group;
+    }
+
+    std::vector<Client> get_group();
+
+    void add_persongroup(Client& new_person);
+
+    void remove_persongroup(int old_client_card_id);
+
+    friend std::ostream& operator << (std::ostream& output, Instructor& i);
+
+    bool operator == (Instructor& i1);
+
+    bool operator != (Instructor& i1);
+
+    Instructor operator=(Instructor& i);
+
 };
 #endif

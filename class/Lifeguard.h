@@ -1,29 +1,55 @@
 #ifndef lifeguard_h
 #define lifeguard_h
+
 #include <iostream>
 #include <vector>
 #include <sstream>
-using namespace std;
+#include "time.h"
 
-class Lifeguard {
+class Lifeguard
+{
 protected:
-    string name, surname;
-    int work_id;
-    string experience;
+    std::string name, surname;
+    int work_id, experience;
+    bool busy;
+    Time start, finish;
 
 public:
-    Lifeguard(string na = "", string sur = "", int wid = 0, string ex = "");
-    int get_int();
-    string get_name();
-    string get_surname();
-    int get_work_id();
-    string get_experience();
-    void change_name(string new_name);
-    void change_surname(string new_surname);
-    void change_work_id(int new_work_id);
-    void change_experience();
-    void show_worker_info();
 
-    friend class Testing;
+    friend class Atraction;
+    friend class Simulation;
+
+    Lifeguard();
+
+    Lifeguard(
+        std::string na,
+        std::string sur,
+        int wid,
+        int ex,
+        Time start,
+        Time finish);
+    Lifeguard(const Lifeguard& L)
+    {
+        name = L.name;
+        surname = L.surname;
+        work_id = L.work_id;
+        experience = L.experience;
+        start = L.start;
+        finish = L.finish;
+    }
+    std::string get_name();
+    std::string get_surname();
+    int get_work_id();
+    Time get_starting_time();
+    Time get_finish_time();
+
+    friend std::ostream& operator << (std::ostream& output, Lifeguard& l);
+
+    bool operator == (Lifeguard& l1);
+
+    bool operator != (Lifeguard& l1);
+
+    Lifeguard operator=(Lifeguard l);
+    friend class Da_Pool;
 };
 #endif

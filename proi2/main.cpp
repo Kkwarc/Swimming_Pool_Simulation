@@ -1,8 +1,8 @@
 ﻿#include <iostream>
-#include "../class/client.h"
-#include "../class/Lifeguard.h"
-#include "../class/Instructor.h"
-#include "../class/atractions.h"
+#include "../class/simulation.h"
+
+// klienci siedza na basenie tyle ile wczesniej wykupi lub mniej
+// cykl 10 minutowy
 
 int main()
 {
@@ -12,4 +12,3 @@ int main()
     Lifeguard l1;
     Instructor i1;
 }
-
