@@ -6,14 +6,19 @@
 #include <string>
 #include <algorithm>
 
-// dodac ile czasu jeszcze siedzi na basenie
-// wersja ulgowa?
-// gdzie teraz plywa
-// # 2 rozne id
-
 class Client
 {
+    friend class Atraction;
+    friend class Da_Pool;
 public:
+    std::string name;
+    std::string surname;
+    int carnet_id;
+    bool discount;
+    int remaining_time;
+    bool did_reserve;
+    int curent_atr_nr;
+
     Client();
 
     Client(
@@ -48,19 +53,5 @@ public:
     int get_carnet_id() const;
 
     void set_time(int time);
-
-    std::string name;
-
-    std::string surname;
-
-    int carnet_id;
-
-    bool discount;
-
-    int remaining_time;
-
-    friend class Da_Pool;
-
-    bool did_reserve;
 };
 #endif
