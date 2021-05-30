@@ -8,12 +8,6 @@
 #include "Instructor.h"
 #include "client.h"
 
-
-// poziom
-
-
-
-
 class Atraction
 {
 protected:
@@ -39,10 +33,10 @@ public:
         people = other_atracction.people;
         lifeguard = other_atracction.lifeguard;
     }
-    std::string set_atraction_nr(int new_atraction_nr);
-    std::string set_people_limit(int new_people_limit);
-    std::string set_lifeguard(Lifeguard& new_lifeguard);
-    std::string set_people(std::vector<Client> new_people);
+    void set_atraction_nr(int new_atraction_nr);
+    void set_people_limit(int new_people_limit);
+    void set_lifeguard(Lifeguard& new_lifeguard);
+    void set_people(std::vector<Client> new_people);
     Atraction operator=(Atraction atraction2);
     int search_list(int card_id);
     virtual void remove_person(int card_id);
