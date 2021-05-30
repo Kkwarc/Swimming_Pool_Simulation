@@ -1,21 +1,22 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
-#include "Instructor.h"
-
+#include "time.h"
+#include "Lifeguard.h"
 using namespace std;
 
-// czas, bool zajety
+Lifeguard::Lifeguard()
+{
+    name = "";
+    surname = "";
+    work_id = 0;
+    experience = 1;
+    busy = false;
+    start = { -1,-1 };
+    finish = { -1,-1 };
+}
 
-Instructor::Instructor(
-    string na,
-    string sur,
-    int wid,
-    int ex,
-    Time s,
-    Time f,
-    vector <Client> gr
-) : Lifeguard(na, sur, wid, ex, s, f)
+Lifeguard::Lifeguard(string na, string sur, int wid, int ex, Time s, Time f)
 {
     name = na;
     surname = sur;
@@ -23,49 +24,45 @@ Instructor::Instructor(
     experience = ex;
     start = s;
     finish = f;
-    group = gr;
 }
 
-//tutaj by sie podawalo sam id karty ludka i sie go dodaje wtedy git nie
-void Instructor::add_persongroup(Client& new_person)
+string Lifeguard::get_name()
 {
-    group.push_back(new_person);
+    return name;
 }
 
-void Instructor::remove_persongroup(int old_client_card_id)
+string Lifeguard::get_surname()
 {
-    for (long long unsigned int i = 0; i < group.size(); i++)
-    {
-        if (group[i].carnet_id == old_client_card_id)
-        {
-            group.erase(group.begin() + i);
-
-        }
-    }
-    // na try
-
-    // if (t == false)
-    // {
-    //     cout << "There is no such person in group" << endl;
-    // }
-    // else
-    // {
-    //     cout <<"Person has been removed from group" << endl;
-    // }
+    return surname;
 }
 
-ostream& operator << (ostream& output, Instructor& i)
+int Lifeguard::get_work_id()
 {
-    cout << "Name: " << i.name << endl;
-    cout << "Surname: " << i.surname << endl;
-    cout << "Worker id: " << i.work_id << endl;
-    cout << "Experience level " << i.experience << endl;
+    return work_id;
+}
+
+Time Lifeguard::get_starting_time()
+{
+    return start;
+}
+
+Time Lifeguard::get_finish_time()
+{
+    return finish;
+}
+
+ostream& operator << (ostream& output, Lifeguard& l)
+{
+    cout << "Name: " << l.name << endl;
+    cout << "Surname: " << l.surname << endl;
+    cout << "Worker id: " << l.work_id << endl;
+    cout << "Experience level " << l.experience << endl;
     return output;
 }
 
-bool Instructor::operator == (Instructor& i1)
+bool Lifeguard::operator == (Lifeguard& l1)
 {
-    if (i1.work_id == work_id)
+    if (l1.work_id == work_id)
     {
         return true;
     }
@@ -75,11 +72,11 @@ bool Instructor::operator == (Instructor& i1)
     }
 }
 
-bool Instructor::operator != (Instructor& i1)
+bool Lifeguard::operator!= (Lifeguard& l1)
 {
-    if ((i1.name == name) &&
-        (i1.surname == surname) &&
-        (i1.work_id == work_id))
+    if ((l1.name == name) &&
+        (l1.surname == surname) &&
+        (l1.work_id == work_id))
     {
         return false;
     }
@@ -89,15 +86,15 @@ bool Instructor::operator != (Instructor& i1)
     }
 }
 
-Instructor Instructor::operator=(Instructor& i)
+Lifeguard Lifeguard::operator=(Lifeguard l)
 {
 
-    name = i.name;
-    surname = i.surname;
-    work_id = i.work_id;
-    experience = i.experience;
-    start = i.start;
-    finish = i.finish;
-    group = i.group;
+    name = l.name;
+    surname = l.surname;
+    work_id = l.work_id;
+    experience = l.experience;
+    start = l.start;
+    finish = l.finish;
+
     return*this;
 }
