@@ -7,13 +7,6 @@
 #include "client.h"
 #include "Lifeguard.h"
 #include "time.h"
-//#include "atractions.h"
-
-// operatory porownania- dziedziczy po ratowniku (czesciowo)
-// gdzie teraz plywa
-// godziny pracy - dziedziczy po ratowniku
-// j###c zw###ki za####we => pracujemy caly czas
-// poziom umiejetnosci chyba na int?  dziedziczy po ratowniku
 
 class Instructor :public Lifeguard
 {
