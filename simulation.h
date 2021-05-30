@@ -34,9 +34,8 @@ public:
         std::string databaze
     );
 
-    //void create_pool(); // inicjator poola
     void customers_movements(int par);
-    void lifeguards_enters(int par); //  na starcie && zmiany kadry
+    void lifeguards_enters(); //  na starcie && zmiany kadry
     void client_enters();
     void summary_of_tick();
     void summary_of_day(); // podsumowanie dnia
