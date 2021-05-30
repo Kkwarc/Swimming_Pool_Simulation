@@ -61,6 +61,7 @@ protected:
 public:
 
     friend class Swimming_Pool;
+    friend class Da_Pool;
 
     Track();
     Track(int dpth, int lng, int tr_nr, int ppl_lim, int atraction_nr);
@@ -101,7 +102,9 @@ public:
     );
     void reserve_track(int track_nr, Instructor& inst, std::vector<Client> group, int res_time);
     void change_track(Client& cl, int tr1_nr, int tr2_nr);
+    int min_tr();
     void add_person(int tr_nr, Client& clnt);
     void remove_person(int car_id);
+    friend class Da_Pool;
 };
 #endif

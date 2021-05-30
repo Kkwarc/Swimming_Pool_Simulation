@@ -11,6 +11,17 @@ struct Time
         hour = hour + min/60;
         return* this;
     }
+    bool operator== (Time& tim)
+    {
+        if(hour == tim.hour && minutes == tim.minutes)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 };
 
 #endif

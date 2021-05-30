@@ -38,6 +38,10 @@ int Track::current_ppl()
 
 void Track::reserve_track(Instructor& inst, std::vector<Client> group, int res_time)
 {
+    for(long long unsigned int i; i<group.size(); i++)
+    {
+        group[i].did_reserve = true;
+    }
     instructor = inst;
     people = group;
     reserved = true;

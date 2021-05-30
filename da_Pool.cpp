@@ -172,7 +172,60 @@ void Da_Pool::reservation(int tr_nr, Time start, int duration, Instructor& inst,
     t->reserve_track(tr_nr, inst, group, duration);
 }
 
-void the_time_is_passing(int tick)
+bool Da_Pool::the_time_is_passing(int tick)
 {
-    cout << "Jebac proi" << endl;
+    if(current_time == closing_time)
+    {
+        return false;
+    }
+    else
+    {
+        for(long long unsigned int i=0; i<clients.size(); i++)
+        {
+            if (clients[i].remaining_time == 0)
+            {
+                exit_da_pool(clients[i]);
+                i=i-1;
+            }
+            clients[i].set_time(clients[i].remaining_time - tick);
+        }
+        for(long long unsigned int i=0; i<staff_available.size(); i++)
+        {
+            if(staff_available[i].finish == current_time)
+            {
+                staff_exit(staff_available[i]);
+                i=i-1;
+            }
+        }
+        for(long long unsigned int i=0; i<staff_available.size(); i++)
+        {
+            if(staff_available[i].finish == current_time)
+            {
+                staff_exit(staff_available[i]);
+                i=i-1;
+            }
+        }
+        for(long long unsigned int i=0; i<atractions.size(); i++)
+        {
+            if(atractions[i].name == "Swimming_Pool")
+            {
+                Swimming_Pool* t = static_cast<Swimming_Pool*>(&atractions[i]);
+                for(long long unsigned int j = 0; i<t->tracks.size();j++)
+                {
+                    if(t->tracks[j].reservation_time == 0)
+                    {
+                        t->tracks[j].reserved = false;
+                        t->tracks[j].instructor = Instructor();
+                        for(long long unsigned int k=0; k<t->tracks[j].people.size(); k++)
+                        {
+                            t->tracks[j].people[k].did_reserve = false;
+                        }
+                    }
+                    t->tracks[j].reservation_time = t->tracks[j].reservation_time - tick;
+                }
+            }
+        }
+    }
+    current_time = current_time + tick;
+    return true;
 }

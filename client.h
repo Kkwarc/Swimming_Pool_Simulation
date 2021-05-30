@@ -58,5 +58,9 @@ public:
     bool discount;
 
     int remaining_time;
+
+    friend class Da_Pool;
+
+    bool did_reserve;
 };
 #endif

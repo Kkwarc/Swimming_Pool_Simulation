@@ -63,6 +63,10 @@ void Swimming_Pool::reserve_track(int track_nr, Instructor& inst, std::vector<Cl
         }
         throw; // zrob cos z tym
     }
+    for (long long unsigned int i = 0; i < tracks[index].people.size(); i++)
+    {
+        change_track(tracks[index].people[0], track_nr, min_tr());
+    }
     if (tracks[index].is_reserved() != false)
     {
         tracks[index].reserve_track(inst, group, res_time);
@@ -99,6 +103,7 @@ void Swimming_Pool::change_track(Client& cl, int tr1_nr, int tr2_nr)
 void Swimming_Pool::add_person(int tr1_nr, Client& clnt)
 {
     int index;
+    if ((int)people.size()<people_limit)
     for (int i = 0; i < tr_nr; i++)
     {
         if (tracks[i].track_nr == tr1_nr)
@@ -135,4 +140,19 @@ void Swimming_Pool::remove_person(int car_id)
         }
     }
     people.erase(people.begin() + index1);
+}
+
+int Swimming_Pool::min_tr()
+{
+    int min = 500;
+    Track t;
+    for (int i=0; i<tr_nr; i++)
+    {
+        if(tracks[i].people.size()<tracks[i-1].people.size())
+        {
+            min = tracks[i].track_nr;
+            t = tracks[i];
+        }
+    }
+    return min;
 }

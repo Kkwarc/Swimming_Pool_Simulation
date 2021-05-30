@@ -44,6 +44,6 @@ public:
     void staff_exit(Lifeguard& staff);
     void assign_lifeguard(Lifeguard& lif, int atraction_nr);
     void reservation(int tr_nr, Time start, int duration, Instructor& inst, std::vector<Client> group); // duration w 60 min -> czas biletu
-    void the_time_is_passing(int tick);
+    bool the_time_is_passing(int tick);
 };
 #endif

@@ -49,5 +49,6 @@ public:
     bool operator != (Lifeguard& l1);
 
     Lifeguard operator=(Lifeguard l);
+    friend class Da_Pool;
 };
 #endif
