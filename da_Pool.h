@@ -1,7 +1,6 @@
 #ifndef Da_Pool_H
 #define Da_Pool_H
 
-// lista wyszukiwania ludzi na atrakcji
 #include <iostream>
 #include <list>
 #include<vector>
@@ -10,11 +9,6 @@
 #include "Instructor.h"
 #include "time.h"
 #include "atractions.h"
-
-// rachunek
-// bilety tylko godzinowe - stala cena z dodatkiem na ewentualna ulge
-// odnosniki do klienta po id
-// aktualna godzina
 
 class Da_Pool
 {
