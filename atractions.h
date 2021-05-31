@@ -10,12 +10,13 @@
 
 class Atraction
 {
+    friend class Simulation;
 protected:
     std::string name;
     int atraction_nr;
     int people_limit;
     std::vector<Client> people;
-    Lifeguard lifeguard; // wsadzic do wektora - moze
+    Lifeguard lifeguard;
 public:
     friend class Da_Pool;
 
