@@ -1,3 +1,17 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "time.h"
+#include "Lifeguard.h"
+#include "Instructor.h"
+#include "client.h"
+#include "atractions.h"
+#include "da_Pool.h"
+#include "simulation.h"
+
+
+using namespace std;
+
 void read()
 {
    ifstream file("text.txt");
@@ -13,7 +27,7 @@ void read()
          while ((pos = line.find(delimiter)) != string::npos)
          {     
             token = line.substr(0, pos);
-            obiekt.push_back(token);;
+            obiekt.push_back(token);
             line.erase(0, pos + delimiter.length());
          }
          if (obiekt[0]=="klient")
@@ -39,9 +53,11 @@ void read()
             int id = stoi(obiekt[3]);
             int exp = stoi(obiekt[4]);
             int starth = stoi(obiekt[5]);
+            Time sh = {starth,00};
             int finish = stoi(obiekt[6]);
+            Time fh = {finish,00};
 
-            //Lifeguard ratownik(name,surname,id,exp,starth,finish);
+            Lifeguard ratownik(name,surname,id,exp,sh,fh);
             //pracownicy.pushback(ratownik)
          }
          if (obiekt[0]=="Instructor")
@@ -51,9 +67,11 @@ void read()
             int id = stoi(obiekt[3]);
             int exp = stoi(obiekt[4]);
             int starth = stoi(obiekt[5]);
+            Time sh = {starth,00};
             int finish = stoi(obiekt[6]);
+            Time fh = {finish,00};
             
-            //Instructor instr(name,surname,id,exp,starth,finish);
+            Instructor instr(name,surname,id,exp,sh,fh);
             //pracownicy.pushback(ratownik)
          }
          if (obiekt[0]=="pool")
@@ -66,7 +84,7 @@ void read()
             int ladv = stoi(obiekt[6]);
             
             //Pool pool(num,dlug,maxp,lpocz,lmed,ladv);
-            //atrakcje.pushback(ratownik)
+            //atrakcje.pushback(pool)
          }
          if (obiekt[0]=="da_pool")
          {
@@ -87,4 +105,10 @@ void read()
          }
       }
    }
+}
+
+int main()
+{
+   read();
+   return 0;
 }
