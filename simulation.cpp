@@ -1,4 +1,5 @@
 #include "simulation.h"
+#include "reading.cpp"
 #include <random>
 
 using namespace std;
@@ -95,6 +96,22 @@ using namespace std;
      // -> thetimeispassing
      // koniec petli
      // -> summary of day
+     read();
+     while (gowno.current_time <= gowno.closing_time)
+     {
+         if (gowno.current_time == gowno.start_time || gowno.current_time == (gowno.start_time + 360))
+         {
+             lifeguards_enters();
+         }
+         if (list_of_clients.size() != 0)
+         {
+             customers_movements(par);
+         }
+         client_enters();
+         summary_of_tick();
+         gowno.the_time_is_passing(5); // nwm co mial bartek na mysli piszac int tick
+     }
+     summary_of_day();
  }
 
   int Simulation::number_of_enters()
