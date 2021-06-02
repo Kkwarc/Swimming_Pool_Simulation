@@ -97,7 +97,7 @@ using namespace std;
      // koniec petli
      // -> summary of day
      read();
-     while (gowno.current_time <= gowno.closing_time)
+     while (gowno.current_time < gowno.closing_time)
      {
          if (gowno.current_time == gowno.start_time || gowno.current_time == (gowno.start_time + 360))
          {
@@ -109,7 +109,7 @@ using namespace std;
          }
          client_enters();
          summary_of_tick();
-         gowno.the_time_is_passing(5); // nwm co mial bartek na mysli piszac int tick
+         gowno.the_time_is_passing(5);
      }
      summary_of_day();
  }
