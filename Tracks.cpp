@@ -59,3 +59,18 @@ void Track::add_person(Client& person)
         throw;
     }
 }
+
+Track Track::operator=(Track another_track)
+{
+    depth = another_track.depth;
+    length = another_track.length;
+    track_nr = another_track.track_nr;
+    instructor = another_track.instructor;
+    reserved = another_track.reserved;
+    name = another_track.name;
+    atraction_nr = another_track.atraction_nr;
+    people_limit = another_track.people_limit;
+    people = another_track.people;
+    lifeguard = another_track.lifeguard;
+    return *this;
+}

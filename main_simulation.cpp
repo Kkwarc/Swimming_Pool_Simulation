@@ -5,7 +5,7 @@
 
 int main()
 {
-    Simulation s("Databaze");
+    Simulation s("databaze.txt");
     s.main_simulation();
 }
 

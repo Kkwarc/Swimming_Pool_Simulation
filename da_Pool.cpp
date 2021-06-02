@@ -2,7 +2,7 @@
 #include "client.h"
 #include "Lifeguard.h"
 #include "Instructor.h"
-#include "time.h"
+#include "da_time.h"
 #include "atractions.h"
 
 using namespace std;
@@ -22,15 +22,15 @@ Da_Pool::Da_Pool()
 Da_Pool::Da_Pool(
     string name,
     std::vector<Atraction> atractions,
-    Time start_time,
-    Time closing_time
+    Time sta_time,
+    Time clo_time
 )
 {
     name = name;
     atractions = atractions;
-    start_time = start_time;
-    closing_time = closing_time;
-    current_time = start_time;
+    start_time = sta_time;
+    closing_time = clo_time;
+    current_time = sta_time;
 }
 
 void Da_Pool::add_client(Client& client, int atraction_nr, int time)
@@ -95,7 +95,13 @@ void Da_Pool::change_atr(Client& client, int atraction_nr1, int atraction_nr2)
         }
     }
     atractions[index1].remove_person(client.carnet_id);
-    atractions[index2].add_person(client);
+    if (atractions[index2].name == "Swimming_Pool")
+    {
+        Swimming_Pool* t = static_cast<Swimming_Pool*>(&atractions[index2]);
+        t->add_person(t->min_tr(), client);
+    }
+    else
+    {atractions[index2].add_person(client);}
 }
 
 void Da_Pool::exit_da_pool(Client& client)

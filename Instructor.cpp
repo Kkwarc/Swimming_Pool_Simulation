@@ -89,7 +89,7 @@ bool Instructor::operator != (Instructor& i1)
     }
 }
 
-Instructor Instructor::operator=(Instructor& i)
+Instructor Instructor::operator=(Instructor i)
 {
 
     name = i.name;

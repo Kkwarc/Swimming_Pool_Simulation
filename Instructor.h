@@ -6,7 +6,7 @@
 #include <sstream>
 #include "client.h"
 #include "Lifeguard.h"
-#include "time.h"
+#include "da_time.h"
 
 class Instructor :public Lifeguard
 {
@@ -41,7 +41,7 @@ public:
 
     bool operator != (Instructor& i1);
 
-    Instructor operator=(Instructor& i);
+    Instructor operator=(Instructor i);
 
 };
 #endif

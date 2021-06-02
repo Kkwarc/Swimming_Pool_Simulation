@@ -1,32 +1,42 @@
+#ifndef Reading_H
+#define Reading_H
+
 #include <fstream>
-#include "time.h"
+#include "da_time.h"
 #include "Lifeguard.h"
 #include "Instructor.h"
 #include "client.h"
 #include "atractions.h"
 #include "da_Pool.h"
-#include "simulation.h"
-
-using namespace std;
-
-vector<Atraction> atractions;
-vector<Lifeguard> staff_available;
-vector<Client> clients;
 
 
-void read()
+
+struct Reading
 {
-    ifstream file("Databaze.txt");
+    std::vector<Atraction> atractions;
+    std::vector<Lifeguard> staff_available;
+    std::vector<Client> clients;
+    Da_Pool dapool;
+    int tick;
+    int rand;
+};
+
+
+
+Reading da_read(std::string databaze)
+{
+    Reading m;
+    std::ifstream file(databaze);
     if (file.is_open())
     {
-        string line;
+        std::string line;
         while (getline(file, line))
         {
             size_t pos = 0;
-            string token;
-            string delimiter = ",";
-            vector<string> obiekt;
-            while ((pos = line.find(delimiter)) != string::npos)
+            std::string token;
+            std::string delimiter = ",";
+            std::vector<std::string> obiekt;
+            while ((pos = line.find(delimiter)) != std::string::npos)
             {
                 token = line.substr(0, pos);
                 obiekt.push_back(token);
@@ -34,25 +44,25 @@ void read()
             }
             if (obiekt[0] == "klient")
             {
-                string name = obiekt[1];
-                string surname = obiekt[2];
+                std::string name = obiekt[1];
+                std::string surname = obiekt[2];
                 int id = stoi(obiekt[3]);
                 int z = stoi(obiekt[4]);
                 if (z == 0)
                 {
                     Client klient(name, surname, id, false, 0);
-                    clients.push_back(klient);
+                    m.clients.push_back(klient);
                 }
                 if (z == 1)
                 {
                     Client klient(name, surname, id, true, 0);
-                    clients.push_back(klient);
+                    m.clients.push_back(klient);
                 }
             }
             if (obiekt[0] == "Lifeguard")
             {
-                string name = obiekt[1];
-                string surname = obiekt[2];
+                std::string name = obiekt[1];
+                std::string surname = obiekt[2];
                 int id = stoi(obiekt[3]);
                 int exp = stoi(obiekt[4]);
                 int starth = stoi(obiekt[5]);
@@ -61,12 +71,12 @@ void read()
                 Time fh = { finish,00 };
 
                 Lifeguard ratownik(name, surname, id, exp, sh, fh);
-                staff_available.push_back(ratownik);
+                m.staff_available.push_back(ratownik);
             }
             if (obiekt[0] == "Instructor")
             {
-                string name = obiekt[1];
-                string surname = obiekt[2];
+                std::string name = obiekt[1];
+                std::string surname = obiekt[2];
                 int id = stoi(obiekt[3]);
                 int exp = stoi(obiekt[4]);
                 int starth = stoi(obiekt[5]);
@@ -75,7 +85,7 @@ void read()
                 Time fh = { finish,00 };
 
                 Instructor instr(name, surname, id, exp, sh, fh);
-                staff_available.push_back(instr);
+                m.staff_available.push_back(instr);
             }
             if (obiekt[0] == "pool")
             {
@@ -87,50 +97,50 @@ void read()
                 int advanced_tr = stoi(obiekt[6]);
 
                 Swimming_Pool swipool(atraction_nr, length, tr_limit, begginer_tr, intermeddiate_tr, advanced_tr);
-                atractions.push_back(swipool);
+                m.atractions.push_back(swipool);
             }
-            if (obiekt[0] == "track")
-            {
-                int dpth = stoi(obiekt[1]);
-                int lng = stoi(obiekt[2]);
-                int tr_nr = stoi(obiekt[3]);
-                int ppl_lim = stoi(obiekt[4]);
-                int atraction_nr = stoi(obiekt[5]);
+            // if (obiekt[0] == "track")
+            // {
+            //     int dpth = stoi(obiekt[1]);
+            //     int lng = stoi(obiekt[2]);
+            //     int tr_nr = stoi(obiekt[3]);
+            //     int ppl_lim = stoi(obiekt[4]);
+            //     int atraction_nr = stoi(obiekt[5]);
 
-                Track track(dpth, lng, tr_nr, ppl_lim, atraction_nr);
-                atractions.push_back(track);
-            }
+            //     Track track(dpth, lng, tr_nr, ppl_lim, atraction_nr);
+            //     m.atractions.push_back(track);
+            // }
             if (obiekt[0] == "attraction")
             {
-                string name = obiekt[1];
+                std::string name = obiekt[1];
                 int attraction_num = stoi(obiekt[2]);
                 int people_limit = stoi(obiekt[3]);
 
                 Atraction atraction(name, attraction_num, people_limit);
-                atractions.push_back(atraction);
+                m.atractions.push_back(atraction);
             }
             if (obiekt[0] == "da_pool")
             {
-                string name = obiekt[1];
-                int max_ppl = stoi(obiekt[2]);
-                int attr_nr = stoi(obiekt[3]);
-                int start = stoi(obiekt[4]);
+                std::string name = obiekt[1];
+                int start = stoi(obiekt[2]);
                 Time starth = { start,00 };
-                Time currenth = { start,00 };
-                int finish = stoi(obiekt[5]);
+                int finish = stoi(obiekt[3]);
                 Time finishh = { finish,00 };
 
-                //Da_Pool dapool(name, max_ppl,attr_nr, atractions, staff_available, clients, starth,finishh,currenth);
+                Da_Pool dapool(name, m.atractions,starth,finishh);
+                m.dapool = dapool;
 
             }
             if (obiekt[0] == "rand")
             {
-                //nwm
+                m.rand = stoi(obiekt[1]);
             }
             if (obiekt[0] == "tick")
             {
-                //nwm
+                m.tick = stoi(obiekt[1]);
             }
         }
     }
+    return m;
 }
+#endif

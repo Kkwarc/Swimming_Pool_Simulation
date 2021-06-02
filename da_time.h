@@ -1,0 +1,56 @@
+#ifndef Time_H
+#define Time_H
+
+struct Time
+{
+    int hour;
+    int minutes;
+    Time operator+(int min)
+    {
+        int temp =minutes + min%60;
+        minutes = (temp)%60;
+        hour = hour + min/60 + temp/60;
+        return* this;
+    }
+    bool operator== (Time& tim)
+    {
+        if(hour == tim.hour && minutes == tim.minutes)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    friend std::ostream& operator << (std::ostream& output, Time& t)
+    {
+        if(t.minutes>9)
+        {
+            output<<t.hour<<":"<<t.minutes;
+        }
+        else
+        {
+            output<<t.hour<<":0"<<t.minutes;
+        }
+        return output;
+    }
+    bool operator<(Time& t)
+    {
+        if (hour>t.hour)
+        {
+            return false;
+        }
+        else if (hour<t.hour)
+        {
+            return true;
+        }
+        else if (minutes>=t.minutes)
+        {
+            return false;
+        }
+        else{return true;}
+    }
+};
+
+#endif

@@ -16,7 +16,7 @@ Swimming_Pool::Swimming_Pool()
     lifeguard = Lifeguard();
     tr_nr = 0;
     length = 0;
-
+    tracks={};
 }
 Swimming_Pool::Swimming_Pool
 (
@@ -26,7 +26,7 @@ Swimming_Pool::Swimming_Pool
     int begginer_tr,
     int intermeddiate_tr,
     int advanced_tr
-) : Atraction("Swimming_pool", atraction_nr, tr_limit* (begginer_tr + intermeddiate_tr + advanced_tr))
+) : Atraction("Swimming_pool", atraction_nr, (tr_limit*(begginer_tr + intermeddiate_tr + advanced_tr)))
 {
     tr_nr = begginer_tr + intermeddiate_tr + advanced_tr;
     atraction_nr = atraction_nr;
@@ -35,19 +35,19 @@ Swimming_Pool::Swimming_Pool
     for (int i = 0; i < begginer_tr; i++)
     {
         Track tr(100, length, current_tr, tr_limit, atraction_nr);
-        tracks[current_tr] = tr;
+        tracks.push_back(tr);
         current_tr = current_tr + 1;
     }
     for (int i = 0; i < intermeddiate_tr; i++)
     {
         Track tr(200, length, current_tr, tr_limit, atraction_nr);
-        tracks[current_tr] = tr;
+        tracks.push_back(tr);
         current_tr = current_tr + 1;
     }
     for (int i = 0; i < advanced_tr; i++)
     {
         Track tr(300, length, current_tr, tr_limit, atraction_nr);
-        tracks[current_tr] = tr;
+        tracks.push_back(tr);
         current_tr = current_tr + 1;
     }
 }

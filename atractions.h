@@ -61,7 +61,7 @@ public:
     Track();
     Track(int dpth, int lng, int tr_nr, int ppl_lim, int atraction_nr);
 
-    Track(Track& another_track)
+    Track(const Track& another_track)
     {
         depth = another_track.depth;
         length = another_track.length;
@@ -75,6 +75,7 @@ public:
         lifeguard = another_track.lifeguard;
     }
     bool is_reserved();
+    Track operator=(Track another_track);
     int current_ppl();
     void reserve_track(Instructor& inst, std::vector<Client> group, int res_time);
     void add_person(Client& person);
