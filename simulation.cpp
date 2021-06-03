@@ -2,6 +2,7 @@
 #include "reading.h"
 #include <random>
 #include<time.h>
+#include <windows.h>
 
 using namespace std;
 
@@ -58,12 +59,27 @@ void Simulation::lifeguards_enters()
   void Simulation::client_enters()
   {
   	int rand = number_of_enters();
+    int rand1;
   	for (int i = 0; i < rand; i++)
   	{
-  		int rand1 = give_random_number(list_of_clients.size());
-  		int rand2 = give_random_number(list_of_atractions.size());
-  		gowno.add_client(list_of_clients[rand1],rand2, 1, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
-         list_of_clients[rand1].curent_atr_nr = rand2;
+  		rand1;
+        bool buzy = true;
+        while (buzy == true)
+        {
+            rand1 = give_random_number(list_of_clients.size());
+            if (list_of_clients[rand1].curent_atr_nr != -1)
+            {
+                continue;
+            }
+            else
+            {
+                buzy = false;
+            }
+        }
+  		int rand2 = give_random_number(list_of_atractions.size())+1;
+  		gowno.add_client(list_of_clients[rand1],rand2, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
+        list_of_clients[rand1].curent_atr_nr = rand2;
+
   	}
   }
 
@@ -75,7 +91,7 @@ void Simulation::summary_of_tick()
     cout << "Time: " << gowno.current_time << " to " << k << endl;
     for (int i = 0; i < y; i++)
     {
-        cout << "Artaction number: " << list_of_atractions[i].atraction_nr << endl;
+        cout << "Atraction name: " << list_of_atractions[i].name << "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
         cout << " Lifeguards data [name and surname]: " << gowno.atractions[i].lifeguard.name <<
             "  " << gowno.atractions[i].lifeguard.surname <<
             "; Number of clients: " << gowno.atractions[i].people.size() << endl;
@@ -120,6 +136,7 @@ void Simulation::main_simulation()
         client_enters();
         summary_of_tick();
         gowno.the_time_is_passing(tick_length); // nwm co mial bartek na mysli piszac int tick
+        Sleep(1000);
     }
     summary_of_day();
 }
@@ -128,9 +145,6 @@ int Simulation::number_of_enters()
 {
     srand(time(NULL));
     int random_number = rand() % (tick_length % 3 + 1);
-    // tymczasowo
-    //random_number = 2;
-    //
     return random_number;
 }
 
