@@ -1,47 +1,103 @@
-#ifndef Instructor_h
-#define Instructor_h
-
 #include <iostream>
 #include <vector>
 #include <sstream>
-#include "client.h"
-#include "Lifeguard.h"
-#include "da_time.h"
+#include "Instructor.h"
 
-class Instructor :public Lifeguard
+using namespace std;
+
+// czas, bool zajety
+
+Instructor::Instructor(
+    string na,
+    string sur,
+    int wid,
+    int ex,
+    Time s,
+    Time f,
+    vector <Client> gr
+) : Lifeguard(na, sur, wid, ex, s, f)
 {
-private:
-    std::vector <Client> group;
+    name = na;
+    surname = sur;
+    work_id = wid;
+    experience = ex;
+    start = s;
+    finish = f;
+    group = gr;
+}
 
-public:
-    Instructor(
-        std::string na = "",
-        std::string sur = "",
-        int wid = 0,
-        int ex = 1,
-        Time start = { -1,-1 },
-        Time finish = { -1,-1 },
-        std::vector <Client> gr = {}
-    );
+//tutaj by sie podawalo sam id karty ludka i sie go dodaje wtedy git nie
+void Instructor::add_persongroup(Client& new_person)
+{
+    group.push_back(new_person);
+}
 
-    Instructor(const Instructor& I) : Lifeguard(I)
+void Instructor::remove_persongroup(int old_client_card_id)
+{
+    for (long long unsigned int i = 0; i < group.size(); i++)
     {
-        group = I.group;
+        if (group[i].carnet_id == old_client_card_id)
+        {
+            group.erase(group.begin() + i);
+
+        }
     }
+    // na try
 
-    std::vector<Client> get_group();
+    // if (t == false)
+    // {
+    //     cout << "There is no such person in group" << endl;
+    // }
+    // else
+    // {
+    //     cout <<"Person has been removed from group" << endl;
+    // }
+}
 
-    void add_persongroup(Client& new_person);
+ostream& operator << (ostream& output, Instructor& i)
+{
+    cout << "Name: " << i.name << endl;
+    cout << "Surname: " << i.surname << endl;
+    cout << "Worker id: " << i.work_id << endl;
+    cout << "Experience level " << i.experience << endl;
+    return output;
+}
 
-    void remove_persongroup(int old_client_card_id);
+bool Instructor::operator == (Instructor& i1)
+{
+    if (i1.work_id == work_id)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
-    friend std::ostream& operator << (std::ostream& output, Instructor& i);
+bool Instructor::operator != (Instructor& i1)
+{
+    if ((i1.name == name) &&
+        (i1.surname == surname) &&
+        (i1.work_id == work_id))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 
-    bool operator == (Instructor& i1);
+Instructor Instructor::operator=(Instructor i)
+{
 
-    bool operator != (Instructor& i1);
-
-    Instructor operator=(Instructor i);
-
-};
-#endif
+    name = i.name;
+    surname = i.surname;
+    work_id = i.work_id;
+    experience = i.experience;
+    start = i.start;
+    finish = i.finish;
+    group = i.group;
+    return*this;
+}
