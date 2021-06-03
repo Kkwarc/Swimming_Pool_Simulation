@@ -9,6 +9,7 @@ Client::Client()
     carnet_id = 0;
     discount = false;
     remaining_time = 0;
+    curent_atr_nr = -1;
 }
 Client::Client(string name,
     string surname,
@@ -21,6 +22,7 @@ Client::Client(string name,
     this->carnet_id = carnet_id;
     this->discount = discount;
     this->remaining_time = remaining_time;
+    curent_atr_nr = -1;
 }
 
 string Client::get_name() const
