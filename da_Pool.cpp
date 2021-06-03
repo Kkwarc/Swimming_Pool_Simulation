@@ -40,7 +40,6 @@ void Da_Pool::add_client(Client& client, int atraction_nr, int time)
 {
     int index;
     client.set_time(time);
-    clients.push_back(client);
     for (long long unsigned int i = 0; i < atractions.size(); i++)
     {
         if (atractions[i].atraction_nr == atraction_nr)
@@ -50,6 +49,22 @@ void Da_Pool::add_client(Client& client, int atraction_nr, int time)
         }
     }
     atractions[index].add_person(client);
+    clients.push_back(client);
+}
+
+void Da_Pool::assign_lifeguard(Lifeguard& lif, int atraction_nr)
+{
+    int index;
+    for (long long unsigned int i = 0; i < atractions.size(); i++)
+    {
+        if (atractions[i].atraction_nr == atraction_nr)
+        {
+            index = i;
+            break;
+        }
+    }
+    atractions[index].set_lifeguard(lif);
+    staff_available.push_back(lif);
 }
 
 void Da_Pool::add_client(Client& client, int atraction_nr, int tr_number, int time)
@@ -146,21 +161,6 @@ void Da_Pool::staff_exit(Lifeguard& staff)
         }
     }
     staff_available.erase(staff_available.begin() + index);
-}
-
-void Da_Pool::assign_lifeguard(Lifeguard& lif, int atraction_nr)
-{
-    int index1;
-    for (long long unsigned int i = 0; i < atractions.size(); i++)
-    {
-        if (atractions[i].atraction_nr == atraction_nr)
-        {
-            index1 = i;
-            break;
-        }
-    }
-    atractions[index1].set_lifeguard(lif);
-    staff_available.push_back(lif);
 }
 
 void Da_Pool::reservation(int tr_nr, Time start, int duration, Instructor& inst, vector<Client> group)
