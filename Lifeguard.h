@@ -8,6 +8,7 @@
 
 class Lifeguard
 {
+    friend class Da_Pool;
 protected:
     std::string name, surname;
     int work_id, experience;
@@ -50,6 +51,5 @@ public:
     bool operator != (Lifeguard& l1);
 
     Lifeguard operator=(Lifeguard l);
-    friend class Da_Pool;
 };
 #endif
