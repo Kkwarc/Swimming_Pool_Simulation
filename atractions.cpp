@@ -92,6 +92,7 @@ void Atraction::add_person(Client& person)
     {
         people.push_back(person);
         person.curent_atr_nr = atraction_nr;
+        person.did_reserve = true;
         return;
     }
     else

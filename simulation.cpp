@@ -76,12 +76,12 @@ void Simulation::client_enters()
                 buzy = false;
             }
         }
-        int rand2 = give_random_number(list_of_atractions.size()) + 1;
-        gowno.add_client(list_of_clients[rand1], rand2, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
+  		int rand2 = give_random_number(list_of_atractions.size())+1;
+  		gowno.add_client(list_of_clients[rand1],rand2, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
         list_of_clients[rand1].curent_atr_nr = rand2;
 
-    }
-}
+  	}
+  }
 
 void Simulation::summary_of_tick()
 {
