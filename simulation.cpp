@@ -24,7 +24,7 @@ void Simulation::customers_movements(int par)
 {
     for (long long unsigned int i = 0; i < gowno.clients.size(); i++)
     {
-        int rand_nummber = give_random_number(5);
+        int rand_nummber = give_random_number(5)+1;
         if (rand_nummber == 0)
         {
             int rand2 = give_random_number(list_of_atractions.size());
@@ -76,11 +76,12 @@ void Simulation::client_enters()
                 buzy = false;
             }
         }
-        int rand2 = give_random_number(list_of_atractions.size()) + 1;
-        gowno.add_client(list_of_clients[rand1], rand2, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
+  		int rand2 = give_random_number(list_of_atractions.size())+1;
+  		gowno.add_client(list_of_clients[rand1],rand2, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
         list_of_clients[rand1].curent_atr_nr = rand2;
-    }
-}
+
+  	}
+  }
 
 void Simulation::summary_of_tick()
 {
@@ -135,7 +136,7 @@ void Simulation::main_simulation()
         client_enters();
         summary_of_tick();
         gowno.the_time_is_passing(tick_length);
-        Sleep(1000);
+        // Sleep(1000);
     }
     summary_of_day();
 }
@@ -144,7 +145,6 @@ int Simulation::number_of_enters()
 {
     srand(time(NULL));
     int random_number = rand() % (tick_length % 3 + 1);
-    random_number = 2;
     return random_number;
 }
 

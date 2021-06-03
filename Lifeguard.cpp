@@ -95,6 +95,7 @@ Lifeguard Lifeguard::operator=(Lifeguard l)
     experience = l.experience;
     start = l.start;
     finish = l.finish;
+    busy = l.busy;
 
     return*this;
 }

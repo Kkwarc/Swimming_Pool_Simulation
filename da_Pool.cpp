@@ -35,7 +35,7 @@ Da_Pool::Da_Pool(
     max_ppl = 50; // doooo poooprawy ez
 }
 
-// po co to -> jak nizej jest 
+// po co to -> jak nizej jest
 void Da_Pool::add_client(Client& client, int atraction_nr, int time)
 {
     int index;
@@ -72,6 +72,7 @@ void Da_Pool::add_client(Client& client, int atraction_nr, int tr_number, int ti
     int index;
     client.set_time(time);
     clients.push_back(client);
+    client.curent_atr_nr = atraction_nr;
     for (long long unsigned int i = 0; i < atractions.size(); i++)
     {
         if (atractions[i].atraction_nr == atraction_nr)
@@ -186,30 +187,26 @@ bool Da_Pool::the_time_is_passing(int tick)
     }
     else
     {
+        int j=0;
         for (long long unsigned int i = 0; i < clients.size(); i++)
         {
-            if (clients[i].remaining_time == 0)
+            if (clients[j].remaining_time == 0)
             {
-                exit_da_pool(clients[i]);
-                i = i - 1;
+                exit_da_pool(clients[j]);
+                j = j - 1;
             }
-            clients[i].set_time(clients[i].remaining_time - tick);
+            clients[j].set_time(clients[j].remaining_time - tick);
+            j=j+1;
         }
+        j=0;
         for (long long unsigned int i = 0; i < staff_available.size(); i++)
         {
-            if (staff_available[i].finish == current_time)
+            if (staff_available[j].finish == current_time)
             {
-                staff_exit(staff_available[i]);
-                i = i - 1;
+                staff_exit(staff_available[j]);
+                j = j - 1;
             }
-        }
-        for (long long unsigned int i = 0; i < staff_available.size(); i++)
-        {
-            if (staff_available[i].finish == current_time)
-            {
-                staff_exit(staff_available[i]);
-                i = i - 1;
-            }
+            j=j+1;
         }
         for (long long unsigned int i = 0; i < atractions.size(); i++)
         {

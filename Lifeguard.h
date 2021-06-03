@@ -37,6 +37,7 @@ public:
         experience = L.experience;
         start = L.start;
         finish = L.finish;
+        busy = L.busy;
     }
     std::string get_name();
     std::string get_surname();
