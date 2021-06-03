@@ -56,13 +56,13 @@ void Simulation::lifeguards_enters()
     }
 }
 
-  void Simulation::client_enters()
-  {
-  	int rand = number_of_enters();
+void Simulation::client_enters()
+{
+    int rand = number_of_enters();
     int rand1;
-  	for (int i = 0; i < rand; i++)
-  	{
-  		rand1;
+    for (int i = 0; i < rand; i++)
+    {
+        rand1;
         bool buzy = true;
         while (buzy == true)
         {
@@ -76,12 +76,11 @@ void Simulation::lifeguards_enters()
                 buzy = false;
             }
         }
-  		int rand2 = give_random_number(list_of_atractions.size())+1;
-  		gowno.add_client(list_of_clients[rand1],rand2, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
+        int rand2 = give_random_number(list_of_atractions.size()) + 1;
+        gowno.add_client(list_of_clients[rand1], rand2, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
         list_of_clients[rand1].curent_atr_nr = rand2;
-
-  	}
-  }
+    }
+}
 
 void Simulation::summary_of_tick()
 {
@@ -135,7 +134,7 @@ void Simulation::main_simulation()
         }
         client_enters();
         summary_of_tick();
-        gowno.the_time_is_passing(tick_length); // nwm co mial bartek na mysli piszac int tick
+        gowno.the_time_is_passing(tick_length);
         Sleep(1000);
     }
     summary_of_day();
@@ -145,6 +144,7 @@ int Simulation::number_of_enters()
 {
     srand(time(NULL));
     int random_number = rand() % (tick_length % 3 + 1);
+    random_number = 2;
     return random_number;
 }
 
