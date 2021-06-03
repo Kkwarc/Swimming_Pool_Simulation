@@ -21,18 +21,21 @@ Da_Pool::Da_Pool()
 
 Da_Pool::Da_Pool(
     string name,
-    std::vector<Atraction> atractions,
+    std::vector<Atraction> &atr,
     Time sta_time,
     Time clo_time
 )
 {
     name = name;
-    atractions = atractions;
+    atractions = atr;
     start_time = sta_time;
     closing_time = clo_time;
     current_time = sta_time;
+    attr_nr = (int)atractions.size();
+    max_ppl = 50; // doooo poooprawy ez
 }
 
+// po co to -> jak nizej jest 
 void Da_Pool::add_client(Client& client, int atraction_nr, int time)
 {
     int index;
@@ -73,7 +76,6 @@ void Da_Pool::add_client(Client& client, int atraction_nr, int tr_number, int ti
     }
 }
 
-
 void Da_Pool::change_atr(Client& client, int atraction_nr1, int atraction_nr2)
 {
     int index1;
@@ -101,7 +103,9 @@ void Da_Pool::change_atr(Client& client, int atraction_nr1, int atraction_nr2)
         t->add_person(t->min_tr(), client);
     }
     else
-    {atractions[index2].add_person(client);}
+    {
+        atractions[index2].add_person(client);
+    }
 }
 
 void Da_Pool::exit_da_pool(Client& client)
@@ -130,11 +134,6 @@ void Da_Pool::exit_da_pool(Client& client)
 
 }
 
-void Da_Pool::staff_come(Lifeguard& staff)
-{
-    staff_available.push_back(staff);
-}
-
 void Da_Pool::staff_exit(Lifeguard& staff)
 {
     int index;
@@ -161,6 +160,7 @@ void Da_Pool::assign_lifeguard(Lifeguard& lif, int atraction_nr)
         }
     }
     atractions[index1].set_lifeguard(lif);
+    staff_available.push_back(lif);
 }
 
 void Da_Pool::reservation(int tr_nr, Time start, int duration, Instructor& inst, vector<Client> group)
