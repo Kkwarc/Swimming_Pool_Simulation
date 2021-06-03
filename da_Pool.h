@@ -26,7 +26,7 @@ public:
     Da_Pool();
     Da_Pool(
         std::string name,
-        std::vector<Atraction> atractions,
+        std::vector<Atraction> &atr,
         Time start_time,
         Time closing_timev
     );
@@ -34,7 +34,6 @@ public:
     void add_client(Client& client, int atraction_nr, int tr_number, int time);
     void change_atr(Client& client, int atraction_nr1, int atraction_nr2); //przejscie z jednego basenu do 2
     void exit_da_pool(Client& client);
-    void staff_come(Lifeguard& staff);
     void staff_exit(Lifeguard& staff);
     void assign_lifeguard(Lifeguard& lif, int atraction_nr);
     void reservation(int tr_nr, Time start, int duration, Instructor& inst, std::vector<Client> group); // duration w 60 min -> czas biletu
