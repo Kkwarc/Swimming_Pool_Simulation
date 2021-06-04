@@ -19,6 +19,7 @@ class Da_Pool
     std::vector<Atraction> atractions; // swiming pool
     std::vector<Lifeguard> staff_available;
     std::vector<Client> clients;
+    std::vector<int> exiting;
     Time start_time;
     Time closing_time;
     Time current_time;
@@ -26,14 +27,14 @@ public:
     Da_Pool();
     Da_Pool(
         std::string name,
-        std::vector<Atraction> &atr,
+        std::vector<Atraction>& atr,
         Time start_time,
         Time closing_timev
     );
     void add_client(Client& client, int atraction_nr, int time);
     void add_client(Client& client, int atraction_nr, int tr_number, int time);
     void change_atr(Client& client, int atraction_nr1, int atraction_nr2); //przejscie z jednego basenu do 2
-    void exit_da_pool(Client& client);
+    int exit_da_pool(Client& client);
     void staff_exit(Lifeguard& staff);
     void assign_lifeguard(Lifeguard& lif, int atraction_nr);
     void reservation(int tr_nr, Time start, int duration, Instructor& inst, std::vector<Client> group); // duration w 60 min -> czas biletu
