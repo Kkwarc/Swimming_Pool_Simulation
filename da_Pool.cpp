@@ -196,7 +196,10 @@ bool Da_Pool::the_time_is_passing(int tick)
                 exit_da_pool(clients[j]);
                 j = j - 1;
             }
-            clients[j].set_time(clients[j].remaining_time - tick);
+            else
+            {
+                clients[j].set_time(clients[j].remaining_time - tick);
+            }
             j=j+1;
         }
         j=0;
