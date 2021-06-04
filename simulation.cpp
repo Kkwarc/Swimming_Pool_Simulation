@@ -108,6 +108,10 @@ int Simulation::client_enters()
                 buzy = false;
             }
         }
+        Time L = gowno.current_time;
+        list_of_clients[rand1].time_spent += rand3;
+        list_of_clients[rand1].time_spent_hours.push_back(L);
+        list_of_clients[rand1].time_spent_hours.push_back(L + rand3*60);
         int rand2;
         bool overcrowded = true;
         while (overcrowded == true)
@@ -167,6 +171,28 @@ void Simulation::summary_of_day()
     // godzina przyjsca
     // godzina wyjscia
     // ile zapłacił
+    cout << "SUMMARY OF DAY" << endl;
+    for (int i = 0; i < list_of_clients.size(); i++)
+    {
+        if (list_of_clients[i].time_spent > 0)
+        {
+            cout << "Client: " << list_of_clients[i].name << " " << list_of_clients[i].surname << endl;
+            cout << "Time spent: "<< list_of_clients[i].time_spent << endl;
+            if (list_of_clients[i].discount == true)
+            {
+                cout << "Payment: " << list_of_clients[i].time_spent*20/2 << endl; // cena za godzine do modyfikacji
+            }
+            else
+            {
+                cout << "Payment: " << list_of_clients[i].time_spent * 20 << endl; // to co wyzej
+            }
+            for (int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
+            {
+                cout << "Enter time: " << list_of_clients[i].time_spent_hours[j] << endl;
+                cout << "Exit time: " << list_of_clients[i].time_spent_hours[j+1] << endl;
+            }
+        }
+    }
 }
 
 void Simulation::main_simulation()
