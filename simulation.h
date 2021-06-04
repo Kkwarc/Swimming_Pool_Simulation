@@ -33,6 +33,7 @@ public:
     void customers_movements(int par);
     void lifeguards_enters(); //  na starcie && zmiany kadry
     void client_enters();
+    void exit_client();
     void summary_of_tick();
     void summary_of_day(); // podsumowanie dnia
     void main_simulation(); // funkcja ktora zawiera wszytskie inne funkcje
