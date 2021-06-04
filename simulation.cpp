@@ -70,6 +70,29 @@ int Simulation::client_enters()
     int rand = number_of_enters();
     int rand1;
     int rand3 = give_random_number(3) + 1;
+    bool correct_time = false;
+    while (correct_time == false)
+    {
+        Time E1 = gowno.current_time;
+        E1 = E1 + 59;
+        Time E2 = gowno.current_time;
+        E2 = E2 + 119;
+        if (gowno.closing_time < E1)
+        {
+            rand3 = 1;
+            correct_time = true;
+        }
+        else if (gowno.closing_time < E2)
+        {
+            rand3 = give_random_number(2) + 1;
+            correct_time = true;
+        }
+        else
+        {
+            rand3 = give_random_number(3) + 1;
+            correct_time = true;
+        }
+    }
     for (int i = 0; i < rand; i++)
     {
         bool buzy = true;
@@ -128,8 +151,8 @@ void Simulation::summary_of_tick(int random_number)
     {
         cout << "Atraction name: " << list_of_atractions[i].name << "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
         cout << " Lifeguards data [name and surname]: " << gowno.atractions[i].lifeguard.name <<
-            "  " << gowno.atractions[i].lifeguard.surname <<
-            "; Number of clients: " << gowno.atractions[i].people.size() << endl;
+            "  " << gowno.atractions[i].lifeguard.surname << endl;
+        cout << " Number of clients: " << gowno.atractions[i].people.size() << endl;
     }
 }
 
