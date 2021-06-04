@@ -65,7 +65,7 @@ void Simulation::lifeguards_enters()
     }
 }
 
-void Simulation::client_enters()
+int Simulation::client_enters()
 {
     int rand = number_of_enters();
     int rand1;
@@ -99,6 +99,7 @@ void Simulation::client_enters()
         list_of_clients[rand1].curent_atr_nr = gowno.atractions[rand2].atraction_nr;
 
     }
+    return rand;
 }
 
 void Simulation::exit_client()
@@ -116,12 +117,13 @@ void Simulation::exit_client()
     }
 }
 
-void Simulation::summary_of_tick()
+void Simulation::summary_of_tick(int random_number)
 {
     int y = (int)list_of_atractions.size();
     Time m = gowno.current_time;
     Time k = m + tick_length;
     cout << "Time: " << gowno.current_time << " to " << k << endl;
+    cout << "Number of enters: " << random_number << endl;
     for (int i = 0; i < y; i++)
     {
         cout << "Atraction name: " << list_of_atractions[i].name << "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
@@ -157,11 +159,11 @@ void Simulation::main_simulation()
         {
             customers_movements(par);
         }
-        client_enters();
-        summary_of_tick();
+        int a = client_enters();
+        summary_of_tick(a);
         gowno.the_time_is_passing(tick_length);
         exit_client();
-        Sleep(100);
+        Sleep(300);
     }
     summary_of_day();
 }
@@ -169,8 +171,8 @@ void Simulation::main_simulation()
 int Simulation::number_of_enters()
 {
     srand(time(NULL));
-    int random_number = rand() % (tick_length / 10 + 1);
-    random_number = 4;
+    int random_number = rand() % (tick_length / 5 + 1);
+    //random_number = 4;
     return random_number;
 }
 
