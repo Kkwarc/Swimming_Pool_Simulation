@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include "da_time.h"
 
 class Client
 {
@@ -18,6 +19,8 @@ public:
     int remaining_time;
     bool did_reserve;
     int curent_atr_nr;
+    int time_spent;
+    std::vector<Time> time_spent_hours;
 
     Client();
 
@@ -37,6 +40,8 @@ public:
         discount = client.discount;
         remaining_time = client.remaining_time;
         curent_atr_nr = client.curent_atr_nr;
+        time_spent = client.time_spent;
+        time_spent_hours = client.time_spent_hours;
     }
 
     friend std::ostream& operator << (std::ostream& output, const Client& c);
