@@ -10,6 +10,8 @@ Client::Client()
     discount = false;
     remaining_time = 0;
     curent_atr_nr = -1;
+    time_spent = 0;
+    time_spent_hours = {};
 }
 Client::Client(string name,
     string surname,
@@ -23,6 +25,8 @@ Client::Client(string name,
     this->discount = discount;
     this->remaining_time = remaining_time;
     curent_atr_nr = -1;
+    time_spent = 0;
+    time_spent_hours = {};
 }
 
 string Client::get_name() const
