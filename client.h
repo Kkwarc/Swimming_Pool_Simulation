@@ -36,7 +36,7 @@ public:
         carnet_id = client.carnet_id;
         discount = client.discount;
         remaining_time = client.remaining_time;
-        curent_atr_nr = -1;
+        curent_atr_nr = client.curent_atr_nr;
     }
 
     friend std::ostream& operator << (std::ostream& output, const Client& c);
