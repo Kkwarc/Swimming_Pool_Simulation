@@ -15,13 +15,14 @@ Da_Pool::Da_Pool()
     atractions = {};
     staff_available = {};
     clients = {};
+    exiting = {};
     start_time = { 0, 0 };
     closing_time = { 0,0 };
 }
 
 Da_Pool::Da_Pool(
     string name,
-    std::vector<Atraction> &atr,
+    std::vector<Atraction>& atr,
     Time sta_time,
     Time clo_time
 )
@@ -72,8 +73,8 @@ void Da_Pool::add_client(Client& client, int atraction_nr, int tr_number, int ti
 {
     int index;
     client.set_time(time);
-    clients.push_back(client);
     client.curent_atr_nr = atraction_nr;
+    clients.push_back(client);
     for (long long unsigned int i = 0; i < atractions.size(); i++)
     {
         if (atractions[i].atraction_nr == atraction_nr)
@@ -125,7 +126,7 @@ void Da_Pool::change_atr(Client& client, int atraction_nr1, int atraction_nr2)
     }
 }
 
-void Da_Pool::exit_da_pool(Client& client)
+int Da_Pool::exit_da_pool(Client& client)
 {
     int id = client.carnet_id;
     for (long long unsigned int i = 0; i < atractions.size(); i++)
@@ -148,7 +149,7 @@ void Da_Pool::exit_da_pool(Client& client)
         }
     }
     clients.erase(clients.begin() + index);
-
+    return id;
 }
 
 void Da_Pool::staff_exit(Lifeguard& staff)
@@ -182,35 +183,29 @@ void Da_Pool::reservation(int tr_nr, Time start, int duration, Instructor& inst,
 
 bool Da_Pool::the_time_is_passing(int tick)
 {
+    exiting.clear();
     if (current_time == closing_time)
     {
         return false;
     }
     else
     {
-        int j=0;
         for (long long unsigned int i = 0; i < clients.size(); i++)
         {
-            if (clients[j].remaining_time == 0)
+            clients[i].set_time(clients[i].remaining_time - tick);
+            if (clients[i].remaining_time == 0)
             {
-                exit_da_pool(clients[j]);
-                j = j - 1;
+                exiting.push_back(exit_da_pool(clients[i]));
+                i = i - 1;
             }
-            else
-            {
-                clients[j].set_time(clients[j].remaining_time - tick);
-            }
-            j=j+1;
         }
-        j=0;
         for (long long unsigned int i = 0; i < staff_available.size(); i++)
         {
-            if (staff_available[j].finish == current_time)
+            if (staff_available[i].finish == current_time)
             {
-                staff_exit(staff_available[j]);
-                j = j - 1;
+                staff_exit(staff_available[i]);
+                i = i - 1;
             }
-            j=j+1;
         }
         for (long long unsigned int i = 0; i < atractions.size(); i++)
         {
