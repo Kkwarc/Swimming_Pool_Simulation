@@ -72,7 +72,6 @@ int Simulation::client_enters()
     int rand3 = give_random_number(3) + 1;
     for (int i = 0; i < rand; i++)
     {
-        rand1;
         bool buzy = true;
         while (buzy == true)
         {
@@ -105,10 +104,10 @@ int Simulation::client_enters()
 
 void Simulation::exit_client()
 {
-    for (int i = 0; i < gowno.exiting.size(); i++)
+    for (long long unsigned int i = 0; i < gowno.exiting.size(); i++)
     {
 
-        for (int j = 0; j < list_of_clients.size(); j++)
+        for (long long unsigned int j = 0; j < list_of_clients.size(); j++)
         {
             if (list_of_clients[j].carnet_id == gowno.exiting[i])
             {
