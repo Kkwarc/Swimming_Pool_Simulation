@@ -113,6 +113,7 @@ void Swimming_Pool::add_person(int tr1_nr, Client& clnt)
         }
         throw; // zrob cos z tym
     }
+    clnt.curent_atr_nr=atraction_nr;
     tracks[index].add_person(clnt);
     people.push_back(clnt);
 }

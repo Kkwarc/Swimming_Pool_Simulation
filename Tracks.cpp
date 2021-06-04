@@ -41,6 +41,7 @@ void Track::reserve_track(Instructor& inst, std::vector<Client> group, int res_t
     for (long long unsigned int i =0; i < group.size(); i++)
     {
         group[i].did_reserve = true;
+        group[i].curent_atr_nr = atraction_nr;
     }
     instructor = inst;
     people = group;
@@ -53,6 +54,7 @@ void Track::add_person(Client& person)
     if (is_reserved() == false && (int)people.size() < people_limit)
     {
         people.push_back(person);
+        person.curent_atr_nr = atraction_nr;
     }
     else
     {

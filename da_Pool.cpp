@@ -39,6 +39,7 @@ Da_Pool::Da_Pool(
 void Da_Pool::add_client(Client& client, int atraction_nr, int time)
 {
     int index;
+    client.curent_atr_nr = atraction_nr;
     client.set_time(time);
     for (long long unsigned int i = 0; i < atractions.size(); i++)
     {
