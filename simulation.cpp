@@ -69,8 +69,10 @@ int Simulation::client_enters()
 {
     int rand = number_of_enters();
     int rand1;
+    int rand3 = give_random_number(3) + 1;
     for (int i = 0; i < rand; i++)
     {
+        rand1;
         bool buzy = true;
         while (buzy == true)
         {
@@ -94,19 +96,19 @@ int Simulation::client_enters()
                 overcrowded = false;
             }
         }
-        gowno.add_client(list_of_clients[rand1], gowno.atractions[rand2].atraction_nr, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
+        gowno.add_client(list_of_clients[rand1], gowno.atractions[rand2].atraction_nr, rand3 * 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
         list_of_clients[rand1].curent_atr_nr = gowno.atractions[rand2].atraction_nr;
-
     }
+    // generacja biletu -> paragon
     return rand;
 }
 
 void Simulation::exit_client()
 {
-    for (long long unsigned int i = 0; i < gowno.exiting.size(); i++)
+    for (int i = 0; i < gowno.exiting.size(); i++)
     {
 
-        for (long long unsigned int j = 0; j < list_of_clients.size(); j++)
+        for (int j = 0; j < list_of_clients.size(); j++)
         {
             if (list_of_clients[j].carnet_id == gowno.exiting[i])
             {
@@ -170,7 +172,7 @@ void Simulation::main_simulation()
 int Simulation::number_of_enters()
 {
     srand(time(NULL));
-    int random_number = rand() % (tick_length / 5 + 1);
+    int random_number = rand() % (tick_length / 5 + 1) + 1;
     //random_number = 4;
     return random_number;
 }
