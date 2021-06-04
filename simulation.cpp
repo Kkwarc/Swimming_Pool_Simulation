@@ -149,8 +149,9 @@ void Simulation::summary_of_tick(int random_number)
     cout << "Number of enters: " << random_number << endl;
     for (int i = 0; i < y; i++)
     {
-        cout << "Atraction name: " << list_of_atractions[i].name << "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
-        cout << " Lifeguards data [name and surname]: " << gowno.atractions[i].lifeguard.name <<
+        cout << "Atraction name: " << list_of_atractions[i].name << 
+            "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
+        cout << " Lifeguards: " << gowno.atractions[i].lifeguard.name <<
             "  " << gowno.atractions[i].lifeguard.surname << endl;
         cout << " Number of clients: " << gowno.atractions[i].people.size() << endl;
     }
