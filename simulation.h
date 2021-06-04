@@ -32,9 +32,9 @@ public:
 
     void customers_movements(int par);
     void lifeguards_enters(); //  na starcie && zmiany kadry
-    void client_enters();
+    int client_enters();
     void exit_client();
-    void summary_of_tick();
+    void summary_of_tick(int random_number);
     void summary_of_day(); // podsumowanie dnia
     void main_simulation(); // funkcja ktora zawiera wszytskie inne funkcje
     int number_of_enters();
