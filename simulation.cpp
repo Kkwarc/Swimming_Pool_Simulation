@@ -193,6 +193,7 @@ void Simulation::summary_of_day()
             }
         }
     }
+    Sleep(100);
 }
 
 void Simulation::main_simulation()
