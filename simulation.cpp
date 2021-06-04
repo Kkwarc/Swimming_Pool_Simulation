@@ -3,6 +3,8 @@
 #include <random>
 #include<time.h>
 #include <windows.h>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -125,7 +127,6 @@ int Simulation::client_enters()
         gowno.add_client(list_of_clients[rand1], gowno.atractions[rand2].atraction_nr, rand3 * 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
         list_of_clients[rand1].curent_atr_nr = gowno.atractions[rand2].atraction_nr;
     }
-    // generacja biletu -> paragon
     return rand;
 }
 
@@ -144,6 +145,50 @@ void Simulation::exit_client()
     }
 }
 
+//void Simulation::summary_of_tick(int random_number)
+//{
+//    int y = (int)list_of_atractions.size();
+//    Time m = gowno.current_time;
+//    Time k = m + tick_length;
+//    cout << "Time: " << gowno.current_time << " to " << k << endl;
+//    cout << "Number of enters: " << random_number << endl;
+//    for (int i = 0; i < y; i++)
+//    {
+//        cout << "Atraction name: " << list_of_atractions[i].name << 
+//            "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
+//        cout << " Lifeguards: " << gowno.atractions[i].lifeguard.name <<
+//            "  " << gowno.atractions[i].lifeguard.surname << endl;
+//        cout << " Number of clients: " << gowno.atractions[i].people.size() << endl;
+//    }
+//}
+
+//void Simulation::summary_of_day()
+//{
+//    cout << "SUMMARY OF DAY" << endl;
+//    for (int i = 0; i < list_of_clients.size(); i++)
+//    {
+//        if (list_of_clients[i].time_spent > 0)
+//        {
+//            cout << "Client: " << list_of_clients[i].name << " " << list_of_clients[i].surname << endl;
+//            cout << "Time spent: "<< list_of_clients[i].time_spent << endl;
+//            if (list_of_clients[i].discount == true)
+//            {
+//                cout << "Payment: " << list_of_clients[i].time_spent*20/2 << endl; // cena za godzine do modyfikacji
+//            }
+//            else
+//            {
+//                cout << "Payment: " << list_of_clients[i].time_spent * 20 << endl; // to co wyzej
+//            }
+//            for (int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
+//            {
+//                cout << "Enter time: " << list_of_clients[i].time_spent_hours[j] << endl;
+//                cout << "Exit time: " << list_of_clients[i].time_spent_hours[j+1] << endl;
+//            }
+//        }
+//        Sleep(100);
+//    }
+//}
+
 void Simulation::summary_of_tick(int random_number)
 {
     int y = (int)list_of_atractions.size();
@@ -153,12 +198,28 @@ void Simulation::summary_of_tick(int random_number)
     cout << "Number of enters: " << random_number << endl;
     for (int i = 0; i < y; i++)
     {
-        cout << "Atraction name: " << list_of_atractions[i].name << 
+        cout << "Atraction name: " << list_of_atractions[i].name <<
             "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
         cout << " Lifeguards: " << gowno.atractions[i].lifeguard.name <<
             "  " << gowno.atractions[i].lifeguard.surname << endl;
         cout << " Number of clients: " << gowno.atractions[i].people.size() << endl;
     }
+
+    ofstream out("logi.txt", ios_base::app);
+    streambuf* coutbuf = cout.rdbuf(); //save old buf
+    cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
+    cout << "Time: " << gowno.current_time << " to " << k << endl;
+    cout << "Number of enters: " << random_number << endl;
+    for (int i = 0; i < y; i++)
+    {
+        cout << "Atraction name: " << list_of_atractions[i].name <<
+            "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
+        cout << " Lifeguards: " << gowno.atractions[i].lifeguard.name <<
+            "  " << gowno.atractions[i].lifeguard.surname << endl;
+        cout << " Number of clients: " << gowno.atractions[i].people.size() << endl;
+    }
+
+    cout.rdbuf(coutbuf); //reset to standard output again
 }
 
 void Simulation::summary_of_day()
@@ -169,10 +230,10 @@ void Simulation::summary_of_day()
         if (list_of_clients[i].time_spent > 0)
         {
             cout << "Client: " << list_of_clients[i].name << " " << list_of_clients[i].surname << endl;
-            cout << "Time spent: "<< list_of_clients[i].time_spent << endl;
+            cout << "Time spent: " << list_of_clients[i].time_spent << endl;
             if (list_of_clients[i].discount == true)
             {
-                cout << "Payment: " << list_of_clients[i].time_spent*20/2 << endl; // cena za godzine do modyfikacji
+                cout << "Payment: " << list_of_clients[i].time_spent * 20 / 2 << endl; // cena za godzine do modyfikacji
             }
             else
             {
@@ -181,15 +242,44 @@ void Simulation::summary_of_day()
             for (int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
             {
                 cout << "Enter time: " << list_of_clients[i].time_spent_hours[j] << endl;
-                cout << "Exit time: " << list_of_clients[i].time_spent_hours[j+1] << endl;
+                cout << "Exit time: " << list_of_clients[i].time_spent_hours[j + 1] << endl;
             }
         }
         Sleep(100);
     }
+
+    ofstream out("podsumowania.txt", ios_base::app);
+    streambuf* coutbuf = cout.rdbuf(); //save old buf
+    cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
+
+    cout << "SUMMARY OF DAY" << endl;
+    for (int i = 0; i < list_of_clients.size(); i++)
+    {
+        if (list_of_clients[i].time_spent > 0)
+        {
+            cout << "Client: " << list_of_clients[i].name << " " << list_of_clients[i].surname << endl;
+            cout << "Time spent: " << list_of_clients[i].time_spent << endl;
+            if (list_of_clients[i].discount == true)
+            {
+                cout << "Payment: " << list_of_clients[i].time_spent * 20 / 2 << endl; // cena za godzine do modyfikacji
+            }
+            else
+            {
+                cout << "Payment: " << list_of_clients[i].time_spent * 20 << endl; // to co wyzej
+            }
+            for (int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
+            {
+                cout << "Enter time: " << list_of_clients[i].time_spent_hours[j] << endl;
+                cout << "Exit time: " << list_of_clients[i].time_spent_hours[j + 1] << endl;
+            }
+        }
+    }
+    cout.rdbuf(coutbuf); //reset to standard output again
 }
 
 void Simulation::main_simulation()
 {
+    // clear plikow tekstowych
     Time b = gowno.start_time;
     Time l = b + 360;
     while (gowno.current_time < gowno.closing_time)
@@ -224,7 +314,6 @@ int Simulation::number_of_enters()
 {
     srand(time(NULL));
     int random_number = rand() % (tick_length / 5 + 1) + 1;
-    //random_number = 4;
     return random_number;
 }
 
