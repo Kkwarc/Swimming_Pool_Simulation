@@ -24,11 +24,20 @@ void Simulation::customers_movements(int par)
 {
     for (long long unsigned int i = 0; i < gowno.clients.size(); i++)
     {
-        int rand_nummber = give_random_number(5)+1;
+        int rand_nummber = give_random_number(5) + 1;
         if (rand_nummber == 0)
         {
-            int rand2 = give_random_number(list_of_atractions.size());
-            gowno.change_atr(gowno.clients[i], gowno.clients[i].curent_atr_nr, rand2);
+            int rand2;
+            bool overcrowded = true;
+            while (overcrowded == true)
+            {
+                rand2 = give_random_number(list_of_atractions.size());
+                if (gowno.atractions[rand2].people_limit > (int)gowno.atractions[rand2].people.size())
+                {
+                    overcrowded = false;
+                }
+            }
+            gowno.change_atr(gowno.clients[i], gowno.clients[i].curent_atr_nr, gowno.atractions[rand2].atraction_nr);
         }
     }
 }
@@ -76,12 +85,36 @@ void Simulation::client_enters()
                 buzy = false;
             }
         }
-  		int rand2 = give_random_number(list_of_atractions.size())+1;
-  		gowno.add_client(list_of_clients[rand1],rand2, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
-        list_of_clients[rand1].curent_atr_nr = rand2;
+        int rand2;
+        bool overcrowded = true;
+        while (overcrowded == true)
+        {
+            rand2 = give_random_number(list_of_atractions.size());
+            if (gowno.atractions[rand2].people_limit > (int)gowno.atractions[rand2].people.size())
+            {
+                overcrowded = false;
+            }
+        }
+        gowno.add_client(list_of_clients[rand1], gowno.atractions[rand2].atraction_nr, 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
+        list_of_clients[rand1].curent_atr_nr = gowno.atractions[rand2].atraction_nr;
 
-  	}
-  }
+    }
+}
+
+void Simulation::exit_client()
+{
+    for (int i = 0; i < gowno.exiting.size(); i++)
+    {
+
+        for (int j = 0; j < list_of_clients.size(); j++)
+        {
+            if (list_of_clients[j].carnet_id == gowno.exiting[i])
+            {
+                list_of_clients[j].curent_atr_nr = -1;
+            }
+        }
+    }
+}
 
 void Simulation::summary_of_tick()
 {
@@ -112,15 +145,6 @@ void Simulation::summary_of_day()
 
 void Simulation::main_simulation()
 {
-    // pobranie i zainiciowanie obiektów z databaze
-    // rorpoczecie pętli
-    // -> rozklad ratownikow na basenie w godzinie startowej i czasie zmiany (u nas 14)
-    // -> przejscia klientow
-    // -> wchodzenie klientow
-    // -> summary of tick
-    // -> thetimeispassing
-    // koniec petli
-    // -> summary of day
     Time b = gowno.start_time;
     Time l = b + 360;
     while (gowno.current_time < gowno.closing_time)
@@ -129,14 +153,15 @@ void Simulation::main_simulation()
         {
             lifeguards_enters();
         }
-        if (list_of_clients.size() != 0)
+        if (gowno.clients.size() != 0)
         {
             customers_movements(par);
         }
         client_enters();
         summary_of_tick();
         gowno.the_time_is_passing(tick_length);
-        // Sleep(1000);
+        exit_client();
+        Sleep(100);
     }
     summary_of_day();
 }
@@ -144,7 +169,8 @@ void Simulation::main_simulation()
 int Simulation::number_of_enters()
 {
     srand(time(NULL));
-    int random_number = rand() % (tick_length % 3 + 1);
+    int random_number = rand() % (tick_length / 10 + 1);
+    random_number = 4;
     return random_number;
 }
 
