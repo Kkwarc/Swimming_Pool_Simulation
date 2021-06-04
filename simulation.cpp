@@ -74,9 +74,9 @@ int Simulation::client_enters()
     while (correct_time == false)
     {
         Time E1 = gowno.current_time;
-        E1 = E1 + 59;
+        E1 = E1 + 91;
         Time E2 = gowno.current_time;
-        E2 = E2 + 119;
+        E2 = E2 + 151;
         if (gowno.closing_time < E1)
         {
             rand3 = 1;
@@ -111,7 +111,7 @@ int Simulation::client_enters()
         Time L = gowno.current_time;
         list_of_clients[rand1].time_spent += rand3;
         list_of_clients[rand1].time_spent_hours.push_back(L);
-        list_of_clients[rand1].time_spent_hours.push_back(L + rand3*60);
+        list_of_clients[rand1].time_spent_hours.push_back(L + rand3 * 60);
         int rand2;
         bool overcrowded = true;
         while (overcrowded == true)
@@ -163,14 +163,6 @@ void Simulation::summary_of_tick(int random_number)
 
 void Simulation::summary_of_day()
 {
-    // cos do zapisywania -> wektor strukow (jak time) -> operator wypisywania
-    // trzeba zapisywac te dane przy wejsciu clienta
-    // godzina wyjsca = curent time + 60
-
-    // dane klienta
-    // godzina przyjsca
-    // godzina wyjscia
-    // ile zapłacił
     cout << "SUMMARY OF DAY" << endl;
     for (int i = 0; i < list_of_clients.size(); i++)
     {
@@ -192,8 +184,8 @@ void Simulation::summary_of_day()
                 cout << "Exit time: " << list_of_clients[i].time_spent_hours[j+1] << endl;
             }
         }
+        Sleep(100);
     }
-    Sleep(100);
 }
 
 void Simulation::main_simulation()
@@ -210,7 +202,16 @@ void Simulation::main_simulation()
         {
             customers_movements(par);
         }
-        int a = client_enters();
+        int a;
+        Time e = gowno.current_time;
+        if (e + 59 < gowno.closing_time)
+        {
+            a = client_enters();
+        }
+        else
+        {
+            a = 0;
+        }
         summary_of_tick(a);
         gowno.the_time_is_passing(tick_length);
         exit_client();
