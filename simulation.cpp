@@ -182,30 +182,78 @@ void Simulation::summary_of_tick(int random_number)
     Time m = gowno.current_time;
     Time k = m + tick_length;
     cout << "Time: " << gowno.current_time << " to " << k << endl;
+    cout<<"-----------------------------------------------"<<endl;
     cout << "Number of enters: " << random_number << endl;
     for (int i = 0; i < y; i++)
     {
-        cout << "Atraction name: " << list_of_atractions[i]->name <<
-            "; Artaction number: " << list_of_atractions[i]->atraction_nr << endl;
-        cout << " Lifeguards: " << gowno.atractions[i]->lifeguard.name <<
-            "  " << gowno.atractions[i]->lifeguard.surname << endl;
-        cout << " Number of clients: " << gowno.atractions[i]->people.size() << endl;
+        if(list_of_atractions[i]->name == "Swimming_Pool")
+        {
+            Swimming_Pool* t = static_cast<Swimming_Pool*>(list_of_atractions[i]);
+            cout<<"Atraction name: "<<t->name<<"; Atraction number: "<<t->atraction_nr<<endl;
+            cout << "\tLifeguards: " << t->lifeguard.name <<"  " << t->lifeguard.surname << endl;
+            for(int j=0; j<t->tr_nr;j++)
+            {
+                int m = j+1;
+                cout<<"\tTrack"<<m<<": "<<t->tracks[j].people.size()<<"  reserved:"<<t->tracks[j].reserved;
+                if(!t->tracks[j].reserved)
+                {
+                    cout<<"  Instructor:"<<" none"<<endl;
+                }
+                else
+                {
+                    cout<<"  Instructor:"<<t->tracks[j].instructor.name<<" "<<t->tracks[j].instructor.surname<<endl;
+                }
+            }
+        }
+        else
+        {
+            cout << "Atraction name: " << list_of_atractions[i]->name <<
+                "; Artaction number: " << list_of_atractions[i]->atraction_nr << endl;
+            cout << "\tLifeguards: " << gowno.atractions[i]->lifeguard.name <<
+                "  " << gowno.atractions[i]->lifeguard.surname << endl;
+            cout << "\tNumber of clients: " << gowno.atractions[i]->people.size() << endl;
+        }
     }
+    cout<<"-----------------------------------------------"<<endl;
 
     ofstream out("logi.txt", ios_base::app);
     streambuf* coutbuf = cout.rdbuf(); //save old buf
     cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
     cout << "Time: " << gowno.current_time << " to " << k << endl;
+    cout<<"-----------------------------------------------"<<endl;
     cout << "Number of enters: " << random_number << endl;
     for (int i = 0; i < y; i++)
     {
-        cout << "Atraction name: " << list_of_atractions[i]->name <<
-            "; Artaction number: " << list_of_atractions[i]->atraction_nr << endl;
-        cout << " Lifeguards: " << gowno.atractions[i]->lifeguard.name <<
-            "  " << gowno.atractions[i]->lifeguard.surname << endl;
-        cout << " Number of clients: " << gowno.atractions[i]->people.size() << endl;
+        if(list_of_atractions[i]->name == "Swimming_Pool")
+        {
+            Swimming_Pool* t = static_cast<Swimming_Pool*>(list_of_atractions[i]);
+            cout<<"Atraction name: "<<t->name<<"; Atraction number: "<<t->atraction_nr<<endl;
+            cout << "\tLifeguards: " << t->lifeguard.name <<
+            "  " << t->lifeguard.surname << endl;
+            for(int j; j<t->tr_nr;j++)
+            {
+                int m = j+1;
+                cout<<"\tTrack"<<m<<": "<<t->tracks[j].people.size()<<"  reserved:"<<t->tracks[j].reserved;
+                if(!t->tracks[j].reserved)
+                {
+                    cout<<" Instructor:"<<" none"<<endl;
+                }
+                else
+                {
+                    cout<<"  Instructor:"<<t->tracks[j].instructor.name<<" "<<t->tracks[j].instructor.surname<<endl;
+                }
+            }
+        }
+        else
+        {
+            cout << "Atraction name: " << list_of_atractions[i]->name <<
+                "; Artaction number: " << list_of_atractions[i]->atraction_nr << endl;
+            cout << "\tLifeguards: " << gowno.atractions[i]->lifeguard.name <<
+                "  " << gowno.atractions[i]->lifeguard.surname << endl;
+            cout << "\tNumber of clients: " << gowno.atractions[i]->people.size() << endl;
+        }
     }
-
+    cout<<"-----------------------------------------------"<<endl;
     cout.rdbuf(coutbuf); //reset to standard output again
 }
 
@@ -216,21 +264,23 @@ void Simulation::summary_of_day()
     {
         if (list_of_clients[i].time_spent > 0)
         {
-            cout << "Client: " << list_of_clients[i].name << " " << list_of_clients[i].surname << endl;
-            cout << "Time spent: " << list_of_clients[i].time_spent << endl;
+            cout<<"-----------------------------------------------"<<endl;
+            cout <<"\tClient: " << list_of_clients[i].name << " " << list_of_clients[i].surname << endl;
+            cout << "\tTime spent: " << list_of_clients[i].time_spent << endl;
             if (list_of_clients[i].discount == true)
             {
-                cout << "Payment: " << list_of_clients[i].time_spent * 20 / 2 << endl; // cena za godzine do modyfikacji
+                cout << "\tPayment: " << list_of_clients[i].time_spent * 20 / 2 << endl; // cena za godzine do modyfikacji
             }
             else
             {
-                cout << "Payment: " << list_of_clients[i].time_spent * 20 << endl; // to co wyzej
+                cout << "\tPayment: " << list_of_clients[i].time_spent * 20 << endl; // to co wyzej
             }
             for (long long unsigned int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
             {
-                cout << "Enter time: " << list_of_clients[i].time_spent_hours[j] << endl;
-                cout << "Exit time: " << list_of_clients[i].time_spent_hours[j + 1] << endl;
+                cout << "\tEnter time: " << list_of_clients[i].time_spent_hours[j] << endl;
+                cout << "\tExit time: " << list_of_clients[i].time_spent_hours[j + 1] << endl;
             }
+            cout<<"-----------------------------------------------"<<endl;
         }
         Sleep(100);
     }
@@ -244,21 +294,23 @@ void Simulation::summary_of_day()
     {
         if (list_of_clients[i].time_spent > 0)
         {
-            cout << "Client: " << list_of_clients[i].name << " " << list_of_clients[i].surname << endl;
-            cout << "Time spent: " << list_of_clients[i].time_spent << endl;
+            cout<<"-----------------------------------------------"<<endl;
+            cout << "\tClient: " << list_of_clients[i].name << " " << list_of_clients[i].surname << endl;
+            cout << "\tTime spent: " << list_of_clients[i].time_spent << endl;
             if (list_of_clients[i].discount == true)
             {
-                cout << "Payment: " << list_of_clients[i].time_spent * 20 / 2 << endl; // cena za godzine do modyfikacji
+                cout << "\tPayment: " << list_of_clients[i].time_spent * 20 / 2 << endl; // cena za godzine do modyfikacji
             }
             else
             {
-                cout << "Payment: " << list_of_clients[i].time_spent * 20 << endl; // to co wyzej
+                cout << "\tPayment: " << list_of_clients[i].time_spent * 20 << endl; // to co wyzej
             }
             for (long long unsigned int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
             {
-                cout << "Enter time: " << list_of_clients[i].time_spent_hours[j] << endl;
-                cout << "Exit time: " << list_of_clients[i].time_spent_hours[j + 1] << endl;
+                cout << "\tEnter time: " << list_of_clients[i].time_spent_hours[j] << endl;
+                cout << "\tExit time: " << list_of_clients[i].time_spent_hours[j + 1] << endl;
             }
+            cout<<"-----------------------------------------------"<<endl;
         }
     }
     cout.rdbuf(coutbuf); //reset to standard output again

@@ -58,6 +58,7 @@ public:
 
     friend class Swimming_Pool;
     friend class Da_Pool;
+    friend class Simulation;
 
     Track();
     Track(int dpth, int lng, int tr_nr, int ppl_lim, int atraction_nr);
@@ -116,5 +117,6 @@ public:
     void add_person(int tr_nr, Client& clnt);
     void remove_person(int car_id);
     friend class Da_Pool;
+    friend class Simulation;
 };
 #endif
