@@ -10,10 +10,9 @@
 #include "da_Pool.h"
 
 
-
 struct Reading
 {
-    std::vector<Atraction> atractions;
+    std::vector<Atraction*> atractions;
     std::vector<Lifeguard> staff_available;
     std::vector<Client> clients;
     Da_Pool dapool;
@@ -21,11 +20,12 @@ struct Reading
     int rand;
 };
 
+Reading m;
+std::vector<Atraction> atr;
+std::vector<Swimming_Pool> swm;
 
-
-Reading da_read(std::string databaze)
+Reading* da_read(std::string databaze)
 {
-    Reading m;
     std::ifstream file(databaze);
     if (file.is_open())
     {
@@ -97,7 +97,8 @@ Reading da_read(std::string databaze)
                 int advanced_tr = stoi(obiekt[6]);
 
                 Swimming_Pool swipool(atraction_nr, length, tr_limit, begginer_tr, intermeddiate_tr, advanced_tr);
-                m.atractions.push_back(swipool);
+                swm.push_back(swipool);
+                // Swimming_Pool* t = static_cast<Swimming_Pool*>(m.atractions[5]);
             }
             // if (obiekt[0] == "track")
             // {
@@ -117,7 +118,7 @@ Reading da_read(std::string databaze)
                 int people_limit = stoi(obiekt[3]);
 
                 Atraction atraction(name, attraction_num, people_limit);
-                m.atractions.push_back(atraction);
+                atr.push_back(atraction);
             }
             if (obiekt[0] == "da_pool")
             {
@@ -129,7 +130,6 @@ Reading da_read(std::string databaze)
 
                 Da_Pool dapool(name, m.atractions,starth,finishh);
                 m.dapool = dapool;
-
             }
             if (obiekt[0] == "rand")
             {
@@ -141,6 +141,15 @@ Reading da_read(std::string databaze)
             }
         }
     }
-    return m;
+    for(long long unsigned int i=0; i<atr.size(); i++)
+    {
+        m.atractions.push_back(&atr[i]);
+    }
+    for(long long unsigned int i=0; i<swm.size(); i++)
+    {
+        m.atractions.push_back(&swm[i]);
+    }
+    m.dapool.set_atractions(m.atractions);
+    return &m;
 }
 #endif

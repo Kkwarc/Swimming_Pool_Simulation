@@ -21,7 +21,8 @@ public:
     friend class Da_Pool;
 
     Atraction();
-    Atraction(
+    Atraction
+    (
         std::string nam,
         int atraction_nr,
         int people_limit
@@ -96,9 +97,22 @@ public:
         int intermeddiate_tr = 0,
         int advanced_tr = 0
     );
-    void reserve_track(int track_nr, Instructor& inst, std::vector<Client> group, int res_time);
+    Swimming_Pool(const Swimming_Pool& sw)
+    {
+        name = sw.name;
+        atraction_nr = sw.atraction_nr;
+        people_limit = sw.people_limit;
+        people = sw.people;
+        lifeguard = sw.lifeguard;
+        tr_nr = sw.tr_nr;
+        length = sw.length;
+        tracks = sw.tracks;
+    }
+    std::vector<Client> reserve_track(int track_nr, Instructor& inst, std::vector<Client> group, int res_time);
     void change_track(Client& cl, int tr1_nr, int tr2_nr);
     int min_tr();
+    int free_places();
+    int how_many_reserved();
     void add_person(int tr_nr, Client& clnt);
     void remove_person(int car_id);
     friend class Da_Pool;

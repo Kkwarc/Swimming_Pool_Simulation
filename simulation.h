@@ -11,7 +11,7 @@ public:
     int tick_length;
     int par; // parametr losowy
     std::vector < Client > list_of_clients;
-    std::vector < Atraction > list_of_atractions;
+    std::vector < Atraction* > list_of_atractions;
     std::vector < Lifeguard > list_of_lifeguards;
     int begginer_tr; // ilosc dla beginerow
     int intermeddiate_tr; // ilosc dla srednich

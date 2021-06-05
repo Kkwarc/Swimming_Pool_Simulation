@@ -17,6 +17,6 @@ int main()
     ofstream ofs2;
     ofs2.open("podsumowania.txt", ofstream::out | ofstream::trunc);
     ofs2.close();
-    Simulation s("../class/Databaze.txt");
+    Simulation s("Databaze.txt");
     s.main_simulation();
 }

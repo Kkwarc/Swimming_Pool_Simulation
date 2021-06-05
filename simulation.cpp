@@ -11,14 +11,14 @@ using namespace std;
 Simulation::Simulation(string using_databaze)
 {
     string databaze = using_databaze;
-    Reading r = da_read(using_databaze); //"Databaze.txt"
-    list_of_clients = r.clients;
-    list_of_lifeguards = r.staff_available;
-    list_of_atractions = r.atractions;
+    Reading* r = da_read(using_databaze); //"Databaze.txt"
+    list_of_clients = r->clients;
+    list_of_lifeguards = r->staff_available;
+    list_of_atractions = r->atractions;
 
-    par = r.rand;
-    tick_length = r.tick;
-    gowno = r.dapool;
+    par = r->rand;
+    tick_length = r->tick;
+    gowno = r->dapool;
     max_number_of_enters_per_tick = tick_length % 3 + 1;
 }
 
@@ -34,12 +34,23 @@ void Simulation::customers_movements(int par)
             while (overcrowded == true)
             {
                 rand2 = give_random_number(list_of_atractions.size());
-                if (gowno.atractions[rand2].people_limit > (int)gowno.atractions[rand2].people.size())
+                if (gowno.atractions[rand2]->name == "Swimming_Pool")
                 {
-                    overcrowded = false;
+                    Swimming_Pool* t = static_cast<Swimming_Pool*>(gowno.atractions[rand2]);
+                    if(t->free_places()>0)
+                    {
+                        overcrowded = false;
+                    }
+                }
+                else
+                {
+                    if (gowno.atractions[rand2]->people_limit > (int)gowno.atractions[rand2]->people.size())
+                    {
+                        overcrowded = false;
+                    }
                 }
             }
-            gowno.change_atr(gowno.clients[i], gowno.clients[i].curent_atr_nr, gowno.atractions[rand2].atraction_nr);
+            gowno.change_atr(gowno.clients[i], gowno.clients[i].curent_atr_nr, gowno.atractions[rand2]->atraction_nr);
         }
     }
 }
@@ -62,7 +73,7 @@ void Simulation::lifeguards_enters()
                 buzy = false;
             }
         }
-        gowno.assign_lifeguard(list_of_lifeguards[rand], list_of_atractions[i].atraction_nr);
+        gowno.assign_lifeguard(list_of_lifeguards[rand], list_of_atractions[i]->atraction_nr);
         list_of_lifeguards[rand].busy = true;
     }
 }
@@ -119,13 +130,33 @@ int Simulation::client_enters()
         while (overcrowded == true)
         {
             rand2 = give_random_number(list_of_atractions.size());
-            if (gowno.atractions[rand2].people_limit > (int)gowno.atractions[rand2].people.size())
+            if (gowno.atractions[rand2]->name == "Swimming_Pool")
             {
-                overcrowded = false;
+                Swimming_Pool* t = static_cast<Swimming_Pool*>(gowno.atractions[rand2]);
+                if(t->free_places()>0)
+                {
+                    overcrowded = false;
+                }
+            }
+            else
+            {
+                if (gowno.atractions[rand2]->people_limit > (int)gowno.atractions[rand2]->people.size())
+                {
+                    overcrowded = false;
+                }
             }
         }
-        gowno.add_client(list_of_clients[rand1], gowno.atractions[rand2].atraction_nr, rand3 * 60); // jak wylosuje swimming pool to trzeba losować jeszcze tory
-        list_of_clients[rand1].curent_atr_nr = gowno.atractions[rand2].atraction_nr;
+        if (gowno.atractions[rand2]->name == "Swimming_Pool")
+        {
+            Swimming_Pool* t = static_cast<Swimming_Pool*>(gowno.atractions[rand2]);
+            gowno.add_client(list_of_clients[rand1], gowno.atractions[rand2]->atraction_nr, t->min_tr(), rand3 * 60);
+        }
+        else
+        {
+            gowno.add_client(list_of_clients[rand1], gowno.atractions[rand2]->atraction_nr, rand3 * 60);
+        }
+         // jak wylosuje swimming pool to trzeba losować jeszcze tory
+        list_of_clients[rand1].curent_atr_nr = gowno.atractions[rand2]->atraction_nr;
     }
     return rand;
 }
@@ -154,11 +185,11 @@ void Simulation::summary_of_tick(int random_number)
     cout << "Number of enters: " << random_number << endl;
     for (int i = 0; i < y; i++)
     {
-        cout << "Atraction name: " << list_of_atractions[i].name <<
-            "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
-        cout << " Lifeguards: " << gowno.atractions[i].lifeguard.name <<
-            "  " << gowno.atractions[i].lifeguard.surname << endl;
-        cout << " Number of clients: " << gowno.atractions[i].people.size() << endl;
+        cout << "Atraction name: " << list_of_atractions[i]->name <<
+            "; Artaction number: " << list_of_atractions[i]->atraction_nr << endl;
+        cout << " Lifeguards: " << gowno.atractions[i]->lifeguard.name <<
+            "  " << gowno.atractions[i]->lifeguard.surname << endl;
+        cout << " Number of clients: " << gowno.atractions[i]->people.size() << endl;
     }
 
     ofstream out("logi.txt", ios_base::app);
@@ -168,11 +199,11 @@ void Simulation::summary_of_tick(int random_number)
     cout << "Number of enters: " << random_number << endl;
     for (int i = 0; i < y; i++)
     {
-        cout << "Atraction name: " << list_of_atractions[i].name <<
-            "; Artaction number: " << list_of_atractions[i].atraction_nr << endl;
-        cout << " Lifeguards: " << gowno.atractions[i].lifeguard.name <<
-            "  " << gowno.atractions[i].lifeguard.surname << endl;
-        cout << " Number of clients: " << gowno.atractions[i].people.size() << endl;
+        cout << "Atraction name: " << list_of_atractions[i]->name <<
+            "; Artaction number: " << list_of_atractions[i]->atraction_nr << endl;
+        cout << " Lifeguards: " << gowno.atractions[i]->lifeguard.name <<
+            "  " << gowno.atractions[i]->lifeguard.surname << endl;
+        cout << " Number of clients: " << gowno.atractions[i]->people.size() << endl;
     }
 
     cout.rdbuf(coutbuf); //reset to standard output again
@@ -181,7 +212,7 @@ void Simulation::summary_of_tick(int random_number)
 void Simulation::summary_of_day()
 {
     cout << "SUMMARY OF DAY" << endl;
-    for (int i = 0; i < list_of_clients.size(); i++)
+    for (long long unsigned int i = 0; i < list_of_clients.size(); i++)
     {
         if (list_of_clients[i].time_spent > 0)
         {
@@ -195,7 +226,7 @@ void Simulation::summary_of_day()
             {
                 cout << "Payment: " << list_of_clients[i].time_spent * 20 << endl; // to co wyzej
             }
-            for (int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
+            for (long long unsigned int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
             {
                 cout << "Enter time: " << list_of_clients[i].time_spent_hours[j] << endl;
                 cout << "Exit time: " << list_of_clients[i].time_spent_hours[j + 1] << endl;
@@ -209,7 +240,7 @@ void Simulation::summary_of_day()
     cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
 
     cout << "SUMMARY OF DAY" << endl;
-    for (int i = 0; i < list_of_clients.size(); i++)
+    for (long long unsigned int i = 0; i < list_of_clients.size(); i++)
     {
         if (list_of_clients[i].time_spent > 0)
         {
@@ -223,7 +254,7 @@ void Simulation::summary_of_day()
             {
                 cout << "Payment: " << list_of_clients[i].time_spent * 20 << endl; // to co wyzej
             }
-            for (int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
+            for (long long unsigned int j = 0; j < list_of_clients[i].time_spent_hours.size(); j = j + 2)
             {
                 cout << "Enter time: " << list_of_clients[i].time_spent_hours[j] << endl;
                 cout << "Exit time: " << list_of_clients[i].time_spent_hours[j + 1] << endl;
