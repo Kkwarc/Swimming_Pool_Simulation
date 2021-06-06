@@ -42,6 +42,7 @@ public:
         curent_atr_nr = client.curent_atr_nr;
         time_spent = client.time_spent;
         time_spent_hours = client.time_spent_hours;
+        did_reserve = client.did_reserve;
     }
 
     friend std::ostream& operator << (std::ostream& output, const Client& c);

@@ -1,0 +1,20 @@
+#ifndef reserving_h
+#define reserving_h
+
+#include <fstream>
+#include <vector>
+#include "da_time.h"
+
+
+struct Reservation
+{
+    int tracknr;
+    Time starting;
+    int duration;
+    int instrid;
+    std::vector<int> clientsid;
+};
+
+std::vector<Reservation> czytamres(std::string reservs);
+
+#endif

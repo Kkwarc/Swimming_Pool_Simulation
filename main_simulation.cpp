@@ -12,11 +12,11 @@ using namespace std;
 int main()
 {
     ofstream ofs1;
-    ofs1.open("logi.txt", ofstream::out | ofstream::trunc);
+    ofs1.open("Logi.txt", ofstream::out | ofstream::trunc);
     ofs1.close();
     ofstream ofs2;
-    ofs2.open("podsumowania.txt", ofstream::out | ofstream::trunc);
+    ofs2.open("Podsumowania.txt", ofstream::out | ofstream::trunc);
     ofs2.close();
-    Simulation s("Databaze.txt");
+    Simulation s("Databaze.txt","Reservations.txt");
     s.main_simulation();
 }

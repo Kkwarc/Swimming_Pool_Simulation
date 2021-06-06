@@ -12,6 +12,7 @@ Client::Client()
     curent_atr_nr = -1;
     time_spent = 0;
     time_spent_hours = {};
+    did_reserve = false;
 }
 Client::Client(string name,
     string surname,
@@ -27,6 +28,7 @@ Client::Client(string name,
     curent_atr_nr = -1;
     time_spent = 0;
     time_spent_hours = {};
+    did_reserve = false;
 }
 
 string Client::get_name() const

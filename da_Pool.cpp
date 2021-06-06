@@ -163,10 +163,11 @@ void Da_Pool::staff_exit(Lifeguard& staff)
             break;
         }
     }
+    staff.busy=false;
     staff_available.erase(staff_available.begin() + index);
 }
 
-std::vector<Client> Da_Pool::reservation(int tr_nr, Time start, int duration, Instructor& inst, vector<Client> group)
+std::vector<Client> Da_Pool::reservation(int tr_nr, int duration, Instructor& inst, vector<Client>& group)
 {
     int index;
     for (long long unsigned int i = 0; i < atractions.size(); i++)
@@ -214,7 +215,7 @@ bool Da_Pool::the_time_is_passing(int tick)
             if (atractions[i]->name == "Swimming_Pool")
             {
                 Swimming_Pool* t = static_cast<Swimming_Pool*>(atractions[i]);
-                for (long long unsigned int j = 0; i < t->tracks.size(); j++)
+                for (long long unsigned int j = 0; j < t->tracks.size(); j++)
                 {
                     if (t->tracks[j].reservation_time == 0)
                     {
@@ -224,6 +225,7 @@ bool Da_Pool::the_time_is_passing(int tick)
                         for (long long unsigned int k = 0; k < t->tracks[j].people.size(); k++)
                         {
                             t->tracks[j].people[k].did_reserve = false;
+                            exiting.push_back(exit_da_pool(t->tracks[j].people[k]));
                         }
                     }
                     t->tracks[j].reservation_time = t->tracks[j].reservation_time - tick;

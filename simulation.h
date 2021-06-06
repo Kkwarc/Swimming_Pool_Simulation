@@ -2,6 +2,7 @@
 #define simualtion_h
 
 #include "da_Pool.h"
+#include "reserving.h"
 #include <sstream>
 #include <random>
 
@@ -12,7 +13,7 @@ public:
     int par; // parametr losowy
     std::vector < Client > list_of_clients;
     std::vector < Atraction* > list_of_atractions;
-    std::vector < Lifeguard > list_of_lifeguards;
+    std::vector < Lifeguard* > list_of_lifeguards;
     int begginer_tr; // ilosc dla beginerow
     int intermeddiate_tr; // ilosc dla srednich
     int advanced_tr; // ilosc dla zaawansowanych
@@ -27,9 +28,10 @@ public:
     Da_Pool gowno;
     Time start_time; // godzina otwarcia
     Time closing_time; // godzina zamkniecia
+    std::vector<Reservation> res;
+    Simulation(std::string using_databaze, std::string reservations);
 
-    Simulation(std::string using_databaze);
-
+    void start_reservation(int resi);
     void customers_movements(int par);
     void lifeguards_enters(); //  na starcie && zmiany kadry
     int client_enters();

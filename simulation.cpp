@@ -1,17 +1,19 @@
 #include "simulation.h"
 #include "reading.h"
 #include <random>
-#include<time.h>
+#include <time.h>
 #include <windows.h>
 #include <string>
 #include <fstream>
 
 using namespace std;
 
-Simulation::Simulation(string using_databaze)
+Simulation::Simulation(string using_databaze, string reservations)
 {
     string databaze = using_databaze;
     Reading* r = da_read(using_databaze); //"Databaze.txt"
+    vector<Reservation> res = czytamres(reservations);
+
     list_of_clients = r->clients;
     list_of_lifeguards = r->staff_available;
     list_of_atractions = r->atractions;
@@ -20,6 +22,29 @@ Simulation::Simulation(string using_databaze)
     tick_length = r->tick;
     gowno = r->dapool;
     max_number_of_enters_per_tick = tick_length % 3 + 1;
+    this->res = res;
+
+    for(long long unsigned int i=0;i<res.size();i++)
+    {
+        for(long long unsigned int j=0;j<res[i].clientsid.size();j++)
+        {
+            for(long long unsigned int k=0;k<list_of_clients.size();k++)
+            {
+                if(list_of_clients[k].carnet_id == res[i].clientsid[j])
+                {
+                    list_of_clients[k].did_reserve=true;
+                }
+            }
+        }
+        for(long long unsigned int j=0;j<list_of_lifeguards.size();j++)
+        {
+            if(list_of_lifeguards[j]->work_id==res[i].instrid)
+            {
+                list_of_lifeguards[j]->busy=true;
+            }
+        }
+    }
+
 }
 
 void Simulation::customers_movements(int par)
@@ -27,7 +52,7 @@ void Simulation::customers_movements(int par)
     for (long long unsigned int i = 0; i < gowno.clients.size(); i++)
     {
         int rand_nummber = give_random_number(5) + 1;
-        if (rand_nummber == 0)
+        if (rand_nummber == 0 && gowno.clients[i].did_reserve == false)
         {
             int rand2;
             bool overcrowded = true;
@@ -64,7 +89,7 @@ void Simulation::lifeguards_enters()
         while (buzy == true)
         {
             rand = give_random_number(list_of_lifeguards.size());
-            if (list_of_lifeguards[rand].busy == true)
+            if (list_of_lifeguards[rand]->busy == true)
             {
                 continue;
             }
@@ -73,8 +98,8 @@ void Simulation::lifeguards_enters()
                 buzy = false;
             }
         }
-        gowno.assign_lifeguard(list_of_lifeguards[rand], list_of_atractions[i]->atraction_nr);
-        list_of_lifeguards[rand].busy = true;
+        gowno.assign_lifeguard(*list_of_lifeguards[rand], list_of_atractions[i]->atraction_nr);
+        list_of_lifeguards[rand]->busy = true;
     }
 }
 
@@ -112,7 +137,7 @@ int Simulation::client_enters()
         while (buzy == true)
         {
             rand1 = give_random_number(list_of_clients.size());
-            if (list_of_clients[rand1].curent_atr_nr != -1)
+            if (list_of_clients[rand1].curent_atr_nr != -1 || list_of_clients[rand1].did_reserve == true)
             {
                 continue;
             }
@@ -161,6 +186,59 @@ int Simulation::client_enters()
     return rand;
 }
 
+void Simulation::start_reservation(int resi)
+{
+    int index;
+    vector<Client> grupka;
+    for(long long unsigned i=0;i<list_of_lifeguards.size();i++)
+    {
+        if(list_of_lifeguards[i]->work_id==res[resi].instrid)
+        {
+            index=i;
+            break;
+        }
+    }
+    for(long long unsigned i=0;i<res[resi].clientsid.size();i++)
+    {
+        for(long long unsigned j=0;j<list_of_clients.size();j++)
+        {
+            if(list_of_clients[j].carnet_id==res[resi].clientsid[i])
+            {
+                grupka.push_back(list_of_clients[j]);
+                break;
+            }
+        }
+    }
+    Instructor* maniek = static_cast<Instructor*>(list_of_lifeguards[index]);
+    vector<Client> exiles;
+    exiles = gowno.reservation(res[resi].tracknr, res[resi].duration, *maniek, grupka);
+    for(long long unsigned int i = 0;i<exiles.size();i++)
+    {
+        int rand_nummber = give_random_number(5) + 1;
+        if (rand_nummber == 0)
+        {
+            int rand2;
+            bool overcrowded = true;
+            while (overcrowded == true)
+            {
+                rand2 = give_random_number(list_of_atractions.size());
+                if (gowno.atractions[rand2]->name == "Swimming_Pool")
+                {
+                    continue;
+                }
+                else
+                {
+                    if (gowno.atractions[rand2]->people_limit > (int)gowno.atractions[rand2]->people.size())
+                    {
+                        overcrowded = false;
+                    }
+                }
+            }
+            gowno.add_client(exiles[i], gowno.atractions[rand2]->atraction_nr, exiles[i].remaining_time);
+        }
+    }
+}
+
 void Simulation::exit_client()
 {
     for (long long unsigned int i = 0; i < gowno.exiting.size(); i++)
@@ -171,6 +249,7 @@ void Simulation::exit_client()
             if (list_of_clients[j].carnet_id == gowno.exiting[i])
             {
                 list_of_clients[j].curent_atr_nr = -1;
+                list_of_clients[j].did_reserve = false;
             }
         }
     }
@@ -216,7 +295,7 @@ void Simulation::summary_of_tick(int random_number)
     }
     cout<<"-----------------------------------------------"<<endl;
 
-    ofstream out("logi.txt", ios_base::app);
+    ofstream out("Logi.txt", ios_base::app);
     streambuf* coutbuf = cout.rdbuf(); //save old buf
     cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
     cout << "Time: " << gowno.current_time << " to " << k << endl;
@@ -285,7 +364,7 @@ void Simulation::summary_of_day()
         Sleep(100);
     }
 
-    ofstream out("podsumowania.txt", ios_base::app);
+    ofstream out("Podsumowania.txt", ios_base::app);
     streambuf* coutbuf = cout.rdbuf(); //save old buf
     cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
 
@@ -327,6 +406,15 @@ void Simulation::main_simulation()
         {
             lifeguards_enters();
         }
+
+        for(long long unsigned int i=0;i<res.size();i++)
+        {
+            if(res[i].starting==gowno.current_time)
+            {
+                start_reservation(i);
+            }
+        }
+
         if (gowno.clients.size() != 0)
         {
             customers_movements(par);

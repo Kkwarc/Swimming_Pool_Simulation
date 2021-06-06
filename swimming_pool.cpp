@@ -63,7 +63,7 @@ std::vector<Client> Swimming_Pool::reserve_track(int track_nr, Instructor& inst,
             break;
         }
     }
-    if (tracks[index].is_reserved() != false)
+    if (tracks[index].is_reserved() == false)
     {
         for (long long unsigned int i = 0; i < tracks[index].people.size(); i++)
         {
@@ -188,7 +188,7 @@ int Swimming_Pool::free_places()
     int siz=0;
     for(long long unsigned int i=0; i<tracks.size(); i++)
     {
-        if (not tracks[i].is_reserved())
+        if ( !tracks[i].is_reserved())
         {
             siz=siz+tracks[i].people.size();
         }

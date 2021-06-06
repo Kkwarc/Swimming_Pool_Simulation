@@ -7,7 +7,7 @@
 #include "client.h"
 #include "Lifeguard.h"
 #include "Instructor.h"
-#include "time.h"
+#include "da_time.h"
 #include "atractions.h"
 
 class Da_Pool
@@ -54,7 +54,7 @@ public:
     int exit_da_pool(Client& client);
     void staff_exit(Lifeguard& staff);
     void assign_lifeguard(Lifeguard& lif, int atraction_nr);
-    std::vector<Client> reservation(int tr_nr, Time start, int duration, Instructor& inst, std::vector<Client> group); // duration w 60 min -> czas biletu
+    std::vector<Client> reservation(int tr_nr, int duration, Instructor& inst, std::vector<Client>& group); // duration w 60 min -> czas biletu
     bool the_time_is_passing(int tick);
 };
 #endif

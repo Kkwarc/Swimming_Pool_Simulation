@@ -13,7 +13,7 @@
 struct Reading
 {
     std::vector<Atraction*> atractions;
-    std::vector<Lifeguard> staff_available;
+    std::vector<Lifeguard*> staff_available;
     std::vector<Client> clients;
     Da_Pool dapool;
     int tick;
@@ -23,6 +23,8 @@ struct Reading
 Reading m;
 std::vector<Atraction> atr;
 std::vector<Swimming_Pool> swm;
+std::vector<Lifeguard> lif;
+std::vector<Instructor> ins;
 
 Reading* da_read(std::string databaze)
 {
@@ -71,7 +73,8 @@ Reading* da_read(std::string databaze)
                 Time fh = { finish,00 };
 
                 Lifeguard ratownik(name, surname, id, exp, sh, fh);
-                m.staff_available.push_back(ratownik);
+                lif.push_back(ratownik);
+                // m.staff_available.push_back(ratownik);
             }
             if (obiekt[0] == "Instructor")
             {
@@ -85,7 +88,8 @@ Reading* da_read(std::string databaze)
                 Time fh = { finish,00 };
 
                 Instructor instr(name, surname, id, exp, sh, fh);
-                m.staff_available.push_back(instr);
+                ins.push_back(instr);
+                // m.staff_available.push_back(instr);
             }
             if (obiekt[0] == "pool")
             {
@@ -98,19 +102,7 @@ Reading* da_read(std::string databaze)
 
                 Swimming_Pool swipool(atraction_nr, length, tr_limit, begginer_tr, intermeddiate_tr, advanced_tr);
                 swm.push_back(swipool);
-                // Swimming_Pool* t = static_cast<Swimming_Pool*>(m.atractions[5]);
             }
-            // if (obiekt[0] == "track")
-            // {
-            //     int dpth = stoi(obiekt[1]);
-            //     int lng = stoi(obiekt[2]);
-            //     int tr_nr = stoi(obiekt[3]);
-            //     int ppl_lim = stoi(obiekt[4]);
-            //     int atraction_nr = stoi(obiekt[5]);
-
-            //     Track track(dpth, lng, tr_nr, ppl_lim, atraction_nr);
-            //     m.atractions.push_back(track);
-            // }
             if (obiekt[0] == "attraction")
             {
                 std::string name = obiekt[1];
@@ -150,6 +142,15 @@ Reading* da_read(std::string databaze)
         m.atractions.push_back(&swm[i]);
     }
     m.dapool.set_atractions(m.atractions);
+    for(long long unsigned int i=0; i<lif.size(); i++)
+    {
+        m.staff_available.push_back(&lif[i]);
+    }
+    for(long long unsigned int i=0; i<ins.size(); i++)
+    {
+        m.staff_available.push_back(&ins[i]);
+    }
+
     return &m;
 }
 #endif
