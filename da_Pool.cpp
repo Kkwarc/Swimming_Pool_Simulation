@@ -187,6 +187,7 @@ std::vector<Client> Da_Pool::reservation(int tr_nr, int duration, Instructor& in
 bool Da_Pool::the_time_is_passing(int tick)
 {
     exiting.clear();
+    current_time = current_time + tick;
     if (current_time == closing_time)
     {
         return false;
@@ -217,6 +218,7 @@ bool Da_Pool::the_time_is_passing(int tick)
                 Swimming_Pool* t = static_cast<Swimming_Pool*>(atractions[i]);
                 for (long long unsigned int j = 0; j < t->tracks.size(); j++)
                 {
+                    t->tracks[j].reservation_time = t->tracks[j].reservation_time - tick;
                     if (t->tracks[j].reservation_time == 0)
                     {
                         t->tracks[j].reserved = false;
@@ -228,11 +230,9 @@ bool Da_Pool::the_time_is_passing(int tick)
                             exiting.push_back(exit_da_pool(t->tracks[j].people[k]));
                         }
                     }
-                    t->tracks[j].reservation_time = t->tracks[j].reservation_time - tick;
                 }
             }
         }
     }
-    current_time = current_time + tick;
     return true;
 }
