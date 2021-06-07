@@ -75,11 +75,13 @@ std::vector<Client> Swimming_Pool::reserve_track(int track_nr, Instructor& inst,
             catch (...)
             {
                 exile.push_back(tracks[index].people[i]);
+                remove_person(tracks[index].people[i].carnet_id);
             }
         }
         tracks[index].reserve_track(inst, group, res_time);
         for (long long unsigned int i = 0; i < group.size(); i++)
         {
+            group[i].remaining_time = res_time;
             people.push_back(group[i]);
         }
     }
@@ -105,10 +107,10 @@ void Swimming_Pool::change_track(Client& cl, int tr1_nr, int tr2_nr)
             break;
         }
     }
-    tracks[index1].remove_person(cl.carnet_id);
     try
     {
         tracks[index2].add_person(cl);
+        tracks[index1].remove_person(cl.carnet_id);
     }
     catch (...)
     {

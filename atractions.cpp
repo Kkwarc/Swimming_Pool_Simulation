@@ -66,7 +66,7 @@ int Atraction::search_list(int card_id)
     int index;
     for (long long unsigned int i = 0; i < people.size(); ++i)
     {
-        if (people[i].get_carnet_id() == card_id)
+        if (people[i].carnet_id == card_id)
         {
             index = i;
             return index;

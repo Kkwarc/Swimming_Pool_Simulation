@@ -115,7 +115,15 @@ void Da_Pool::change_atr(Client& client, int atraction_nr1, int atraction_nr2)
             break;
         }
     }
-    atractions[index1]->remove_person(client.carnet_id);
+    if (atractions[index1]->name=="Swimming_Pool")
+    {
+        Swimming_Pool* t = static_cast<Swimming_Pool*>(atractions[index1]);
+        t->remove_person(client.carnet_id);
+    }
+    else
+    {
+        atractions[index1]->remove_person(client.carnet_id);
+    }
     if (atractions[index2]->name == "Swimming_Pool")
     {
         Swimming_Pool* t = static_cast<Swimming_Pool*>(atractions[index2]);
@@ -136,8 +144,15 @@ int Da_Pool::exit_da_pool(Client& client)
         {
             if (atractions[i]->people[j].carnet_id == id)
             {
-                atractions[i]->remove_person(id);
-                break;
+                if (atractions[i]->name=="Swimming_Pool")
+                {
+                    Swimming_Pool* t = static_cast<Swimming_Pool*>(atractions[i]);
+                    t->remove_person(id);
+                }
+                else
+                {
+                    atractions[i]->remove_person(id);
+                }
             }
         }
     }
