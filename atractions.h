@@ -112,6 +112,7 @@ public:
     std::vector<Client> reserve_track(int track_nr, Instructor& inst, std::vector<Client> group, int res_time);
     void change_track(Client& cl, int tr1_nr, int tr2_nr);
     int min_tr();
+    int min_tr(int tr_num);
     int free_places();
     int how_many_reserved();
     void add_person(int tr_nr, Client& clnt);
