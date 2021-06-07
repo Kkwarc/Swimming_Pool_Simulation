@@ -16,7 +16,7 @@ Swimming_Pool::Swimming_Pool()
     lifeguard = Lifeguard();
     tr_nr = 0;
     length = 0;
-    tracks={};
+    tracks = {};
 }
 Swimming_Pool::Swimming_Pool
 (
@@ -26,7 +26,7 @@ Swimming_Pool::Swimming_Pool
     int begginer_tr,
     int intermeddiate_tr,
     int advanced_tr
-) : Atraction("Swimming_Pool", atraction_nr, (tr_limit*(begginer_tr + intermeddiate_tr + advanced_tr)))
+) : Atraction("Swimming_Pool", atraction_nr, (tr_limit* (begginer_tr + intermeddiate_tr + advanced_tr)))
 {
     tr_nr = begginer_tr + intermeddiate_tr + advanced_tr;
     atraction_nr = atraction_nr;
@@ -71,7 +71,7 @@ std::vector<Client> Swimming_Pool::reserve_track(int track_nr, Instructor& inst,
             {
                 change_track(tracks[index].people[i], track_nr, min_tr());
             }
-            catch(...)
+            catch (...)
             {
                 exile.push_back(tracks[index].people[i]);
             }
@@ -111,16 +111,16 @@ void Swimming_Pool::change_track(Client& cl, int tr1_nr, int tr2_nr)
 void Swimming_Pool::add_person(int tr1_nr, Client& clnt)
 {
     int index;
-    if ((int)people.size()<people_limit)
-    for (int i = 0; i < tr_nr; i++)
-    {
-        if (tracks[i].track_nr == tr1_nr)
+    if ((int)people.size() < people_limit)
+        for (int i = 0; i < tr_nr; i++)
         {
-            index = i;
-            break;
+            if (tracks[i].track_nr == tr1_nr)
+            {
+                index = i;
+                break;
+            }
         }
-    }
-    clnt.curent_atr_nr=atraction_nr;
+    clnt.curent_atr_nr = atraction_nr;
     tracks[index].add_person(clnt);
     people.push_back(clnt);
 }
@@ -152,15 +152,15 @@ void Swimming_Pool::remove_person(int car_id)
 int Swimming_Pool::min_tr()
 {
     int min = 500;
-    Track t(100, 0, -1, tracks[0].people_limit+4 , -1);
-    for (int i=0; i<=tracks[0].people_limit+2; i++)
+    Track t(100, 0, -1, tracks[0].people_limit + 4, -1);
+    for (int i = 0; i <= tracks[0].people_limit + 2; i++)
     {
-        Client m("a","a",-5,false,0);
+        Client m("a", "a", -5, false, 0);
         t.add_person(m);
     }
-    for (int i=0; i<tr_nr; i++)
+    for (int i = 0; i < tr_nr; i++)
     {
-        if(tracks[i].people.size()<t.people.size() && tracks[i].reserved == false)
+        if (tracks[i].people.size() < t.people.size() && tracks[i].reserved == false)
         {
             min = tracks[i].track_nr;
             t = tracks[i];
@@ -171,12 +171,12 @@ int Swimming_Pool::min_tr()
 
 int Swimming_Pool::how_many_reserved()
 {
-    int res_count=0;
-    for(long long unsigned int i=0; i<tracks.size(); i++)
+    int res_count = 0;
+    for (long long unsigned int i = 0; i < tracks.size(); i++)
     {
         if (tracks[i].is_reserved())
         {
-            res_count=res_count+1;
+            res_count = res_count + 1;
         }
     }
     return res_count;
@@ -185,13 +185,13 @@ int Swimming_Pool::how_many_reserved()
 int Swimming_Pool::free_places()
 {
     int res = how_many_reserved();
-    int siz=0;
-    for(long long unsigned int i=0; i<tracks.size(); i++)
+    int siz = 0;
+    for (long long unsigned int i = 0; i < tracks.size(); i++)
     {
-        if ( !tracks[i].is_reserved())
+        if (!tracks[i].is_reserved())
         {
-            siz=siz+tracks[i].people.size();
+            siz = siz + tracks[i].people.size();
         }
     }
-    return people_limit - siz - res*tracks[0].people_limit;
+    return people_limit - siz - res * tracks[0].people_limit;
 }
