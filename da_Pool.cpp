@@ -146,6 +146,7 @@ int Da_Pool::exit_da_pool(Client& client)
         if (clients[i].carnet_id == id)
         {
             index = i;
+            break;
         }
     }
     clients.erase(clients.begin() + index);
