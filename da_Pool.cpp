@@ -164,7 +164,7 @@ void Da_Pool::staff_exit(Lifeguard& staff)
             break;
         }
     }
-    staff.busy=false;
+    staff.busy = false;
     staff_available.erase(staff_available.begin() + index);
 }
 
@@ -182,6 +182,10 @@ std::vector<Client> Da_Pool::reservation(int tr_nr, int duration, Instructor& in
     Swimming_Pool* t = static_cast<Swimming_Pool*>(atractions[index]);
     std::vector<Client> exile;
     exile = t->reserve_track(tr_nr, inst, group, duration);
+    for (long long unsigned int i = 0; i<group.size(); i++)
+    {
+        clients.push_back(group[i]);
+    }
     return exile;
 }
 
@@ -195,23 +199,6 @@ bool Da_Pool::the_time_is_passing(int tick)
     }
     else
     {
-        for (long long unsigned int i = 0; i < clients.size(); i++)
-        {
-            clients[i].set_time(clients[i].remaining_time - tick);
-            if (clients[i].remaining_time == 0)
-            {
-                exiting.push_back(exit_da_pool(clients[i]));
-                i = i - 1;
-            }
-        }
-        for (long long unsigned int i = 0; i < staff_available.size(); i++)
-        {
-            if (staff_available[i].finish == current_time)
-            {
-                staff_exit(staff_available[i]);
-                i = i - 1;
-            }
-        }
         for (long long unsigned int i = 0; i < atractions.size(); i++)
         {
             if (atractions[i]->name == "Swimming_Pool")
@@ -232,6 +219,23 @@ bool Da_Pool::the_time_is_passing(int tick)
                         }
                     }
                 }
+            }
+        }
+        for (long long unsigned int i = 0; i < clients.size(); i++)
+        {
+            clients[i].set_time(clients[i].remaining_time - tick);
+            if (clients[i].remaining_time == 0)
+            {
+                exiting.push_back(exit_da_pool(clients[i]));
+                i = i - 1;
+            }
+        }
+        for (long long unsigned int i = 0; i < staff_available.size(); i++)
+        {
+            if (staff_available[i].finish == current_time)
+            {
+                staff_exit(staff_available[i]);
+                i = i - 1;
             }
         }
     }
