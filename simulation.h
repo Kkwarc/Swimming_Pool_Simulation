@@ -11,6 +11,7 @@ public:
     int max_number_of_enters_per_tick;
     int tick_length;
     int par; // parametr losowy
+    int max_par;
     std::vector < Client > list_of_clients;
     std::vector < Atraction* > list_of_atractions;
     std::vector < Lifeguard* > list_of_lifeguards;
@@ -29,6 +30,7 @@ public:
     Time start_time; // godzina otwarcia
     Time closing_time; // godzina zamkniecia
     std::vector<Reservation> res;
+
     Simulation(std::string using_databaze, std::string reservations);
 
     void start_reservation(int resi);
