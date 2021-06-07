@@ -33,7 +33,7 @@ Da_Pool::Da_Pool(
     closing_time = clo_time;
     current_time = sta_time;
     attr_nr = (int)atractions.size();
-    max_ppl = 50; // doooo poooprawy ez
+    max_ppl = 0;
 }
 
 // po co to -> jak nizej jest
