@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "atractions.h"
 #include "client.h"
 #include "Lifeguard.h"
@@ -69,7 +70,7 @@ std::vector<Client> Swimming_Pool::reserve_track(int track_nr, Instructor& inst,
         {
             try
             {
-                change_track(tracks[index].people[i], track_nr, min_tr());
+                change_track(tracks[index].people[i], track_nr, min_tr(track_nr));
             }
             catch (...)
             {
@@ -104,14 +105,22 @@ void Swimming_Pool::change_track(Client& cl, int tr1_nr, int tr2_nr)
             break;
         }
     }
-    tracks[index2].add_person(cl);
     tracks[index1].remove_person(cl.carnet_id);
+    try
+    {
+        tracks[index2].add_person(cl);
+    }
+    catch (...)
+    {
+        throw std::out_of_range("SP");
+    }
 }
 
 void Swimming_Pool::add_person(int tr1_nr, Client& clnt)
 {
     int index;
     if ((int)people.size() < people_limit)
+    {
         for (int i = 0; i < tr_nr; i++)
         {
             if (tracks[i].track_nr == tr1_nr)
@@ -120,6 +129,7 @@ void Swimming_Pool::add_person(int tr1_nr, Client& clnt)
                 break;
             }
         }
+    }
     clnt.curent_atr_nr = atraction_nr;
     tracks[index].add_person(clnt);
     people.push_back(clnt);
@@ -161,6 +171,26 @@ int Swimming_Pool::min_tr()
     for (int i = 0; i < tr_nr; i++)
     {
         if (tracks[i].people.size() < t.people.size() && tracks[i].reserved == false)
+        {
+            min = tracks[i].track_nr;
+            t = tracks[i];
+        }
+    }
+    return min;
+}
+
+int Swimming_Pool::min_tr(int tr_num)
+{
+    int min = 500;
+    Track t(100, 0, -1, tracks[0].people_limit + 4, -1);
+    for (int i = 0; i <= tracks[0].people_limit + 2; i++)
+    {
+        Client m("a", "a", -5, false, 0);
+        t.add_person(m);
+    }
+    for (long long unsigned int i = 0; i < tracks.size(); i++)
+    {
+        if (tracks[i].people.size() < t.people.size() && tracks[i].reserved == false && tracks[i].track_nr != tr_num)
         {
             min = tracks[i].track_nr;
             t = tracks[i];
