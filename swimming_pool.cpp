@@ -99,7 +99,7 @@ void Swimming_Pool::change_track(Client& cl, int tr1_nr, int tr2_nr)
     }
     for (int i = 0; i < tr_nr; i++)
     {
-        if (tracks[i].track_nr == tr1_nr)
+        if (tracks[i].track_nr == tr2_nr)
         {
             index2 = i;
             break;

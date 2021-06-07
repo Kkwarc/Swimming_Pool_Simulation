@@ -72,7 +72,7 @@ void Simulation::customers_movements(int par)
                     k += 1;
                 }
             }
-            if (k < list_of_atractions.size())
+            if (k < (int)list_of_atractions.size())
             {
                 while (overcrowded == true)
                 {
@@ -273,7 +273,7 @@ void Simulation::start_reservation(int resi)
                     k += 1;
                 }
             }
-            if (k < list_of_atractions.size())
+            if (k < (int)list_of_atractions.size())
             {
                 while (overcrowded == true)
                 {
@@ -478,14 +478,13 @@ void Simulation::summary_of_day()
 void Simulation::main_simulation()
 {
     // clear plikow tekstowych
-    max_par = tick_length / 10;
+    max_par = tick_length / 2;
     gowno.max_ppl = set_max_ppl();
     Time b = gowno.start_time;
     Time l = b + 360;
     //int adictional_people = 5;
     while (gowno.current_time < gowno.closing_time)
     {
-        int number_of_people = 0;
         if (gowno.current_time == gowno.start_time || gowno.current_time == l)
         {
             lifeguards_enters();
