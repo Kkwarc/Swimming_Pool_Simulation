@@ -35,6 +35,7 @@ public:
     void customers_movements(int par);
     void lifeguards_enters(); //  na starcie && zmiany kadry
     int client_enters();
+    int set_max_ppl();
     void exit_client();
     void summary_of_tick(int random_number);
     void summary_of_day(); // podsumowanie dnia
