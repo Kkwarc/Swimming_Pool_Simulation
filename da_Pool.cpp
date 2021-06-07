@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "da_Pool.h"
 #include "client.h"
 #include "Lifeguard.h"
@@ -184,6 +185,7 @@ std::vector<Client> Da_Pool::reservation(int tr_nr, int duration, Instructor& in
     exile = t->reserve_track(tr_nr, inst, group, duration);
     for (long long unsigned int i = 0; i<group.size(); i++)
     {
+        group[i].remaining_time = duration;
         clients.push_back(group[i]);
     }
     return exile;
@@ -224,7 +226,7 @@ bool Da_Pool::the_time_is_passing(int tick)
         for (long long unsigned int i = 0; i < clients.size(); i++)
         {
             clients[i].set_time(clients[i].remaining_time - tick);
-            if (clients[i].remaining_time == 0)
+            if (clients[i].remaining_time <= 0)
             {
                 exiting.push_back(exit_da_pool(clients[i]));
                 i = i - 1;
