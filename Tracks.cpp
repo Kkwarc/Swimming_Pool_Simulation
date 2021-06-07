@@ -1,5 +1,5 @@
 #include <iostream>
-#include<vector>
+#include <vector>
 #include"atractions.h"
 #include "Instructor.h"
 #include "Lifeguard.h"
@@ -38,10 +38,11 @@ int Track::current_ppl()
 
 void Track::reserve_track(Instructor& inst, std::vector<Client> group, int res_time)
 {
-    for (long long unsigned int i =0; i < group.size(); i++)
+    for (long long unsigned int i = 0; i < group.size(); i++)
     {
         group[i].did_reserve = true;
         group[i].curent_atr_nr = atraction_nr;
+        group[i].remaining_time = res_time;
     }
     instructor = inst;
     people = group;
@@ -58,7 +59,7 @@ void Track::add_person(Client& person)
     }
     else
     {
-        throw;
+        throw std::out_of_range("T");
     }
 }
 
