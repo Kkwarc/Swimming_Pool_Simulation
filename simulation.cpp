@@ -309,7 +309,7 @@ void Simulation::summary_of_tick(int random_number)
             cout<<"Atraction name: "<<t->name<<"; Atraction number: "<<t->atraction_nr<<endl;
             cout << "\tLifeguards: " << t->lifeguard.name <<
             "  " << t->lifeguard.surname << endl;
-            for(int j; j<t->tr_nr;j++)
+            for(int j=0; j<t->tr_nr;j++)
             {
                 int m = j+1;
                 cout<<"\tTrack"<<m<<": "<<t->tracks[j].people.size()<<"  reserved:"<<t->tracks[j].reserved;

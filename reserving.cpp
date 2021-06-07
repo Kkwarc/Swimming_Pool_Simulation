@@ -1,5 +1,6 @@
 #include "reserving.h"
 #include <iostream>
+#include <fstream>
 
 
 std::vector<Reservation> czytamres(std::string reservs)
