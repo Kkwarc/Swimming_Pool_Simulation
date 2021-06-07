@@ -1,6 +1,8 @@
 #ifndef Time_H
 #define Time_H
 
+#include <iostream>
+
 struct Time
 {
     int hour;

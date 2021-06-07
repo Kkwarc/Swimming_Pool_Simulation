@@ -2,6 +2,7 @@
 #define reserving_h
 
 #include <vector>
+#include <string>
 #include "da_time.h"
 
 
