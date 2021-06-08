@@ -114,7 +114,6 @@ public:
     int min_tr();
     int min_tr(int tr_num);
     int free_places();
-    int how_many_reserved();
     void add_person(int tr_nr, Client& clnt);
     void remove_person(int car_id);
     friend class Da_Pool;
