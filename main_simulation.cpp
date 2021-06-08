@@ -5,10 +5,6 @@
 
 using namespace std;
 
-// klienci siedza na basenie tyle ile wczesniej wykupi lub mniej
-// cykl 30 minutowy
-// mamy najlepszych ratownikow w polsce -> jeden na atrakcje
-
 int main()
 {
     ofstream ofs1;
