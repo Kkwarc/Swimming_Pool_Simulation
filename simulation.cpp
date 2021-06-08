@@ -1,8 +1,7 @@
 #include "simulation.h"
 #include "reading.h"
 #include <random>
-#include <time.h>
-#include <windows.h>
+#include <ctime>
 #include <string>
 #include <fstream>
 
@@ -142,7 +141,7 @@ int Simulation::client_enters()
     }
     if (free_seats < rand)
     {
-        rand = free_seats ;
+        rand = free_seats;
     }
     bool correct_time = false;
     while (correct_time == false)
@@ -167,7 +166,7 @@ int Simulation::client_enters()
             correct_time = true;
         }
     }
-    if (free_seats != 0)
+    if (free_seats > 5)
     {
         for (int i = 0; i < rand; i++)
         {
@@ -436,7 +435,6 @@ void Simulation::summary_of_day()
             }
             cout << "-----------------------------------------------" << endl;
         }
-        Sleep(100);
     }
 
     ofstream out("Podsumowania.txt", ios_base::app);
@@ -473,11 +471,10 @@ void Simulation::summary_of_day()
 void Simulation::main_simulation()
 {
     // clear plikow tekstowych
-    max_par = tick_length / 5;
+    max_par = tick_length / 10;
     gowno.max_ppl = set_max_ppl();
     Time b = gowno.start_time;
     Time l = b + 360;
-    //int adictional_people = 5;
     while (gowno.current_time < gowno.closing_time)
     {
         if (gowno.current_time == gowno.start_time || gowno.current_time == l)
@@ -507,10 +504,13 @@ void Simulation::main_simulation()
         {
             a = 0;
         }
+        if (a < 0)
+        {
+            a = 0;
+        }
         summary_of_tick(a);
         gowno.the_time_is_passing(tick_length);
         exit_client();
-        Sleep(300);
     }
     summary_of_day();
 }
