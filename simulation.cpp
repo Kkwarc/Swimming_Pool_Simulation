@@ -473,7 +473,7 @@ void Simulation::summary_of_day()
 void Simulation::main_simulation()
 {
     // clear plikow tekstowych
-    max_par = tick_length / 2;
+    max_par = tick_length / 5;
     gowno.max_ppl = set_max_ppl();
     Time b = gowno.start_time;
     Time l = b + 360;
