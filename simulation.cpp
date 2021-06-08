@@ -141,7 +141,7 @@ int Simulation::client_enters()
     }
     if (free_seats < rand)
     {
-        rand = free_seats;
+        rand = free_seats - 5;
     }
     bool correct_time = false;
     while (correct_time == false)
