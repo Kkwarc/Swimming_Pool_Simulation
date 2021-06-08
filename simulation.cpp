@@ -50,7 +50,7 @@ void Simulation::customers_movements(int par)
 {
     for (long long unsigned int i = 0; i < gowno.clients.size(); i++)
     {
-        int rand_nummber = give_random_number(5) + 1;
+        int rand_nummber = give_random_number(par) + 1;
         if (rand_nummber == 0 && gowno.clients[i].did_reserve == false)
         {
             int rand2;
