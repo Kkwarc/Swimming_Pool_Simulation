@@ -29,11 +29,7 @@ public:
         group = I.group;
     }
 
-    std::vector<Client> get_group();
-
     void add_persongroup(Client& new_person);
-
-    void remove_persongroup(int old_client_card_id);
 
     friend std::ostream& operator << (std::ostream& output, Instructor& i);
 
