@@ -5,8 +5,6 @@
 
 using namespace std;
 
-// czas, bool zajety
-
 Instructor::Instructor(
     string na,
     string sur,
@@ -26,32 +24,9 @@ Instructor::Instructor(
     group = gr;
 }
 
-//tutaj by sie podawalo sam id karty ludka i sie go dodaje wtedy git nie
 void Instructor::add_persongroup(Client& new_person)
 {
     group.push_back(new_person);
-}
-
-void Instructor::remove_persongroup(int old_client_card_id)
-{
-    for (long long unsigned int i = 0; i < group.size(); i++)
-    {
-        if (group[i].carnet_id == old_client_card_id)
-        {
-            group.erase(group.begin() + i);
-
-        }
-    }
-    // na try
-
-    // if (t == false)
-    // {
-    //     cout << "There is no such person in group" << endl;
-    // }
-    // else
-    // {
-    //     cout <<"Person has been removed from group" << endl;
-    // }
 }
 
 ostream& operator << (ostream& output, Instructor& i)
