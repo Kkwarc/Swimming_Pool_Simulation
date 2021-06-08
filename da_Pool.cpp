@@ -37,7 +37,6 @@ Da_Pool::Da_Pool(
     max_ppl = 0;
 }
 
-// po co to -> jak nizej jest
 void Da_Pool::add_client(Client& client, int atraction_nr, int time)
 {
     int index;
@@ -115,7 +114,7 @@ void Da_Pool::change_atr(Client& client, int atraction_nr1, int atraction_nr2)
             break;
         }
     }
-    if (atractions[index1]->name=="Swimming_Pool")
+    if (atractions[index1]->name == "Swimming_Pool")
     {
         Swimming_Pool* t = static_cast<Swimming_Pool*>(atractions[index1]);
         t->remove_person(client.carnet_id);
@@ -144,7 +143,7 @@ int Da_Pool::exit_da_pool(Client& client)
         {
             if (atractions[i]->people[j].carnet_id == id)
             {
-                if (atractions[i]->name=="Swimming_Pool")
+                if (atractions[i]->name == "Swimming_Pool")
                 {
                     Swimming_Pool* t = static_cast<Swimming_Pool*>(atractions[i]);
                     t->remove_person(id);
@@ -198,7 +197,7 @@ std::vector<Client> Da_Pool::reservation(int tr_nr, int duration, Instructor& in
     Swimming_Pool* t = static_cast<Swimming_Pool*>(atractions[index]);
     std::vector<Client> exile;
     exile = t->reserve_track(tr_nr, inst, group, duration);
-    for (long long unsigned int i = 0; i<group.size(); i++)
+    for (long long unsigned int i = 0; i < group.size(); i++)
     {
         group[i].remaining_time = duration;
         clients.push_back(group[i]);
@@ -232,7 +231,7 @@ bool Da_Pool::the_time_is_passing(int tick)
                         for (long long unsigned int k = 0; k < t->tracks[j].people.size(); k++)
                         {
                             t->tracks[j].people[k].did_reserve = false;
-                            int id= t->tracks[j].people[k].carnet_id;
+                            int id = t->tracks[j].people[k].carnet_id;
                             t->remove_person(id);
                             exiting.push_back(id);
                         }
