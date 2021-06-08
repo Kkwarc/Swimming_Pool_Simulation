@@ -74,7 +74,6 @@ Reading* da_read(std::string databaze)
 
                 Lifeguard ratownik(name, surname, id, exp, sh, fh);
                 lif.push_back(ratownik);
-                // m.staff_available.push_back(ratownik);
             }
             if (obiekt[0] == "Instructor")
             {
@@ -89,7 +88,6 @@ Reading* da_read(std::string databaze)
 
                 Instructor instr(name, surname, id, exp, sh, fh);
                 ins.push_back(instr);
-                // m.staff_available.push_back(instr);
             }
             if (obiekt[0] == "pool")
             {
@@ -120,7 +118,7 @@ Reading* da_read(std::string databaze)
                 int finish = stoi(obiekt[3]);
                 Time finishh = { finish,00 };
 
-                Da_Pool dapool(name, m.atractions,starth,finishh);
+                Da_Pool dapool(name, m.atractions, starth, finishh);
                 m.dapool = dapool;
             }
             if (obiekt[0] == "rand")
@@ -133,20 +131,20 @@ Reading* da_read(std::string databaze)
             }
         }
     }
-    for(long long unsigned int i=0; i<atr.size(); i++)
+    for (long long unsigned int i = 0; i < atr.size(); i++)
     {
         m.atractions.push_back(&atr[i]);
     }
-    for(long long unsigned int i=0; i<swm.size(); i++)
+    for (long long unsigned int i = 0; i < swm.size(); i++)
     {
         m.atractions.push_back(&swm[i]);
     }
     m.dapool.set_atractions(m.atractions);
-    for(long long unsigned int i=0; i<lif.size(); i++)
+    for (long long unsigned int i = 0; i < lif.size(); i++)
     {
         m.staff_available.push_back(&lif[i]);
     }
-    for(long long unsigned int i=0; i<ins.size(); i++)
+    for (long long unsigned int i = 0; i < ins.size(); i++)
     {
         m.staff_available.push_back(&ins[i]);
     }
