@@ -232,7 +232,9 @@ bool Da_Pool::the_time_is_passing(int tick)
                         for (long long unsigned int k = 0; k < t->tracks[j].people.size(); k++)
                         {
                             t->tracks[j].people[k].did_reserve = false;
-                            exiting.push_back(exit_da_pool(t->tracks[j].people[k]));
+                            int id= t->tracks[j].people[k].carnet_id;
+                            t->remove_person(id);
+                            exiting.push_back(id);
                         }
                     }
                 }

@@ -243,7 +243,6 @@ void Simulation::start_reservation(int resi)
             if (list_of_clients[j].carnet_id == res[resi].clientsid[i])
             {
                 grupka.push_back(list_of_clients[j]);
-                break;
             }
         }
     }
@@ -252,46 +251,42 @@ void Simulation::start_reservation(int resi)
     exiles = gowno.reservation(res[resi].tracknr, res[resi].duration, *maniek, grupka);
     for (long long unsigned int i = 0; i < exiles.size(); i++)
     {
-        int rand_nummber = give_random_number(5) + 1;
-        if (rand_nummber == 0)
+        int rand2;
+        bool overcrowded = true;
+        int k = 0;
+        for (long long unsigned int i = 0; i < list_of_atractions.size(); i++)
         {
-            int rand2;
-            bool overcrowded = true;
-            int k = 0;
-            for (long long unsigned int i = 0; i < list_of_atractions.size(); i++)
+            if (gowno.atractions[i]->name == "Swimming_Pool")
             {
-                if (gowno.atractions[i]->name == "Swimming_Pool")
-                {
-                    Swimming_Pool* t = static_cast<Swimming_Pool*>(gowno.atractions[i]);
-                    if (t->free_places() <= 0)
-                    {
-                        k += 1;
-                    }
-                }
-                else if (gowno.atractions[i]->people_limit <= (int)gowno.atractions[i]->people.size())
+                Swimming_Pool* t = static_cast<Swimming_Pool*>(gowno.atractions[i]);
+                if (t->free_places() <= 0)
                 {
                     k += 1;
                 }
             }
-            if (k < (int)list_of_atractions.size())
+            else if (gowno.atractions[i]->people_limit <= (int)gowno.atractions[i]->people.size())
             {
-                while (overcrowded == true)
+                k += 1;
+            }
+        }
+        if (k < (int)list_of_atractions.size())
+        {
+            while (overcrowded == true)
+            {
+                rand2 = give_random_number(list_of_atractions.size());
+                if (gowno.atractions[rand2]->name == "Swimming_Pool")
                 {
-                    rand2 = give_random_number(list_of_atractions.size());
-                    if (gowno.atractions[rand2]->name == "Swimming_Pool")
+                    continue;
+                }
+                else
+                {
+                    if (gowno.atractions[rand2]->people_limit > (int)gowno.atractions[rand2]->people.size())
                     {
-                        continue;
-                    }
-                    else
-                    {
-                        if (gowno.atractions[rand2]->people_limit > (int)gowno.atractions[rand2]->people.size())
-                        {
-                            overcrowded = false;
-                        }
+                        overcrowded = false;
                     }
                 }
-                gowno.add_client(exiles[i], gowno.atractions[rand2]->atraction_nr, exiles[i].remaining_time);
             }
+            gowno.add_client(exiles[i], gowno.atractions[rand2]->atraction_nr, exiles[i].remaining_time);
         }
     }
 }
