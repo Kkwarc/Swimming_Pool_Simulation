@@ -14,9 +14,9 @@ class Da_Pool
 {
     friend class Simulation;
     std::string name;
-    int max_ppl; // to tzreba jakos przeliczyc
+    int max_ppl;
     int attr_nr; // ilosc atrkcji
-    std::vector<Atraction*> atractions; // swiming pool
+    std::vector<Atraction*> atractions;
     std::vector<Lifeguard> staff_available;
     std::vector<Client> clients;
     std::vector<int> exiting;
@@ -37,7 +37,7 @@ public:
         max_ppl = da.max_ppl;
         attr_nr = da.attr_nr;
         atractions = da.atractions;
-        staff_available =da.staff_available;
+        staff_available = da.staff_available;
         clients = da.clients;
         exiting = da.exiting;
         start_time = da.start_time;
