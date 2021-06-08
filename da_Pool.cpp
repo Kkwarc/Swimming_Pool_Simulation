@@ -211,6 +211,23 @@ bool Da_Pool::the_time_is_passing(int tick)
     current_time = current_time + tick;
     if (current_time == closing_time)
     {
+        for (long long unsigned int i = 0; i < clients.size(); i++)
+        {
+            clients[i].set_time(clients[i].remaining_time - tick);
+            if (clients[i].remaining_time <= 0)
+            {
+                exiting.push_back(exit_da_pool(clients[i]));
+                i = i - 1;
+            }
+        }
+        for (long long unsigned int i = 0; i < staff_available.size(); i++)
+        {
+            if (staff_available[i].finish == current_time)
+            {
+                staff_exit(staff_available[i]);
+                i = i - 1;
+            }
+        }
         return false;
     }
     else
