@@ -18,7 +18,6 @@ public:
     int begginer_tr; // ilosc dla beginerow
     int intermeddiate_tr; // ilosc dla srednich
     int advanced_tr; // ilosc dla zaawansowanych
-    // int n_of_t = begginer_tr + intermeddiate_tr + advanced_tr; // ilosc torow
     int n_of_a; // ilosc atrakcji
     int max_ppl; // maksymalna ilosc ludzi
     int n_of_c; // ilosc klientow
